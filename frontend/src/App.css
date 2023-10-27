@@ -1,0 +1,100 @@
+.App {
+  text-align: center;
+}
+
+.App-logo {
+  height: 40vmin;
+  pointer-events: none;
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  .App-logo {
+    animation: App-logo-spin infinite 20s linear;
+  }
+}
+
+.App-header {
+  background-color: #282c34;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  font-size: calc(10px + 2vmin);
+  color: white;
+}
+
+.App-link {
+  color: #61dafb;
+}
+
+@keyframes App-logo-spin {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+a {
+  text-decoration: none;
+  color: transparent;
+}
+
+.avt-admin > img {
+  width: 50px;
+  height: 50px;
+  border-radius: 80%;
+}
+.cardProduct {
+  display: flex;
+  flex-direction: column;
+  box-shadow: 0 0 2px 0 rgba(0, 0, 0, 0.1), 0 2px 4px 0 rgba(0, 0, 0, 0.1);
+  height: 720px;
+}
+
+.card:hover {
+  opacity: 0.8;
+  cursor: pointer;
+}
+.footer-card {
+  width: 100%;
+  padding: 30px 0px;
+  margin: 0px;
+}
+
+.footer-card:hover {
+  background-color: rgb(243, 243, 243);
+  border-radius: 5px;
+}
+.text-line {
+  overflow: hidden;
+  display: -webkit-box;
+  -webkit-line-clamp: 4;
+  -webkit-box-orient: vertical;
+}
+
+.padding-header {
+  padding-top: calc(var(--nav-client-height) + 50px);
+}
+.comment-Products {
+  font-weight: bold;
+  float: inline-end;
+  text-align: left;
+}
+.boder-main {
+  margin: 1rem;
+  border-top: solid 5px rgb(252, 108, 202);
+  border-bottom: solid 5px rgb(252, 255, 85);
+  border-left: solid 5px rgb(164, 129, 252);
+  border-right: solid 5px rgb(103, 235, 100);
+  border-radius: 10px;
+  padding: 1rem;
+  min-height: 100vh;
+}
+.facebook {
+  padding-top: 8.5px;
+  padding-bottom: 8.5px;
+  box-shadow: 0px 1px 1px 1px #bbbbbb;
+}

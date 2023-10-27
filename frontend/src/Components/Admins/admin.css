@@ -1,0 +1,93 @@
+.customContainer {
+    --bs-gutter-x: 0rem;
+    --bs-gutter-y: 0;
+}
+.customRow {
+    --bs-gutter-x: 0rem;
+    --bs-gutter-y: 0.75rem;
+}
+.header{
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    background-color: transparent;
+}
+
+.header[aria-expanded="true"] {
+    border-radius: 0.625rem;
+    color: lightseagreen;
+    transition: 0.4s;
+}
+
+.header[aria-expanded="true"] + .body {
+    opacity: 1;
+    max-height: 16rem;
+    transition: all 0.4s ease-in-out;
+}
+
+.body {
+    font-size: 0.875em;
+    padding-left: 1.5rem;
+    margin-bottom: 0.5rem;
+    overflow: hidden;
+    opacity: 0;
+    max-height: 0;
+    transition: all 0.4s ease-in-out;
+}
+
+.body > *{
+    padding-top: 0.375rem;
+    padding-bottom: 0.375rem ;
+    text-align: left;
+}
+
+.title {
+    flex: 1;    
+}
+
+.header[aria-expanded="true"] > .btnExpand {
+    color: lightgreen;
+    transform: rotate(-180deg);
+    transition: 0.4s;
+}
+
+.btnExpand {
+    color: white;
+    padding: 0.5rem;
+    transform: rotate(0deg);
+    transition: 0.4s;
+    display: flex;
+    align-items: center;
+}
+
+.btnExpand:hover{
+    color: lightblue; 
+}
+
+button {
+    outline: none;
+    border: none;
+    background-color: transparent;
+    padding: 0;
+}
+/* Menu Item */
+.menuItem {
+    color: white;
+    font-weight: 600;
+    display: flex;
+    padding: 0.5rem;
+}
+
+.menuItem:hover {
+    color: lightgreen;
+}
+
+
+
+.iconItem { 
+    margin-right: 0.5rem;
+}
+
+
+

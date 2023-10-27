@@ -1,0 +1,12 @@
+{
+  "type": "service_account",
+  "project_id": "tncars-iyje",
+  "private_key_id": "7c4ded78c13de131d00a44a50f9fcd6fc846715b",
+  "private_key": "-----BEGIN PRIVATE KEY-----\nMIIEvwIBADANBgkqhkiG9w0BAQEFAASCBKkwggSlAgEAAoIBAQDmtORTaTbSOFJ2\n0JuzE9QnFcQCve3RCOHIbgwWppc6JLGvF8VOWcrVecPVVNUPdW6ZZO/xVRZuGP0m\nq1XQdSIHc7QIJlwE8k/2qFMZ5ll/AYk/kQOSPAAV7pxvZeJv4ou/LryAKKKtp95w\neGoAM5J8mN00ymwazOdn85mbhxn2bkF1SLI0l7/f4mvdjYTC3AA95l+NhUUoKc15\nAvVg1RSxaBoV5hUBjb7HiXG03RkLvcOVHg2az+RFjTW/d3D8KaGsDN4nko5aOIak\nPZlMpL1Qy+FRw58gK4KjLVOHRgJv0Uz+1eypqldAEoONrI9I27z4Fdb4FdNGfBbx\n8MK3cCbpAgMBAAECggEAZkqaWilydy8l0SyZfIM0M8hAyn5v7ZkkkvvIPFrM/qi6\nZ8oAX8cMWi7NF8+vUFVfHoBUqwpxEYve4sBhIjZtSiSRFHP9pOvTbKghgIBT+i4y\nLo8bqEEWQKM1lWb1SWqHT9NnHOPnjVu7Et8xELnNH5WfrwJ5gECN8ddeqkjyyAIv\nNyL17yaZZcdxu167qnTQTUWm3fWZqzYBDu7TrDhIQcD9FKuVEGx2mvnWThKujPgW\nLRh0YLQDjRjXfkcc9WSVi3bQYxQ0kOFmFUBQvqutvrH8KjGF0bxV5bTsnXT9ScI2\neaDy7ZnSOkDRuryUWXp3THNkxiIPI1F2HChtdAaJCQKBgQD8QT/lGuIkEHweTUWU\ncU/VbvDBEwvBeSe1JwjiTrdKzONR2gRrcKpFqCUgQyZzwrBdYfNpsHyk5dhISi1P\n+jM+CWSJTv+TCC1Iu/pPIA5bCRhJiVNhXDMWw5+k9VrPV9Pc8UAlvBHgaEm59EhE\n4DbuM3uo2PT0By6Tm1zMpfOeywKBgQDqIb5LbzJV1ou/6Oe5i5nZ6iE6J2kB/mgP\nJkxNJ4rnmXtmqGETDnPOeoAp+fEsbu35CLJslBt+79EUOtI/6JgCMlzQT09FfadP\nigKkai7YdCQxvo5xFM8tJVs7s8mpi8HhWcLYDMI1FayGeJ2v1B5BSho2ot2EeZEO\nJsCznprGmwKBgQCy4Wp4AwpeXLpHmrA+xePBDLz5jZIGju3TjmzEXuGnz4db4ejE\nb86vOr+pEzVPXb5HWlCMoDSjksI+8SsUze5MjciXfkfKcj/6liK4vZiwgdCRRSq1\nnfY0rGCnT74nzrZUtVex6p4arpmpnkspXH5XiHamk8OQ0Q78aW3zSbNq5QKBgQCW\ndcDYsUjjqNB+L6parr/cLn3T5WeyBE/TDIWUP4kgdJ28xxA7MtpxIoAieaDnMRJ1\nK4WeCT/yPyNZoMNklpC5OKw0ogMLYUiX8NTp2+Lm7xwja5YWTY0mMg+DOnKqJkoe\nC5UPSoOzoY4RjImpaONYicp2ugspCwaQ1Y6Y36APaQKBgQCw0j3rYZLx3dwAvSRY\nel3UOyT1X+f/L6vMQV9Y5pxfRWi3ASwrlaZekkdbWoQX5g8n70nvLpE1Qiftcz0M\nbRQES7ZyNmevRzMQkX56Fg9gPrLoubVfh1JCoIyiODZIAO3z5UaYce6FLflb1E+J\nbS/V+nvJ0Quz9KGFDlW3V4jCtg==\n-----END PRIVATE KEY-----\n",
+  "client_email": "tn-cars-chatbox@tncars-iyje.iam.gserviceaccount.com",
+  "client_id": "112191492591980431725",
+  "auth_uri": "https://accounts.google.com/o/oauth2/auth",
+  "token_uri": "https://oauth2.googleapis.com/token",
+  "auth_provider_x509_cert_url": "https://www.googleapis.com/oauth2/v1/certs",
+  "client_x509_cert_url": "https://www.googleapis.com/robot/v1/metadata/x509/tn-cars-chatbox%40tncars-iyje.iam.gserviceaccount.com"
+}
