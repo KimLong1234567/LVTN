@@ -156,13 +156,13 @@ function Employee(props) {
         <div className='boder-main'>
             <ToastContainer />
             <div className='d-flex justify-content-between m-3'>
-                <h4 className='text-primary fw-bold text-uppercase'>Danh sách nhân viên</h4>
+                <h4 className='text-primary fw-bold text-uppercase'>Employee List</h4>
                 <input type="text"
                     className="form-control w-50 "
-                    placeholder="Nhập thông tin nhân viên"
+                    placeholder="Type employee name"
                     onChange={findaccount}
                 />
-                <Button variant="success" onClick={() => setShow(true)}>Thêm tài khoản <Icon icon={faSquarePlus} /></Button>
+                <Button variant="success" onClick={() => setShow(true)}>Add employee account <Icon icon={faSquarePlus} /></Button>
                 <Modal show={show !== false} onHide={() => setShow(false)} id="edit">
                     <Modal.Header>
                         <Modal.Title>Tài Khoản</Modal.Title>
@@ -170,38 +170,38 @@ function Employee(props) {
                     <Modal.Body>
                         <Form>
                             <Form.Group className="mb-3">
-                                <Form.Label>Họ & Tên</Form.Label>
-                                <Form.Control type="text" name="nv_hoten" placeholder={show.nv_hoten ? show.nv_hoten : "Họ và Tên"} onChange={onChange} />
+                                <Form.Label>Name:</Form.Label>
+                                <Form.Control type="text" name="nv_hoten" placeholder={show.nv_hoten ? show.nv_hoten : "Name"} onChange={onChange} />
                             </Form.Group>
                             <Form.Group className="mb-3">
-                                <Form.Label>Email</Form.Label>
-                                <Form.Control type="text" name="nv_email" placeholder={show.nv_email ? show.nv_email : "Tài khoản"} onChange={onChange} />
+                                <Form.Label>Email:</Form.Label>
+                                <Form.Control type="text" name="nv_email" placeholder={show.nv_email ? show.nv_email : "Email"} onChange={onChange} />
                             </Form.Group>
                             <Form.Group className="mb-3">
                                 <Form.Label>Password</Form.Label>
-                                <Form.Control type="password" name="nv_password" placeholder="Mật khẩu" onChange={onChange} />
+                                <Form.Control type="password" name="nv_password" placeholder="Password" onChange={onChange} />
                             </Form.Group>
                             <Form.Group className="mb-3">
-                                <Form.Label>Điện Thoại</Form.Label>
-                                <Form.Control type="text" name="nv_phone" placeholder={show.nv_phone ? show.nv_phone : "Nhập số điện thoại"} onChange={onChange} />
+                                <Form.Label>Phone</Form.Label>
+                                <Form.Control type="text" name="nv_phone" placeholder={show.nv_phone ? show.nv_phone : "Phone"} onChange={onChange} />
                             </Form.Group>
                             <Form.Group className="mb-3">
-                                <Form.Label>Địa chỉ</Form.Label>
-                                <Form.Control type="text" name="nv_address" placeholder={show.nv_adress ? show.nv_adress : "Địa chỉ hiện tại"} onChange={onChange} />
+                                <Form.Label>Address</Form.Label>
+                                <Form.Control type="text" name="nv_address" placeholder={show.nv_adress ? show.nv_adress : "Address"} onChange={onChange} />
                             </Form.Group>
                             <Form.Group className="mb-3">
-                                <Form.Label>Giới Tính</Form.Label>
+                                <Form.Label>Gender</Form.Label>
                                 <Form.Select aria-label="Default select example" name="nv_gt" onChange={onChange}>
-                                    <option>-- Chọn Giới Tính --</option>
-                                    <option value='nam'>Nam</option>
-                                    <option value='nữ'>Nữ</option>
+                                    <option>-- Choose Gender--</option>
+                                    <option value='nam'>Men</option>
+                                    <option value='nữ'>Women</option>
                                     {/* <option name="nv_gt" value='unknow'>Không tiết lộ</option> */}
                                 </Form.Select>
                             </Form.Group>
                             <Form.Group className="mb-3">
-                                <Form.Label>Chức vụ</Form.Label>
+                                <Form.Label>Position</Form.Label>
                                 <Form.Select aria-label="Default select example" name="cv_id" onChange={handlCvChange}>
-                                    <option>-- Chọn chức vụ --</option>
+                                    <option>-- Choose Position --</option>
                                     {cate.map((category) => (
                                         <option key={category.cv_id} value={category.cv_id}>{category.cv_name}</option>
                                     ))}
@@ -210,11 +210,11 @@ function Employee(props) {
                                 </Form.Select>
                             </Form.Group>
                             <Form.Group className="mb-3">
-                                <Form.Label>Ngày tháng năm sinh</Form.Label>
+                                <Form.Label>Date Born</Form.Label>
                                 <Form.Control type="text" name="nv_date" placeholder={show.nv_date ? show.nv_date : "Ngày tháng năm sinh"} onChange={onChange} />
                             </Form.Group>
                             <Form.Group className="mb-3" controlId="formBasicPassword">
-                                <Form.Label>Hình Ảnh</Form.Label>
+                                <Form.Label>Avatar</Form.Label>
                                 <Form.Control type="file"
                                     multiple
                                     name="nv_avt"
@@ -230,10 +230,10 @@ function Employee(props) {
                         {
                             show.nv_id !== undefined ?
                                 <Button variant="primary" onClick={() => updateAccount(show.nv_id)}>
-                                    Cập nhật
+                                    Update
                                 </Button> :
                                 <Button variant="success" onClick={() => addAccount()}>
-                                    Tạo mới
+                                    Add
                                 </Button>
                         }
                     </Modal.Footer>
@@ -241,21 +241,21 @@ function Employee(props) {
             </div>
             {
                 Accounts.length === 0 ?
-                    <div className='text-danger fw-bold mt-3 '> Không có nhân viên nào được tìm thấy </div>
+                    <div className='text-danger fw-bold mt-3 '> No employee found </div>
                     : <table className="table table-bordered">
                         <thead>
                             <tr className="table-secondary text-center">
                                 <th scope="col-1">
-                                    STT
+                                    No
                                 </th>
-                                <th scope="col">HỌ TÊN</th>
-                                <th scope="col">GIỚI TÍNH</th>
-                                <th scope="col">NGÀY SINH</th>
+                                <th scope="col">Name</th>
+                                <th scope="col">Gender</th>
+                                <th scope="col">Date Born</th>
                                 {/* <th colSpan={2} scope='col-2'>TÀI KHOẢN</th> */}
-                                <th scope='col-2'>TÀI KHOẢN</th>
-                                <th scope="col">HÌNH ẢNH</th>
-                                <th scope="col">ĐIỆN THOẠI</th>
-                                <th scope="col" className='col-2' colSpan="2">TÁC VỤ</th>
+                                <th scope='col-2'>Email</th>
+                                <th scope="col">Image</th>
+                                <th scope="col">Phone</th>
+                                <th scope="col" className='col-2' colSpan="2">Move</th>
                             </tr>
                         </thead>
                         <tbody>

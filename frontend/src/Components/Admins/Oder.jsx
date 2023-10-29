@@ -202,26 +202,26 @@ function Oder(props) {
     return (
         <div className='boder-main'>
             <ToastContainer />
-            <h2 className='text-uppercase text-center text-primary fw-bolder mt-2'>quản lý đơn hàng</h2>
+            <h2 className='text-uppercase text-center text-primary fw-bolder mt-2'>Order Management</h2>
             <h3 className='text-uppercase text-start text-success fw-bolder mx-2'>filter <Icon icon={faFilter} /></h3>
             <Row className='m-0'>
                 <Col xs={12} md={3}>
-                    <h4 style={{ color: 'tomato', fontWeight: "bolder" }}>Tất cả đơn hàng <input type='checkbox' onChange={() => { filter('') }} checked={show === ''} /> </h4>
+                    <h4 style={{ color: 'tomato', fontWeight: "bolder" }}>All Orders <input type='checkbox' onChange={() => { filter('') }} checked={show === ''} /> </h4>
                 </Col>
                 <Col xs={12} md={3}>
-                    <h4 className='text-warning'>Chờ xác nhận <input type='checkbox' onChange={() => { filter('Chờ xác nhận') }} checked={show === 'Chờ xác nhận'} /> </h4>
+                    <h4 className='text-warning'>Wait <input type='checkbox' onChange={() => { filter('Chờ xác nhận') }} checked={show === 'Chờ xác nhận'} /> </h4>
                 </Col>
                 <Col xs={12} md={3}>
-                    <h4 className='text-primary'>Đang giao hàng <input type='checkbox' onChange={() => { filter('Đang giao hàng') }} checked={show === 'Đang giao hàng'} /> </h4>
+                    <h4 className='text-primary'>On Shipping <input type='checkbox' onChange={() => { filter('Đang giao hàng') }} checked={show === 'Đang giao hàng'} /> </h4>
                 </Col>
                 <Col xs={12} md={3}>
-                    <h4 className='text-danger'>Đã hủy <input type='checkbox' onChange={() => { filter('Đơn hàng đã bị hủy bỏ') }} checked={show === 'Đơn hàng đã bị hủy bỏ'} /> </h4>
+                    <h4 className='text-danger'>Delete <input type='checkbox' onChange={() => { filter('Đơn hàng đã bị hủy bỏ') }} checked={show === 'Đơn hàng đã bị hủy bỏ'} /> </h4>
                 </Col>
                 <Col>
                     <div className='d-flex m-3 justify-content-center'>
                         <input type="text"
                             className="form-control w-50 "
-                            placeholder="Nhập tên khách hàng"
+                            placeholder="Type customer"
                             onChange={onChange}
                         />
                     </div>
@@ -232,21 +232,21 @@ function Oder(props) {
                     <table className="table table-bordered">
                         <thead>
                             <tr className="table-secondary text-center">
-                                <th scope="col">STT</th>
-                                <th scope="col">TÊN SẢN PHẨM</th>
-                                <th scope="col">HÌNH ẢNH</th>
-                                <th scope="col">SỐ LƯỢNG</th>
-                                <th scope="col">GIÁ TIỀN</th>
-                                <th scope="col">KHÁCH HÀNG</th>
-                                <th scope="col">ĐỊA CHỈ NHẬN HÀNG</th>
-                                <th scope="col">SĐT LIÊN HỆ</th>
-                                <th scope="col">THANH TOÁN</th>
-                                <th scope="col">TRẠNG THÁI ĐƠN HÀNG</th>
-                                <th scope="col">NGÀY ĐẶT</th>
-                                <th scope="col">NHÂN VIÊN TIẾP NHẬN</th>
-                                <th scope="col">ĐIỆN THOẠI</th>
-                                <th scope='col'>TRẠNG THÁI</th>
-                                <th scope="col" colSpan={3}>THAO TÁC</th>
+                                <th scope="col">No</th>
+                                <th scope="col">Name Product</th>
+                                <th scope="col">Image</th>
+                                <th scope="col">Quantity</th>
+                                <th scope="col">Price</th>
+                                <th scope="col">Customer Name</th>
+                                <th scope="col">Address</th>
+                                <th scope="col">Customer Phone</th>
+                                <th scope="col">Pay</th>
+                                <th scope="col">Status Order</th>
+                                <th scope="col">Date Oder</th>
+                                <th scope="col">Reception Staff</th>
+                                <th scope="col">Staff's Phone</th>
+                                <th scope='col'>Status</th>
+                                <th scope="col" colSpan={3}>Move</th>
                             </tr>
                         </thead>
                         {
@@ -275,12 +275,12 @@ function Oder(props) {
                                                                 <>
                                                                     <td>{value.nhanvien}</td>
                                                                     <td>{value.sdtnhanvien}</td>
-                                                                    <td>Đã tiếp nhận</td>
+                                                                    <td>Received</td>
                                                                 </> :
                                                                 <>
-                                                                    <td>Chưa có</td>
-                                                                    <td>Trống </td>
-                                                                    <td>Chờ xử lí</td>
+                                                                    <td>Not yet</td>
+                                                                    <td>Empty </td>
+                                                                    <td>Wait</td>
                                                                 </>
                                                             }
                                                             {renderButton(value.status, value._id)}
@@ -289,7 +289,7 @@ function Oder(props) {
 
                                                 }),
                                                 <tr key={idx} className='table-secondary'>
-                                                    <td colSpan={14} className='fw-bolder text-uppercase text-start'>Tổng tiền</td>
+                                                    <td colSpan={14} className='fw-bolder text-uppercase text-start'>Sum</td>
                                                     <td className='fw-bolder text-primary text-center' colSpan={3}>{new Intl.NumberFormat('vi').format(value.total)} $</td>
                                                 </tr>
                                             ]
@@ -297,13 +297,13 @@ function Oder(props) {
                                     }
                                 </tbody> :
                                 <tbody>
-                                    <tr className='text-center fw-bolder text-danger h3'><td colSpan={15}>Hiện chưa có đơn hàng</td></tr>
+                                    <tr className='text-center fw-bolder text-danger h3'><td colSpan={15}>Right now not have any orders</td></tr>
                                 </tbody>
                         }
                     </table>
                     <ReactPaginate
-                        previousLabel="Trang trước"
-                        nextLabel="Trang sau"
+                        previousLabel="Previous page"
+                        nextLabel="Next page"
                         breakLabel="..."
                         breakClassName="page-item"
                         breakLinkClassName="page-link"
@@ -327,7 +327,7 @@ function Oder(props) {
             </div>
             <Modal show={showListAccount !== false} onHide={() => setShowListAccount(false)}>
                 <Modal.Header closeButton>
-                    <Modal.Title>Danh sách nhân viên</Modal.Title>
+                    <Modal.Title>Employee List</Modal.Title>
                 </Modal.Header>
                 <Modal.Body style={{ overflowY: "scroll" }}>
                     {
@@ -335,11 +335,11 @@ function Oder(props) {
                             listAccount?.map((item, i) => (
                                 <div key={i} className='d-flex'>
                                     <button disabled className='text-dark fw-bold'>{i + 1}</button>
-                                    <button className='border-0 btn btn-outline-info text-dark w-100 text-start m-1' onClick={() => { updateStatus(showListAccount, 'Chờ xác nhận', item._id); setShowListAccount(false) }}>{item.hoten}</button>
+                                    <button className='border-0 btn btn-outline-info text-dark w-100 text-start m-1' onClick={() => { updateStatus(showListAccount, 'Wait for commit', item._id); setShowListAccount(false) }}>{item.hoten}</button>
                                 </div>
                             )) :
                             <div>
-                                <h5>Không có nhân viên nào</h5>
+                                <h5>No Employee</h5>
                             </div>
                     }
                 </Modal.Body>

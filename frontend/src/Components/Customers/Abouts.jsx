@@ -32,10 +32,10 @@ function Abouts(props) {
                     </p>
                     <h3>5. Why Choose PetShop</h3>
                     <p>
-                        We are not just a pet supply and care store; we are a passionate pet community. When you choose PetShop XYZ, you can expect:
+                        We are not just a pet supply and care store; we are a passionate pet community. When you choose PetShop, you can expect:
                         <p style={{ marginLeft: "40px" }}><b>1. Quality Products:</b> We carefully select each product to ensure they are suitable for your pets.</p>
                         <p style={{ marginLeft: "40px" }}><b>2. Dedicated Service:</b> Our team of staff is always ready to advise and assist you in taking care of your pets.</p>
-                        <p style={{ marginLeft: "40px" }}><b>3. Pet-Loving Community: </b>At PetShop XYZ, you'll find a lovely pet community where you can share experiences and receive support from fellow pet enthusiasts.</p>
+                        <p style={{ marginLeft: "40px" }}><b>3. Pet-Loving Community: </b>At PetShop, you'll find a lovely pet community where you can share experiences and receive support from fellow pet enthusiasts.</p>
                         <p style={{ marginLeft: "40px" }}><b>4. Convenience:</b> We offer online shopping and home delivery services, making it easier for you to save time and effort.</p>
                     </p>
                     <h3>6. Thank you</h3>

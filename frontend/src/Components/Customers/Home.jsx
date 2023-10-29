@@ -116,7 +116,7 @@ function Home(props) {
                     </div>
                 </Row>
                 <Row className='m-0'>
-                    <h1 style={{ textTransform: "uppercase", color: "rgb(200,16,46)" }}>Highly recoment </h1>
+                    <h1 style={{ textTransform: "uppercase", color: "rgb(200,16,46)" }}>New Products</h1>
                     {Products.map((item, idx) => {
                         return idx < 6 && (
                             renderProducts(item, idx)
@@ -124,7 +124,7 @@ function Home(props) {
                     })}
                 </Row>
                 <Row className='mt-3 mb-2 g-3'>
-                    <h1 style={{ textTransform: "uppercase", color: "rgb(200,16,46)" }}>New Products </h1>
+                    <h1 style={{ textTransform: "uppercase", color: "rgb(200,16,46)" }}>Highly recommend </h1>
                     {Products.map((item, idx) => {
                         return idx >= 6 && idx < 12 && (
                             renderProducts(item, idx)

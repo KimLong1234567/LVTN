@@ -53,12 +53,12 @@ function Comment(props) {
                     <tr className="table-secondary text-center">
                         <th scope="col" className='col-1'>No</th>
                         <th scope="col">Customer</th>
-                        <th scope="col">user name</th>
+                        <th scope="col">User name</th>
                         <th scope="col">Comment</th>
-                        <th scope="col">product name</th>
-                        <th scope="col">image</th>
+                        <th scope="col">Product name</th>
+                        <th scope="col">Image</th>
                         <th scope="col">Status</th>
-                        <th scope="col">delete</th>
+                        <th scope="col">Delete</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -86,7 +86,7 @@ function Comment(props) {
 
                             )) :
                             <tr>
-                                <td className='text-danger text-uppercase h3' colSpan={8}>Hiện chưa có bình luận nào</td>
+                                <td className='text-danger text-uppercase h3' colSpan={8}>Now not have any comment</td>
                             </tr>
                     }
                 </tbody>

@@ -18,13 +18,13 @@ function ShowCoupon(props) {
         <div className='boder-main'>
             <div>
                 <h2 className="text-center fs-4 fw-bold text-primary">
-                    TẤT CẢ PHIẾU NHẬP
+                    ALL IMPORT COUPON
                 </h2>
                 <table className="table-export table table-bordered align-middle r" id="export-table">
                     <thead className="table-header table-secondary">
                         <tr>
                             <th scope="col-1">
-                                STT
+                                NO
                             </th>
                             <th scope="col">NGƯỜI LẬP PHIẾU</th>
                             <th scope="col">NGÀY LẬP PHIẾU</th>

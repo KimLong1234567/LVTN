@@ -125,50 +125,50 @@ function Customer(props) {
         <div className='boder-main'>
             <ToastContainer />
             <div className='d-flex justify-content-between m-3'>
-                <h4 className='text-primary fw-bold text-uppercase'>tài khoản khách hàng</h4>
+                <h4 className='text-primary fw-bold text-uppercase'>Customer account list</h4>
                 <input type="text"
                     className="form-control w-50 "
-                    placeholder="Nhập họ hoặc tên khách hàng"
+                    placeholder="Type name customer"
                     onChange={findaccount}
                 />
-                <Button variant="success" onClick={() => setShow(true)}>Thêm tài khoản <Icon icon={faSquarePlus} /></Button>
+                <Button variant="success" onClick={() => setShow(true)}>Add new account <Icon icon={faSquarePlus} /></Button>
                 <Modal show={show !== false} onHide={() => setShow(false)}>
                     <Modal.Header>
-                        <Modal.Title>Tài Khoản</Modal.Title>
+                        <Modal.Title>Customer Account</Modal.Title>
                     </Modal.Header>
                     <Modal.Body>
                         <Form>
                             <Form.Group className="mb-3">
-                                <Form.Label>Họ & Tên</Form.Label>
-                                <Form.Control type="text" name="user_name" placeholder={show.user_name ? show.user_name : "Họ và Tên"} onChange={onChange} />
+                                <Form.Label>Name:</Form.Label>
+                                <Form.Control type="text" name="user_name" placeholder={show.user_name ? show.user_name : "Name"} onChange={onChange} />
                             </Form.Group>
                             <Form.Group className="mb-3">
-                                <Form.Label>Email</Form.Label>
-                                <Form.Control type="text" name="user_email" placeholder={show.user_email ? show.user_email : "Tài khoản"} onChange={onChange} />
+                                <Form.Label>Email:</Form.Label>
+                                <Form.Control type="text" name="user_email" placeholder={show.user_email ? show.user_email : "Email"} onChange={onChange} />
                             </Form.Group>
                             <Form.Group className="mb-3">
                                 <Form.Label>Password</Form.Label>
-                                <Form.Control type="password" name="user_password" placeholder="Mật khẩu" onChange={onChange} />
+                                <Form.Control type="password" name="user_password" placeholder="Password" onChange={onChange} />
                             </Form.Group>
                             <Form.Group className="mb-3">
-                                <Form.Label>Điện thoại</Form.Label>
-                                <Form.Control type="text" name="user_phone" placeholder={show.user_phone ? show.user_phone : "Nhập số điện thoại"} onChange={onChange} />
+                                <Form.Label>Phone</Form.Label>
+                                <Form.Control type="text" name="user_phone" placeholder={show.user_phone ? show.user_phone : "Phone"} onChange={onChange} />
                             </Form.Group>
                             <Form.Group className="mb-3">
-                                <Form.Label>Giới Tính</Form.Label>
+                                <Form.Label>Gender</Form.Label>
                                 <Form.Select aria-label="Default select example" name="user_gt" onChange={onChange}>
-                                    <option>-- Chọn Giới Tính --</option>
-                                    <option value='nam'>Nam</option>
-                                    <option value='nữ'>Nữ</option>
+                                    <option>-- Choose Gender --</option>
+                                    <option value='nam'>Men</option>
+                                    <option value='nữ'>Women</option>
                                     {/* <option name="nv_gt" value='unknow'>Không tiết lộ</option> */}
                                 </Form.Select>
                             </Form.Group>
                             <Form.Group className="mb-3">
-                                <Form.Label>Địa chỉ</Form.Label>
-                                <Form.Control type="text" name="user_address" placeholder={show.user_address ? show.user_address : "Địa chỉ hiện tại"} onChange={onChange} />
+                                <Form.Label>Address</Form.Label>
+                                <Form.Control type="text" name="user_address" placeholder={show.user_address ? show.user_address : "Address"} onChange={onChange} />
                             </Form.Group>
                             <Form.Group className="mb-3" controlId="formBasicPassword">
-                                <Form.Label>Ảnh đại diện</Form.Label>
+                                <Form.Label>Avatar</Form.Label>
                                 <Form.Control type="file"
                                     multiple
                                     name="user_avt"
@@ -181,10 +181,10 @@ function Customer(props) {
                         {
                             show.user_id !== undefined ?
                                 <Button variant="primary" onClick={() => updateAccount(show.user_id)}>
-                                    Cập nhật
+                                    Update
                                 </Button> :
                                 <Button variant="success" onClick={() => addAccount()}>
-                                    Tạo mới
+                                    Add
                                 </Button>
                         }
                     </Modal.Footer>
@@ -192,20 +192,20 @@ function Customer(props) {
             </div>
             {
                 Accounts.length === 0 ?
-                    <div className='text-danger fw-bold mt-3 h4'> Không khách hàng nào được tìm thấy </div> :
+                    <div className='text-danger fw-bold mt-3 h4'> No customer found </div> :
                     <table className="table table-bordered">
                         <thead>
                             <tr className="table-secondary text-center">
                                 <th scope="col" className="col-1">
-                                    STT
+                                    No
                                 </th>
-                                <th scope="col">HỌ TÊN</th>
+                                <th scope="col">Name</th>
                                 {/* <th scope="col-2" colSpan={2}>TÀI KHOẢN</th> */}
-                                <th scope="col">TÀI KHOẢN</th>
-                                <th scope="col">HÌNH ẢNH</th>
-                                <th scope="col">ĐIỆN THOẠI</th>
-                                <th scope='col'>Địa Chỉ </th>
-                                <th scope="col" className='col-2' colSpan="2">TÁC VỤ</th>
+                                <th scope="col">Email:</th>
+                                <th scope="col">Image</th>
+                                <th scope="col">Phone</th>
+                                <th scope='col'>Address </th>
+                                <th scope="col" className='col-2' colSpan="2">Move</th>
                             </tr>
                         </thead>
                         <tbody>

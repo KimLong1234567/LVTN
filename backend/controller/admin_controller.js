@@ -158,7 +158,7 @@ const controller = {
             const hashedpassword = hashPassword(nv_password);
             console.log(hashedpassword);
             // Fetch admin by email from the database
-            const [rows] = await pool.query("SELECT * FROM nhan_vien WHERE nv_email = ?", nv_email);
+            const [rows] = await pool.query("SELECT * FROM nhan_vien AS n, chuc_vu AS c WHERE n.nv_email = ? AND n.cv_id = c.cv_id", nv_email);
             console.log(rows);
             const admin = rows[0];
 
@@ -193,7 +193,7 @@ const controller = {
                 //     data: "da login" + rows[0]
                 // })
                 console.log("da login");
-                return res.status(200).json({ data: "signed", user: rows[0] });
+                return res.status(200).json({ data: "signed", admin: rows[0] });
             }
 
         } catch (error) {

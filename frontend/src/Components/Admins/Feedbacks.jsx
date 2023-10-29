@@ -46,34 +46,34 @@ function Feedbacks(props) {
             <ToastContainer />
             <Modal show={showModal !== false} onHide={() => setShowModal(false)} aria-labelledby="contained-modal-title-vcenter" centered>
                 <Modal.Header>
-                    <Modal.Title>Phản hồi khách hàng</Modal.Title>
+                    <Modal.Title>Feedback</Modal.Title>
                 </Modal.Header>
                 <Modal.Body>
                     <Form>
                         <Form.Group className="mb-3" controlId="exampleForm.ControlTextarea1">
-                            <Form.Control as="textarea" rows={4} placeholder="Phản hồi ý kiến khách hàng" name='lh_ph' onChange={onchange} />
+                            <Form.Control as="textarea" rows={4} placeholder="feedback content" name='lh_ph' onChange={onchange} />
                         </Form.Group>
                     </Form>
                 </Modal.Body>
                 <Modal.Footer>
                     <Button variant="success" onClick={() => addFeedback(showModal.lh_id)}>
-                        Phản hồi
+                        feedback
                     </Button>
                 </Modal.Footer>
             </Modal>
-            <h2 className='text-primary text-uppercase mt-2'>chăm sóc khách hàng</h2>
+            <h2 className='text-primary text-uppercase mt-2'>Customer Care</h2>
             <table className="table table-bordered">
                 <thead>
                     <tr className="table-secondary text-center">
-                        <th scope="col-1">STT</th>
-                        <th scope="col">KHÁCH HÀNG</th>
-                        <th scope="col">TÀI KHOẢN</th>
-                        <th scope="col">SĐT</th>
-                        <th scope="col">ĐỊA CHỈ</th>
-                        <th scope="col">NỘI DUNG</th>
-                        <th scope="col">HÌNH ẢNH</th>
-                        <th scope="col">TRẠNG THÁI</th>
-                        <th scope="col">PHẢN HỒI</th>
+                        <th scope="col-1">No</th>
+                        <th scope="col">Customer or Guest Name: </th>
+                        <th scope="col">Email</th>
+                        <th scope="col">Phone</th>
+                        <th scope="col">Address</th>
+                        <th scope="col">Content</th>
+                        <th scope="col">Image</th>
+                        <th scope="col">Status</th>
+                        <th scope="col">Feedback</th>
                     </tr>
                 </thead>
                 {
@@ -93,17 +93,17 @@ function Feedbacks(props) {
                                                 <td>
                                                     <img src={`/image/contacts/${item.lh_img}`} alt='...' style={{ width: '150px' }} />
                                                 </td>
-                                                : <td className='fw-bolder'>Không có hình ảnh</td>
+                                                : <td className='fw-bolder'>No image</td>
                                         }
                                         {
                                             item.lh_status === 1 ?
                                                 <>
 
-                                                    <td className='text-success fw-bolder'>Đã phản hồi</td>
+                                                    <td className='text-success fw-bolder'>feedbacked</td>
                                                     <td><Button variant='success' disabled> <Icon icon={faCommentDots} /></Button></td>
                                                 </> :
                                                 <>
-                                                    <td className='text-danger fw-bolder'>Chưa phản hồi</td>
+                                                    <td className='text-danger fw-bolder'>not feedback yet</td>
                                                     <td><Button variant='outline-warning' onClick={() => setShowModal(item)}> <Icon icon={faReplyAll} /></Button></td>
                                                 </>
                                         }

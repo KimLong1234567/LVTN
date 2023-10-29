@@ -17,42 +17,43 @@ function LoginShipper(props) {
                 nv_password: Account.nv_password,
             })
             .then((res) => {
-                if (res.data.data === 'signed' && res.data.user) {
-                    console.log('Logged in successfully');
-                    // console.log('User info:', res.data.user);
-
-                    const setCookie = (name, value, days) => {
-                        const expirationDate = new Date();
-                        expirationDate.setTime(expirationDate.getTime() + days * 24 * 60 * 60 * 1000);
-                        const expires = "expires=" + expirationDate.toUTCString();
-                        document.cookie = name + "=" + value + ";" + expires + ";path=/";
-                    };
-
-                    // const admin_name = Account.nv_name; // Đổi thành giá trị thực tế
-                    const id_kh = res.data.user.nv_id; // Đổi thành giá trị thực tế
-                    const name = res.data.user.nv_hoten; // Đổi thành giá trị thực tế
-                    // const sdt = "example_phone_number"; // Đổi thành giá trị thực tế
-                    console.log(id_kh, name);
-                    // Set các cookie
-                    setCookie("userId", id_kh, 1); // Tổi 1 ngày
-                    setCookie("userName", name, 1); // Tổi 1 ngày
-                    // setCookie("userPhone", sdt, 1); // Tổi 1 ngày
-                    toast.success('Đăng nhập thành công.', {
-                        position: "top-center",
-                        autoClose: 2000,
-                        closeOnClick: true,
-                        pauseOnHover: true,
-                        draggable: true,
-                        progress: undefined,
-                        theme: "colored",
-                    })
-                    setTimeout(
-                        function () {
-                            localStorage.setItem("shipper", JSON.stringify({ ...res.data }))
-                            Navigate("/shipper/allorder")
-                        },
-                        3000
-                    );
+                if (res.data.data === 'signed' && res.data.admin) {
+                    const nv = res.data.admin;
+                    if (nv.cv_id === 2) {
+                        toast.success('Đăng nhập thành công.', {
+                            position: "top-center",
+                            autoClose: 2000,
+                            closeOnClick: true,
+                            pauseOnHover: true,
+                            draggable: true,
+                            progress: undefined,
+                            theme: "colored",
+                        })
+                        setTimeout(
+                            function () {
+                                localStorage.setItem("shipper", JSON.stringify({ ...res.data.admin }))
+                                Navigate("/shipper/allorder")
+                            },
+                            3000
+                        );
+                    } else {
+                        toast.info('admin do not login here', {
+                            position: "top-center",
+                            autoClose: 2000,
+                            closeOnClick: true,
+                            pauseOnHover: true,
+                            draggable: true,
+                            progress: undefined,
+                            theme: "colored",
+                        })
+                        setTimeout(
+                            function () {
+                                // localStorage.setItem("shipper", JSON.stringify({ ...res.data.admin }))
+                                Navigate("/admin/login")
+                            },
+                            3000
+                        );
+                    }
                 }
             })
             .catch((err) => {
@@ -89,7 +90,7 @@ function LoginShipper(props) {
                                     >
                                         <div className="card-body p-5 text-center">
                                             <div className="mb-md-5 mt-md-4 pb-5">
-                                                <h2 className="fw-bold mb-2 text-uppercase"> Đăng nhập tài khoản nhân viên</h2>
+                                                <h2 className="fw-bold mb-2 text-uppercase"> Login Employee Account</h2>
                                                 <p className="text-dark-50 mb-5">
                                                     Please enter your login and password!
                                                 </p>

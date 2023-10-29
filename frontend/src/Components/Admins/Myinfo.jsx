@@ -5,30 +5,16 @@ import { faPenToSquare } from "@fortawesome/free-regular-svg-icons";
 import { Button, Form, Modal } from "react-bootstrap";
 import { ToastContainer, toast } from 'react-toastify';
 function Myinfo(props) {
-    const userId = getCookie("userId");
+    const curentAdmin = localStorage["admin"] ? JSON.parse(localStorage["admin"]) : null
     const [show, setShow] = useState(false)
-    const [requested, setRequested] = useState(false);
     const [Refresh, setRefresh] = useState(0)
     const [Accounts, setAccounts] = useState([])
+    console.log(Accounts);
+    console.log(curentAdmin);
+    const [requested, setRequested] = useState(false);
+
     const [files, setFiles] = useState()
     // console.log(userId);
-
-    function getCookie(name) {
-        const cookieName = name + "=";
-        const decodedCookie = decodeURIComponent(document.cookie);
-        const cookieArray = decodedCookie.split(";");
-
-        for (let i = 0; i < cookieArray.length; i++) {
-            let cookie = cookieArray[i];
-            while (cookie.charAt(0) === " ") {
-                cookie = cookie.substring(1);
-            }
-            if (cookie.indexOf(cookieName) === 0) {
-                return cookie.substring(cookieName.length, cookie.length);
-            }
-        }
-        return "";
-    }
     const onChange = (e) => {
         const { name, value } = e.target;
 
@@ -79,29 +65,29 @@ function Myinfo(props) {
     }
     useEffect(() => {
         axios
-            .get(`http://localhost:5000/api/admins/${userId}`)
+            .get(`http://localhost:5000/api/admins/${curentAdmin.nv_id}`)
             .then((res) => {
                 // console.log(res.data.data);
                 setRequested(true);  // Đã gọi request
-                const userData = res.data.data;
-                if (Array.isArray(userData) && userData.length > 0) {
+                const adminData = res.data.data;
+                if (Array.isArray(adminData) && adminData.length > 0) {
                     setAccounts({
                         ...Accounts,
-                        nv_id: userData[0].nv_id,
-                        nv_email: userData[0].nv_email,
-                        nv_hoten: userData[0].nv_hoten,
-                        nv_phone: userData[0].nv_phone,
-                        nv_adress: userData[0].nv_adress,
-                        nv_avt: userData[0].nv_avt,
-                        nv_date: userData[0].nv_date,
-                        cv_name: userData[0].cv_name,
-                        nv_gt: userData[0].nv_gt,
+                        nv_id: adminData[0].nv_id,
+                        nv_email: adminData[0].nv_email,
+                        nv_hoten: adminData[0].nv_hoten,
+                        nv_phone: adminData[0].nv_phone,
+                        nv_adress: adminData[0].nv_adress,
+                        nv_avt: adminData[0].nv_avt,
+                        nv_date: adminData[0].nv_date,
+                        cv_name: adminData[0].cv_name,
+                        nv_gt: adminData[0].nv_gt,
                     })
                 }
             })
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [Refresh, requested])
-    console.log(Accounts);
+    // console.log(Accounts);
     if (!requested || !Accounts) {
         return null;
     }
@@ -116,7 +102,7 @@ function Myinfo(props) {
                 <Modal.Body>
                     <Form>
                         <Form.Group className="mb-3">
-                            <Form.Label>Họ & Tên</Form.Label>
+                            <Form.Label>Name</Form.Label>
                             <Form.Control type="text" name="nv_hoten" placeholder={Accounts.nv_hoten} onChange={onChange} />
                         </Form.Group>
                         <Form.Group className="mb-3">
@@ -125,30 +111,30 @@ function Myinfo(props) {
                         </Form.Group>
                         <Form.Group className="mb-3">
                             <Form.Label>Password</Form.Label>
-                            <Form.Control type="password" name="nv_password" placeholder='Cập nhật mật khẩu' onChange={onChange} />
+                            <Form.Control type="password" name="nv_password" placeholder='Update password' onChange={onChange} />
                         </Form.Group>
                         <Form.Group className="mb-3">
-                            <Form.Label>Điện Thoại</Form.Label>
+                            <Form.Label>Phone</Form.Label>
                             <Form.Control type="text" name="nv_phone" placeholder={Accounts.nv_phone} onChange={onChange} />
                         </Form.Group>
                         <Form.Group className="mb-3">
-                            <Form.Label>Địa chỉ</Form.Label>
+                            <Form.Label>Address</Form.Label>
                             <Form.Control type="text" name="nv_adress" placeholder={Accounts.nv_adress} onChange={onChange} />
                         </Form.Group>
                         <Form.Group className="mb-3">
-                            <Form.Label>Giới Tính</Form.Label>
+                            <Form.Label>Gender</Form.Label>
                             <Form.Select aria-label="Default select example" name='nv_gt' onChange={onChange}>
-                                <option>--Chọn--</option>
+                                <option>--Choose--</option>
                                 <option value='nam'>Nam</option>
                                 <option value='nữ'>Nữ</option>
                             </Form.Select>
                         </Form.Group>
                         <Form.Group className="mb-3">
-                            <Form.Label>Ngày tháng năm sinh</Form.Label>
+                            <Form.Label>Date Born</Form.Label>
                             <Form.Control type="text" name="nv_date" placeholder={Accounts.nv_date} onChange={onChange} />
                         </Form.Group>
                         <Form.Group className="mb-3" controlId="formBasicPassword">
-                            <Form.Label>Hình Ảnh</Form.Label>
+                            <Form.Label>Image</Form.Label>
                             <Form.Control type="file"
                                 multiple
                                 name="nv_avt"
@@ -161,24 +147,24 @@ function Myinfo(props) {
                 </Modal.Body>
                 <Modal.Footer>
                     <Button variant="primary" onClick={() => update(show.nv_id)}>
-                        Cập nhật
+                        Update
                     </Button>
                 </Modal.Footer>
             </Modal>
             <table className="table table-bordered">
                 <thead>
                     <tr className="table-secondary text-center">
-                        <th scope="col">MÃ NHÂN VIÊN</th>
-                        <th scope="col">HỌ TÊN</th>
-                        <th scope="col">GIỚI TÍNH</th>
-                        <th scope="col">NGÀY SINH</th>
-                        <th scope="col">TÀI KHOẢN</th>
+                        <th scope="col">Staff</th>
+                        <th scope="col">Name</th>
+                        <th scope="col">Gender</th>
+                        <th scope="col">Date Born</th>
+                        <th scope="col">Email</th>
                         {/* <th scope="col">MẬT KHẨU</th> */}
-                        <th scope="col">HÌNH ẢNH</th>
-                        <th scope="col">ĐIỆN THOẠI</th>
-                        <th scope="col">ĐỊA CHỈ</th>
-                        <th scope="col">CHỨC VỤ</th>
-                        <th scope="col">CẬP NHẬT</th>
+                        <th scope="col">Image</th>
+                        <th scope="col">Phone</th>
+                        <th scope="col">Address</th>
+                        <th scope="col">Position</th>
+                        <th scope="col">Update</th>
                     </tr>
                 </thead>
                 <tbody>

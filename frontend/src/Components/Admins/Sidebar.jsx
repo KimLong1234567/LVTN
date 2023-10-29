@@ -43,15 +43,15 @@ const ADMIN_SIDEBAR = [
         ]
     },
     {
-        icon: faBookBookmark, name: 'Quản Lý Sản Phẩm', children: [
-            { icon: faPaw, name: 'Sản phẩm', to: '/admin/product' },
-            { icon: faCommentDots, name: 'Bình luận', to: '/admin/comment' },
+        icon: faBookBookmark, name: 'Product Management', children: [
+            { icon: faPaw, name: 'Products', to: '/admin/product' },
+            { icon: faCommentDots, name: 'Comment', to: '/admin/comment' },
         ]
     },
     {
-        icon: faCartFlatbed, name: 'Quản Lý Đơn Hàng', isAdmin: true, children: [
-            { icon: faCartPlus, name: 'Đơn đặt hàng', to: '/admin/order' },
-            { icon: faBookJournalWhills, name: 'Hóa đơn', to: '/admin/bill' },
+        icon: faCartFlatbed, name: 'Order Management', isAdmin: true, children: [
+            { icon: faCartPlus, name: 'Orders', to: '/admin/order' },
+            { icon: faBookJournalWhills, name: 'Bill', to: '/admin/bill' },
         ]
     },
     {
@@ -60,14 +60,14 @@ const ADMIN_SIDEBAR = [
         ]
     },
     {
-        icon: faCircleUser, name: 'Quản Lý Tài Khoản', children: [
-            { icon: faUsers, name: 'Tài khoản nhân viên', to: '/admin/employee' },
-            { icon: faUserTag, name: 'Tài khoản khách hàng', to: '/admin/customer' }
+        icon: faCircleUser, name: 'Account Management', children: [
+            { icon: faUsers, name: 'Employee Accounts', to: '/admin/employee' },
+            { icon: faUserTag, name: 'Customer Account', to: '/admin/customer' }
         ]
     },
     {
-        icon: faMessage, name: 'Chăm Sóc Khách Hàng', children: [
-            { icon: faCaretRight, name: 'Phản hồi khách hàng', to: '/admin/feedbacks' },
+        icon: faMessage, name: 'Customer Care', children: [
+            { icon: faCaretRight, name: 'Customer Feedback', to: '/admin/feedbacks' },
         ]
     },
     {
@@ -80,61 +80,62 @@ const ADMIN_SIDEBAR = [
 ]
 
 function Sidebar(props) {
-    const [user, setUser] = useState([]);
-    const userId = getCookie("userId");
-    const [requested, setRequested] = useState(false);
-    const Navigate = useNavigate();
-    useEffect(() => {
-        if (userId !== "") {
-            axios
-                .get(`http://localhost:5000/api/admins/${userId}`)
-                .then((res) => {
-                    setUser(res.data.data)
-                    setRequested(true);  // Đã gọi request
-                })
-                .catch((error) => {
-                    console.error("Error fetching cate: ", error);
-                });
+    // const [user, setUser] = useState([]);
+    // const userId = getCookie("userId");
+    // const [requested, setRequested] = useState(false);
+    // const Navigate = useNavigate();
+    // useEffect(() => {
+    //     if (userId !== "") {
+    //         axios
+    //             .get(`http://localhost:5000/api/admins/${userId}`)
+    //             .then((res) => {
+    //                 setUser(res.data.data)
+    //                 setRequested(true);  // Đã gọi request
+    //             })
+    //             .catch((error) => {
+    //                 console.error("Error fetching cate: ", error);
+    //             });
 
-            console.log("User ID:", userId);
-            console.log("User:", user);
-        } else {
-            toast.error('You not login yet', {
-                position: "top-center",
-                autoClose: 2000,
-                closeOnClick: true,
-                pauseOnHover: true,
-                draggable: true,
-                progress: undefined,
-                theme: "dark",
-            })
-            setTimeout(
-                function () {
-                    // localStorage.setItem("kho", JSON.stringify({ ...res.data }))
-                    Navigate("/admin/login")
-                },
-                3000
-            );
-            console.log("User is not logged in.");
-        }
-    }, [userId, requested]);
-    function getCookie(name) {
-        const cookieName = name + "=";
-        const decodedCookie = decodeURIComponent(document.cookie);
-        const cookieArray = decodedCookie.split(";");
+    //         console.log("User ID:", userId);
+    //         console.log("User:", user);
+    //     } else {
+    //         toast.error('You not login yet', {
+    //             position: "top-center",
+    //             autoClose: 2000,
+    //             closeOnClick: true,
+    //             pauseOnHover: true,
+    //             draggable: true,
+    //             progress: undefined,
+    //             theme: "dark",
+    //         })
+    //         setTimeout(
+    //             function () {
+    //                 // localStorage.setItem("kho", JSON.stringify({ ...res.data }))
+    //                 Navigate("/admin/login")
+    //             },
+    //             3000
+    //         );
+    //         console.log("User is not logged in.");
+    //     }
+    // }, [userId, requested]);
+    // function getCookie(name) {
+    //     const cookieName = name + "=";
+    //     const decodedCookie = decodeURIComponent(document.cookie);
+    //     const cookieArray = decodedCookie.split(";");
 
-        for (let i = 0; i < cookieArray.length; i++) {
-            let cookie = cookieArray[i];
-            while (cookie.charAt(0) === " ") {
-                cookie = cookie.substring(1);
-            }
-            if (cookie.indexOf(cookieName) === 0) {
-                return cookie.substring(cookieName.length, cookie.length);
-            }
-        }
-        return "";
-    }
+    //     for (let i = 0; i < cookieArray.length; i++) {
+    //         let cookie = cookieArray[i];
+    //         while (cookie.charAt(0) === " ") {
+    //             cookie = cookie.substring(1);
+    //         }
+    //         if (cookie.indexOf(cookieName) === 0) {
+    //             return cookie.substring(cookieName.length, cookie.length);
+    //         }
+    //     }
+    //     return "";
+    // }
     const [clicked, setClicked] = useState(null)
+    const curentAdmin = localStorage["admin"] ? JSON.parse(localStorage["admin"]) : null
     const toggleExpand = (index) => {
         if (clicked === index) {
             return setClicked(null)
@@ -142,10 +143,6 @@ function Sidebar(props) {
         setClicked(index)
     }
 
-    // Nếu chưa request hoặc chưa có dữ liệu, không hiển thị component
-    if (!requested || !user[0]) {
-        return null;
-    }
     return (
         <Col xs={3} className="pt-3" style={{ background: "rgb(11,42,73)" }} >
             <div style={{ position: "sticky", top: 0 }} className='pt-3'>
@@ -154,12 +151,12 @@ function Sidebar(props) {
                 </Link>
                 <div className='mx-3'>
                     <div className='d-flex'>
-                        {/* su dung user[0] vi nhan data tu backend dang [0,[]]    */}
-                        <img src={`/image/Avt/${user[0].nv_avt}`} alt='...' className='mb-4' style={{ borderRadius: "50%", width: "50px" }} />
+                        {/* su dung curentAdmin vi nhan data tu backend dang [0,[]]    */}
+                        <img src={`/image/Avt/${curentAdmin.nv_avt}`} alt='...' className='mb-4' style={{ borderRadius: "50%", width: "50px" }} />
                         <div className='text-white text-start mx-2'>
-                            <span className='h6'>Name: {user[0].nv_hoten}</span>
+                            <span className='h6'>Name: {curentAdmin.nv_hoten}</span>
                             <br></br>
-                            <span>User:{user[0].nv_email} </span>
+                            <span>User:{curentAdmin.nv_email} </span>
                         </div>
                     </div>
                     {

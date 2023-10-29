@@ -44,11 +44,11 @@ function Bills(props) {
 
     return (
         <div className='boder-main'>
-            <h2 className='text-uppercase text-center text-primary fw-bolder mt-2'>danh sách hóa đơn</h2>
+            <h2 className='text-uppercase text-center text-primary fw-bolder mt-2'>Bill List</h2>
             <h3 className='text-uppercase text-start text-success fw-bolder mx-2'>filter <Icon icon={faFilter} /></h3>
             <Row className='m-3'>
                 <Col xs={12} md={4}>
-                    <h4 style={{ color: 'tomato', fontWeight: "bolder" }}>Tất cả đơn hàng đã giao <input type='checkbox' onChange={() => { filter('') }} checked={show === ''} /> </h4>
+                    <h4 style={{ color: 'tomato', fontWeight: "bolder" }}>All bill <input type='checkbox' onChange={() => { filter('') }} checked={show === ''} /> </h4>
                 </Col>
                 <Col xs={12} md={8}>
                     <div className='d-flex mb-2'>
@@ -65,21 +65,21 @@ function Bills(props) {
                     <table className="table table-bordered">
                         <thead>
                             <tr className="table-secondary text-center">
-                                <th scope="col">STT</th>
-                                <th scope="col">TÊN SẢN PHẨM</th>
-                                <th scope="col">HÌNH ẢNH</th>
-                                <th scope="col">SỐ LƯỢNG</th>
-                                <th scope="col">GIÁ TIỀN</th>
-                                <th scope="col">TÊN KHÁCH HÀNG</th>
-                                <th scope="col">ĐỊA CHỈ NHẬN HÀNG</th>
-                                <th scope="col">SĐT LIÊN HỆ</th>
-                                <th scope="col">THANH TOÁN</th>
-                                <th scope="col">TRẠNG THÁI ĐƠN HÀNG</th>
-                                <th scope="col">NGÀY ĐẶT</th>
-                                <th scope="col">NGÀY GIAO </th>
-                                <th scope="col">NHÂN VIÊN</th>
-                                <th scope="col">SĐT Nhân viên</th>
-                                <th scope="col">THAO TÁC</th>
+                                <th scope="col">No</th>
+                                <th scope="col">Product Name</th>
+                                <th scope="col">Image</th>
+                                <th scope="col">Quantity</th>
+                                <th scope="col">Price</th>
+                                <th scope="col">Customer Name</th>
+                                <th scope="col">Address</th>
+                                <th scope="col">Customer Phone</th>
+                                <th scope="col">Pay</th>
+                                <th scope="col">Order Status</th>
+                                <th scope="col">Date Order</th>
+                                <th scope="col">Date Deliver </th>
+                                <th scope="col">Employee</th>
+                                <th scope="col">Employee Phone</th>
+                                <th scope="col">Move</th>
                             </tr>
                         </thead>
                         {
@@ -112,7 +112,7 @@ function Bills(props) {
                                                     )
                                                 }),
                                                 <tr key={idx} className='table-secondary'>
-                                                    <td colSpan={3} className='fw-bolder text-uppercase text-start'>Tổng tiền</td>
+                                                    <td colSpan={3} className='fw-bolder text-uppercase text-start'>Sum</td>
                                                     <td className='fw-bolder text-primary text-end' colSpan={11}>{new Intl.NumberFormat('vi').format(value.total)} $</td>
                                                     <td colSpan={1}> <button className='btn btn-success'><Link className='text-white' to={`/admin/export/${value._id}`}><Icon icon={faPrint} /></Link></button></td>
                                                 </tr>
@@ -120,13 +120,13 @@ function Bills(props) {
                                         })
                                     }
                                 </tbody> : <tbody>
-                                    <tr className='text-center fw-bolder text-danger h3'><td colSpan={15}>Hiện chưa có đơn hàng</td></tr>
+                                    <tr className='text-center fw-bolder text-danger h3'><td colSpan={15}>There are currently no orders</td></tr>
                                 </tbody>
                         }
                     </table>
                     <ReactPaginate
-                        previousLabel="Trang trước"
-                        nextLabel="Trang sau"
+                        previousLabel="previous page"
+                        nextLabel="next page"
                         breakLabel="..."
                         breakClassName="page-item"
                         breakLinkClassName="page-link"
