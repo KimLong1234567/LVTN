@@ -17,7 +17,9 @@ const pn_router = require("./routes/pnhap_routers")
 const contacts_router = require("./routes/contact_routers")
 const comments_router = require("./routes/comments_routers")
 const ctpn_router = require("./routes/ctpn_routers")
-const dchi_router = require("./routes/dchi_routers")
+const dh_router = require("./routes/dh_routers")
+const ctdh_router = require("./routes/detailOrder_router")
+
 
 app.use(express.urlencoded({ extended: false }))
 app.use(express.json())
@@ -33,7 +35,9 @@ app.use("/api/pn", pn_router);
 app.use("/api/contacts", contacts_router);
 app.use("/api/comments", comments_router);
 app.use("/api/ctpn", ctpn_router);
-app.use("/api/dchi/", dchi_router);
+app.use("/api/dh", dh_router);
+app.use("/api/ctdh", ctdh_router)
+
 
 const PORT = process.env.PORT || 5000
 

@@ -44,7 +44,7 @@ function Blog(props) {
                                     </div>
                                     <p>{item.sp_describe}</p>
                                     <Link to={`/detail/${item.sp_id}`}>
-                                        <Button style={{ backgroundColor: "rgb(242,148,19)", border: "none" }}> Xem chi tiết</Button>
+                                        <Button style={{ backgroundColor: "rgb(242,148,19)", border: "none" }}>Detail</Button>
                                     </Link>
                                 </div>
                             </Col>

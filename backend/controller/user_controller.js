@@ -48,6 +48,25 @@ const controller = {
         }
     },
 
+    getByUser: async (req, res) => {
+        try {
+            const { id } = req.params
+            const [rows, fields] = await pool.query("SELECT * FROM users AS u WHERE user_id = ?", [id])
+            const sanitizedRows = rows.map((row) => {
+                const { user_id, user_name, user_email, user_avt, user_gt, user_phone, user_address } = row;
+                return { user_id, user_name, user_email, user_avt, user_gt, user_phone, user_address };
+            });
+            res.json({
+                data: sanitizedRows
+            })
+
+        } catch (error) {
+            console.log(error);
+            res.json({
+                status: "error"
+            })
+        }
+    },
     create: async (req, res) => {
         try {
             const { user_name, user_email, user_gt, user_password, user_phone, user_address } = req.body;
@@ -122,8 +141,12 @@ const controller = {
             console.log(updateData);
             const sql = "UPDATE users SET ? WHERE user_id = ?"
             const [rows, fields] = await pool.query(sql, [updateData, id])
+            // Tạo một truy vấn SELECT để lấy thông tin người dùng đã cập nhật
+            const selectSql = "SELECT * FROM users WHERE user_id = ?";
+            const [updatedUser, userFields] = await pool.query(selectSql, [id]);
             res.json({
-                data: rows
+                data: rows,
+                data: updatedUser[0]
             })
         } catch (error) {
             console.log(error);

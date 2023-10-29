@@ -254,9 +254,12 @@ WHERE
   ALTER TABLE ctdh ADD dh_id int
 
   ALTER TABLE cart ADD status int(3) DEFAULT 0
+  ALTER TABLE donhang ADD dh_address varchar(255)
+  --drop table dchinhanhang
 --   ALTER TABLE donhang
 -- DROP FOREIGN KEY donhang_ibfk_4;
 -- INSERT into admin (admin_name, admin_password) VALUES ("admin","admin"); 
+ALTER TABLE ctdh ADD sp_price double
 
 INSERT INTO chuc_vu (cv_name, cv_luong) VALUES 
 ('admin', 9000000),

@@ -34,7 +34,7 @@ function Home(props) {
                                 <span>{item.sp_describe}</span>
                             </Card.Text>
                             <Card.Title >
-                                <Link className="text-primary fw-bolder" to={`/detail/${item.sp_id}`} >Xem chi tiết</Link>
+                                <Link className="text-primary fw-bolder" to={`/detail/${item.sp_id}`} >Deltail</Link>
                             </Card.Title>
                         </Card.Body>
                     </Card>
@@ -109,14 +109,14 @@ function Home(props) {
                     <div className='mxx-auto'>
                         <input type="text"
                             className="form-control w-50 mx-auto"
-                            placeholder="TÌM KIẾM SẢN PHẨM"
+                            placeholder="Searching product"
                             onChange={onChange}
                             style={{ height: "50px" }}
                         />
                     </div>
                 </Row>
                 <Row className='m-0'>
-                    <h1 style={{ textTransform: "uppercase", color: "rgb(200,16,46)" }}> đồ dùng nổi bật </h1>
+                    <h1 style={{ textTransform: "uppercase", color: "rgb(200,16,46)" }}>Highly recoment </h1>
                     {Products.map((item, idx) => {
                         return idx < 6 && (
                             renderProducts(item, idx)
@@ -124,7 +124,7 @@ function Home(props) {
                     })}
                 </Row>
                 <Row className='mt-3 mb-2 g-3'>
-                    <h1 style={{ textTransform: "uppercase", color: "rgb(200,16,46)" }}> các món mới </h1>
+                    <h1 style={{ textTransform: "uppercase", color: "rgb(200,16,46)" }}>New Products </h1>
                     {Products.map((item, idx) => {
                         return idx >= 6 && idx < 12 && (
                             renderProducts(item, idx)

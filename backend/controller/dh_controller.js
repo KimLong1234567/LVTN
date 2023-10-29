@@ -62,16 +62,17 @@ const controller = {
     },
     create: async (req, res) => {
         try {
-            const { dh_pay, totalValue, kh_id, gh_id, totalUnit } = req.body;
+            const { sp_code, dh_pay, dh_total, kh_id, dh_sl, dh_address } = req.body;
             const dh_create = new Date();
 
             console.log(req.body);
             // console.log(pet_prod_img);
-            const sql = "INSERT INTO donhang (dh_pay, dh_total, sp_code, dh_create, kh_id, gh_id, dh_sl) VALUES (?,?,?,?,?,?,?)"
-            const [result] = await pool.query(sql, [dh_pay, totalValue, sp_code, dh_create, kh_id, gh_id, totalUnit])
-            const pn_id = result.insertId;
+            const sql = "INSERT INTO donhang (dh_pay, dh_total, sp_code, dh_create, kh_id, dh_sl, dh_address) VALUES (?,?,?,?,?,?,?)"
+            const [result] = await pool.query(sql, [dh_pay, dh_total, sp_code, dh_create, kh_id, dh_sl, dh_address])
+            const dh_id = result.insertId;
+            console.log(dh_id);
             res.json({
-                data: { pn_id }
+                data: { dh_id }
             })
         } catch (error) {
             console.log(error);

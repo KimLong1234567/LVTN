@@ -13,7 +13,7 @@ function Cart(props) {
     const [products, setProducts] = useState([])
     const [refresh, setRefresh] = useState(0)
     const [infoBill, setInfoBill] = useState({})
-    const [deliveryAddress, setDeliveryAddress] = useState([])
+    const [address, setAddress] = useState()
     const [open, setOpen] = useState(false);
     // thanh toán 
     const [show, setShow] = useState(false);
@@ -46,7 +46,7 @@ function Cart(props) {
             const { payer } = details;
             setSuccess(true);
             console.log(payer);
-            addToBill()
+            sendBillDataToServer()
         });
 
     };
@@ -57,11 +57,14 @@ function Cart(props) {
     };
 
     const onchange = (e) => {
-        const pay_name = e.target.value;
-        setInfoBill({ ...infoBill, dh_pay: pay_name })
-        console.log(pay_name);
+        const dh_pay = e.target.value;
+        setInfoBill({ ...infoBill, dh_pay: dh_pay })
     }
-
+    const onChange = (e) => {
+        const dh_address = e.target.value;
+        setAddress({ ...address, dh_address: dh_address })
+    }
+    console.log(infoBill);
     function buttonPay(text) {
         if (text === 'Pay online') {
             return (
@@ -101,11 +104,14 @@ function Cart(props) {
         }
         else {
             return (
-                <Button className='text-end' variant='warning' disabled >Pay <Icon icon={faAmazonPay} /> </Button>
+                <div>
+                    <Button className='text-end' variant='warning' onClick={() => sendBillDataToServer()}>Pay <Icon icon={faAmazonPay} /></Button>
+                    {/* <Button> </Button> disabled  */}
+                </div>
             )
         }
     }
-
+    console.log(address);
     useLayoutEffect(() => {
         async function fecthData() {
             const res = ((await axios.get(`http://localhost:5000/api/orders/user/orders/${curentAccount.user_id}`, {
@@ -113,8 +119,6 @@ function Cart(props) {
             }))).data.data
             setProducts(res)
             console.log(products);
-            const add = ((await axios.get(`http://localhost:5000/api/dchi/${curentAccount.user_id}`))).data?.data
-            setDeliveryAddress(add)
         }
         fecthData()
         // eslint-disable-next-line react-hooks/exhaustive-deps
@@ -206,10 +210,11 @@ function Cart(props) {
             totalValue,
             totalUnit,
         };
-
+        console.log(Bill);
         return Bill;
-    };
 
+    };
+    createBillData(totalValue, totalUnit);
     // Tạo một hàm để tạo dữ liệu DetailBill từ các sản phẩm
     const createDetailBillData = () => {
         if (products) {
@@ -220,33 +225,29 @@ function Cart(props) {
 
                 return { sp_code, gh_sl };
             });
-
             return DetailBill;
         } else {
             return [];
         }
     };
-
     // Khi bạn muốn gửi dữ liệu Bill và DetailBill
-    const sendBillDataToServer = () => {
+    function sendBillDataToServer() {
         const Bill = createBillData(totalValue, totalUnit);
-        const DetailBill = createDetailBillData();
         console.log(Bill);
-        console.log(DetailBill);
+        const dh = {
+            dh_pay: Bill.dh_pay,
+            kh_id: Bill.user_id,
+            dh_total: Bill.totalValue,
+            dh_sl: Bill.totalUnit,
+            dh_address: address.dh_address,
+        }
+        // console.log(DetailBill);
         axios
-            .post('http:')
-    };
-
-    sendBillDataToServer();
-    const addToBill = () => {
-        infoBill.total = totalValue
-        axios
-            .post('http://localhost:5000/api/bill', {
-                infoBill,
-                products: products,
-                customer: curentAccount._id,
-            })
+            .post('http://localhost:5000/api/dh/', dh)
             .then((res) => {
+                const dh = res.data.data
+                console.log(res.data.data, dh);
+                addChiTietDh(dh);
                 toast.success(' Đặt hàng thành công. Vui lòng chờ nhận hàng.', {
                     position: "top-center",
                     autoClose: 2000,
@@ -257,16 +258,36 @@ function Cart(props) {
                     theme: "colored",
                 })
                 setTimeout(
-                    () => (Navigate('/bill')),
+                    function () {
+                        setRefresh((prev) => prev + 1)
+                    },
                     3000
                 );
             })
-        axios
-            .post('http://localhost:5000/api/deliveryAddress', {
-                infoBill,
-                kh_id: curentAccount.user_id,
+    };
+    const addChiTietDh = (dh) => {
+        const DetailBill = createDetailBillData();
+        const ctdh = {
+            dh_id: dh.dh_id,
+            carts: DetailBill,
+        }
+        axios.post('http://localhost:5000/api/ctdh/', ctdh, {
+            headers: { 'Content-Type': 'application/json' }
+        })
+            .then((res) => {
+                // Xử lý khi thêm mới phiếu nhập thành công
+                console.log('Thêm mới phiếu nhập thành công:', res.data);
+                // Thực hiện các hành động khác sau khi thêm mới phiếu nhập
             })
+            .catch((error) => {
+                // Xử lý khi có lỗi xảy ra
+                console.error('Đã xảy ra lỗi khi thêm mới phiếu nhập:', error);
+                // Thực hiện các hành động khác khi xảy ra lỗi
+            });
     }
+
+
+
     return (
         <Container fluid className='padding-header'>
             <ToastContainer />
@@ -301,10 +322,10 @@ function Cart(props) {
                             <Form>
                                 <Form.Group className="mb-3" controlId="exampleForm.ControlInput1">
                                     <Form.Label>Address </Form.Label>
-                                    <Form.Select aria-label="Default select example" name='dcnh_address' onChange={onchange}>
-                                        {deliveryAddress?.length !== 0 && deliveryAddress !== undefined ?
-                                            deliveryAddress?.map((item, idx) => (
-                                                <option value={item.dcnh_id} key={idx}>{item.dcnh_address}</option>
+                                    <Form.Select aria-label="Default select example" name='dh_address' onChange={onchange}>
+                                        {products.dh_adress !== undefined ?
+                                            products?.map((item, idx) => (
+                                                <option value={item.dh_adress} key={idx}>{item.dh_adress}</option>
                                             )) : <option>You not have address for shipping</option>
                                         }
                                     </Form.Select>
@@ -322,12 +343,12 @@ function Cart(props) {
                                 <Collapse in={open}>
                                     <Form.Group className="mb-3" controlId="exampleForm.ControlInput1" id="example-collapse-text">
                                         <Form.Label>Address</Form.Label>
-                                        <Form.Control type="text" placeholder='Input new address' name='dcnh_adress' onChange={onchange} />
+                                        <Form.Control type="text" placeholder='Input new address' name='dh_adress' onChange={onChange} />
                                     </Form.Group>
                                 </Collapse>
 
                             </Form>
-                            <Button variant='danger' onClick={addToBill}>Send</Button>
+                            {/* <Button variant='danger' onClick={() => sendBillDataToServer()}>Send</Button> */}
                             <Button variant='primary mx-2' onClick={() => { Navigate('/products') }} type='submit'>Keep buy</Button>
                         </div>
                     </div>

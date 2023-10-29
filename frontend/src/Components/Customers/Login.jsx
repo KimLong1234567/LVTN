@@ -22,7 +22,8 @@ function Login(props) {
             })
             .then((res) => {
                 if (res.data.data === 'signed' && res.data.user) {
-                    toast.success('Đăng nhập thành công.', {
+                    console.log(res.data.user);
+                    toast.success('Login Success.', {
                         position: "top-center",
                         autoClose: 2000,
                         closeOnClick: true,
@@ -41,7 +42,7 @@ function Login(props) {
                 }
             })
             .catch((err) => {
-                toast.error('Sai tài khoản hoặc mật khẩu. Vui lòng kiểm tra lại.', {
+                toast.error('Wrong email or password. Please check it again', {
                     position: "top-center",
                     autoClose: 2000,
                     closeOnClick: true,
@@ -196,18 +197,18 @@ function Login(props) {
                 <Col md={6}>
                     <h1 className="my-5 display-3 fw-bold ls-tight px-3" style={{ color: 'hsl(218, 81%, 95%)' }}>
                         PETSHOP <br />
-                        <span style={{ color: 'hsl(218, 81%, 75%)' }}>Đồng hành cùng bạn</span>
+                        <span style={{ color: 'hsl(218, 81%, 75%)' }}>Always welcome new users</span>
                     </h1>
                     <p className='px-3' style={{ color: 'hsl(218, 81%, 85%)' }}>
-                        PETSHOP được lên ý tưởng thành lập ngày 25 tháng 12 năm 2022.
-                        Dự án được suy nghĩ và phát minh bởi sinh viên Lâm Kim Long có thời gian dự kiến hoàn thành khoản 4 tháng.
-                        Trong suốt quá trình nghiên cứu & phát triển luôn suất hiện 1 số vấn đề khó khăn về mặt kiến thức củng như kỷ năng. Nhưng dự kiến sẻ hoàn thành vào ngày 19 tháng 4 năm 2023.
+                        PETSHOP was founded on December 25, 2022.
+                        The project was thought and invented by student Lam Kim Long and has an estimated completion time of about 4 months.
+                        During the research and development process, there are always some difficult problems in terms of knowledge and skills. But it is expected to be completed on November 31, 2023.
                     </p>
                 </Col>
 
                 <Col md='6' className='position-relative'>
                     <div className='container'>
-                        <h2 className='text-uppercase mb-3 text-success'>Đăng nhập tài khoản </h2>
+                        <h2 className='text-uppercase mb-3 text-success'>Login </h2>
                         <div>
                             <img src='/image/Logo/2.jpg' alt='...' style={{ maxWidth: "150px" }} />
                         </div>
@@ -218,7 +219,7 @@ function Login(props) {
                                         htmlFor="username"
                                         className="control-label"
                                     >
-                                        Tài khoản
+                                        User Name:
                                     </Form.Label>
                                     <Form.Control
                                         className="form-control"
@@ -230,7 +231,7 @@ function Login(props) {
                                 </Form.Group>
                                 <Form.Group>
                                     <Form.Label htmlFor="username" className="control-label">
-                                        Mật khẩu
+                                        Password:
                                     </Form.Label>
                                     <Form.Control
                                         className="form-control"
@@ -245,11 +246,11 @@ function Login(props) {
                                         <Link to={'/forgot-password'} className='text-primary'>Forgot password ?</Link>
                                     </Form.Label>
                                 </Form.Group>
-                                <Button variant='success' onClick={() => onSubmit()}>Đăng nhập</Button>
+                                <Button variant='success' onClick={() => onSubmit()}>Login</Button>
                                 <Row className='g-3'>
                                     <Col sm={6} md={8}>
                                         <span className='fw-bold text-muted'>
-                                            Hoặc đăng nhập bằng
+                                            OR
                                         </span>
                                         <div className='g-3 mt-2'>
                                             <FacebookLogin
@@ -279,7 +280,7 @@ function Login(props) {
                                     <Col sm={6} md={4}>
                                         <div className='text-end'>
                                             <span>
-                                                Bạn chưa có tài khoản ?
+                                                You not account yet ?
                                             </span>
                                             <Button
                                                 type="submit"
@@ -294,7 +295,7 @@ function Login(props) {
                                                         color: "#fff",
                                                     }}
                                                 >
-                                                    Đăng ký ngay!!!
+                                                    Sign Up now!!!
                                                 </Link>
                                             </Button>
                                         </div>

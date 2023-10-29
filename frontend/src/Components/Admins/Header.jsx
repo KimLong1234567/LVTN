@@ -62,9 +62,13 @@ function Header(props) {
         }
         return "";
     }
-
-    const logout = () => {
+    function deleteCookie(name) {
+        document.cookie = name + "=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/admin/login;";
         Navigate("/admin/login");
+    }
+    const logout = () => {
+        deleteCookie("userId");
+        deleteCookie("userName");
         localStorage.removeItem("userId");
         localStorage.removeItem("userName");
     };

@@ -95,6 +95,7 @@ function Myinfo(props) {
                         nv_avt: userData[0].nv_avt,
                         nv_date: userData[0].nv_date,
                         cv_name: userData[0].cv_name,
+                        nv_gt: userData[0].nv_gt,
                     })
                 }
             })

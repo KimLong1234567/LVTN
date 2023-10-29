@@ -250,7 +250,7 @@ function Products(props) {
                 <Row >
                     <Col xs={3} >
                         <div className='text-start bg-light p-3 ' style={{ position: 'sticky', zIndex: 1000, fontFamily: "cursive" }}>
-                            <h4 style={{ color: "rgb(255,142,81)", textTransform: "uppercase" }}> <Icon icon={faCaretRight} className='me-1 mt-1' />Tất cả loài thú cưng</h4>
+                            <h4 style={{ color: "rgb(255,142,81)", textTransform: "uppercase" }}> <Icon icon={faCaretRight} className='me-1 mt-1' />Shop by pet</h4>
                             {
                                 type.map((item, idx) => (
                                     renderType(item, idx)

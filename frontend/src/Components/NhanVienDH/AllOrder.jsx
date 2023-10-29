@@ -20,7 +20,7 @@ function AllOrder(props) {
             const res = await axios.get('http://localhost:5000/api/bill/status/1', {
                 params: {
                     status: 'Chờ xác nhận',
-                    nhanvien: curentAccount._id
+                    nhanvien: curentAccount.user_id
                 }
             })
             setBill(res.data.data)
@@ -165,7 +165,7 @@ function AllOrder(props) {
         const temp = filterBill.filter(element => filterBill.includes(element));
         setBill(temp)
         await axios.put(`http://localhost:5000/api/bill/${id}`, {
-            sdtnhanvien : '0'
+            sdtnhanvien: '0'
         })
             .then((res) => {
                 toast('Cập nhật thành công.', {
@@ -238,7 +238,7 @@ function AllOrder(props) {
                     </div>
                 </Col>
             </Row>
-            <div  style={{ overflowX: "scroll", whiteSpace: "nowrap" }} >
+            <div style={{ overflowX: "scroll", whiteSpace: "nowrap" }} >
                 <table className="table table-bordered">
                     <thead>
                         <tr className="table-secondary text-center">

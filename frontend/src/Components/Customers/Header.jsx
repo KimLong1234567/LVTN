@@ -48,7 +48,7 @@ function Header(props) {
 
                         :
                         <Nav.Item>
-                            <Nav.Link eventKey="link-4" as={NavLink} to={'/login'}>Đăng nhập </Nav.Link>
+                            <Nav.Link eventKey="link-4" as={NavLink} to={'/login'}>Login </Nav.Link>
                         </Nav.Item>
                 }
             </Nav>

@@ -66,7 +66,7 @@ function Contact(props) {
                         <h2 className='text-uppercase text-info'>About us <Icon icon={faCircleInfo} /></h2>
                         <hr />
                         <div className='text-start'>
-                            <p> <Icon icon={faUserTie} /> Lâm Kim Long DI19V7A8 2019-2023</p>
+                            <p> <Icon icon={faUserTie} /> Lâm Kim Long DI19V7F3 2019-2023</p>
                             <p> <Icon icon={faPhone} /> 0912 907 682</p>
                             <p> <Icon icon={faLocation} /> Khu 2, Đ. 3/2, P. Xuân Khánh, Q. Ninh Kiều, TP. CT</p>
                             <p> <Icon icon={faAt} /> LongB1910403@student.ctu.edu.vn</p>
@@ -88,38 +88,38 @@ function Contact(props) {
                         <div className='text-start'>
                             <Form>
                                 <Form.Group className="mb-3" controlId="exampleForm.ControlInput1">
-                                    <Form.Label>Họ tên</Form.Label>
-                                    <Form.Control type="text" placeholder='Họ tên' name='lh_name' onChange={onchange} required />
+                                    <Form.Label>Name:</Form.Label>
+                                    <Form.Control type="text" placeholder='Name' name='lh_name' onChange={onchange} required />
                                 </Form.Group>
 
                                 <Form.Group className="mb-3" controlId="exampleForm.ControlInput1">
-                                    <Form.Label>Email</Form.Label>
-                                    <Form.Control type="email" placeholder='Email của bạn' name='lh_email' onChange={onchange} required />
+                                    <Form.Label>Email:</Form.Label>
+                                    <Form.Control type="email" placeholder='Email' name='lh_email' onChange={onchange} required />
                                 </Form.Group>
 
                                 <Form.Group className="mb-3" controlId="exampleForm.ControlInput1">
-                                    <Form.Label>Điện thoại</Form.Label>
-                                    <Form.Control type="text" placeholder='Số điện thoại liên lạc' name='lh_sdt' onChange={onchange} required />
+                                    <Form.Label>Phone:</Form.Label>
+                                    <Form.Control type="text" placeholder='Phone' name='lh_sdt' onChange={onchange} required />
                                 </Form.Group>
 
                                 <Form.Group className="mb-3" controlId="exampleForm.ControlInput1">
-                                    <Form.Label>Địa chỉ</Form.Label>
-                                    <Form.Control type="text" placeholder='Địa chỉ liên hệ' name='lh_address' onChange={onchange} required />
+                                    <Form.Label>Address:</Form.Label>
+                                    <Form.Control type="text" placeholder='Address' name='lh_address' onChange={onchange} required />
                                 </Form.Group>
 
                                 <Form.Group className="mb-3" controlId="exampleForm.ControlTextarea1">
-                                    <Form.Label>Nội dung cần hỗ trợ</Form.Label>
-                                    <Form.Control as="textarea" rows={4} placeholder="Nội dung cần tư vấn" name='lh_content' onChange={onchange} />
+                                    <Form.Label>Message:</Form.Label>
+                                    <Form.Control as="textarea" rows={4} placeholder="Message" name='lh_content' onChange={onchange} />
                                 </Form.Group>
                                 <Form.Group className="mb-3" controlId="formBasicPassword">
-                                    <Form.Label>Đính kèm ảnh</Form.Label>
+                                    <Form.Label>Image</Form.Label>
                                     <Form.Control type="file"
                                         multiple
                                         name="lh_img"
                                         onChange={changeFile}
                                     />
                                 </Form.Group>
-                                <Button variant='danger' onClick={() => addFeedback()}>Gửi yêu cầu</Button>
+                                <Button variant='danger' onClick={() => addFeedback()}>Send</Button>
                             </Form>
                         </div>
                     </Col>

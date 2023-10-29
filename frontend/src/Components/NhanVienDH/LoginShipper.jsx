@@ -4,7 +4,7 @@ import { Link, useNavigate } from "react-router-dom";
 import axios from 'axios';
 import { ToastContainer, toast } from "react-toastify";
 function LoginShipper(props) {
-    const [Account, setAccount] = useState({ email: "", password: "" });
+    const [Account, setAccount] = useState({ nv_email: "", nv_password: "" });
     const Navigate = useNavigate();
     const [error, setError] = useState("")
     const onChange = (e) => {
@@ -12,12 +12,31 @@ function LoginShipper(props) {
     }
     const onSubmit = async (e) => {
         axios
-            .post('http://localhost:5000/api/admin/login', {
-                email: Account.email,
-                password: Account.password,
+            .post('http://localhost:5000/api/admins/login', {
+                nv_email: Account.nv_email,
+                nv_password: Account.nv_password,
             })
             .then((res) => {
-                if (res.data.chucvu === '6409a81c84766904c46cec8d') {
+                if (res.data.data === 'signed' && res.data.user) {
+                    console.log('Logged in successfully');
+                    // console.log('User info:', res.data.user);
+
+                    const setCookie = (name, value, days) => {
+                        const expirationDate = new Date();
+                        expirationDate.setTime(expirationDate.getTime() + days * 24 * 60 * 60 * 1000);
+                        const expires = "expires=" + expirationDate.toUTCString();
+                        document.cookie = name + "=" + value + ";" + expires + ";path=/";
+                    };
+
+                    // const admin_name = Account.nv_name; // Đổi thành giá trị thực tế
+                    const id_kh = res.data.user.nv_id; // Đổi thành giá trị thực tế
+                    const name = res.data.user.nv_hoten; // Đổi thành giá trị thực tế
+                    // const sdt = "example_phone_number"; // Đổi thành giá trị thực tế
+                    console.log(id_kh, name);
+                    // Set các cookie
+                    setCookie("userId", id_kh, 1); // Tổi 1 ngày
+                    setCookie("userName", name, 1); // Tổi 1 ngày
+                    // setCookie("userPhone", sdt, 1); // Tổi 1 ngày
                     toast.success('Đăng nhập thành công.', {
                         position: "top-center",
                         autoClose: 2000,
@@ -48,7 +67,7 @@ function LoginShipper(props) {
                 })
                 setTimeout(
                     function () {
-                       
+
                     },
                     3000
                 );
@@ -66,7 +85,7 @@ function LoginShipper(props) {
                                 <div className="col-12 col-md-8 col-lg-6 col-xl-5">
                                     <div
                                         className="card text-white"
-                                        style={{ borderRadius: "1rem", backgroundColor:"rgb(45,211,92)" , border:"10px"}}
+                                        style={{ borderRadius: "1rem", backgroundColor: "rgb(45,211,92)", border: "10px" }}
                                     >
                                         <div className="card-body p-5 text-center">
                                             <div className="mb-md-5 mt-md-4 pb-5">
@@ -77,7 +96,7 @@ function LoginShipper(props) {
                                                 <div className="form-outline form-white mb-4">
                                                     <input
                                                         type="email"
-                                                        name="email"
+                                                        name="nv_email"
                                                         className="form-control form-control-lg"
                                                         placeholder="Email"
                                                         onChange={onChange}
@@ -86,7 +105,7 @@ function LoginShipper(props) {
                                                 <div className="form-outline form-white mb-4">
                                                     <input
                                                         type="password"
-                                                        name="password"
+                                                        name="nv_password"
                                                         placeholder="password"
                                                         className="form-control form-control-lg"
                                                         onChange={onChange}

@@ -30,16 +30,16 @@ import {
     faProductHunt
 } from "@fortawesome/free-brands-svg-icons"
 const ADMIN_SIDEBAR = [
-    { icon: faChartLine, name: 'Tổng Quan', to: '/admin' },
+    { icon: faChartLine, name: 'Overview', to: '/admin' },
     {
-        icon: faCalendarDays, name: 'Thống Kê ', children: [
-            { icon: faClockRotateLeft, name: 'Lợi nhuận theo thời gian', to: '/admin/profitovertime' },
-            { icon: faProductHunt, name: 'Lợi nhuận theo sản phẩm', to: '/admin/profitbyproduct' },
+        icon: faCalendarDays, name: 'Statistical', children: [
+            { icon: faClockRotateLeft, name: 'Profit over time', to: '/admin/profitovertime' },
+            { icon: faProductHunt, name: 'Profit by product', to: '/admin/profitbyproduct' },
         ]
     },
     {
-        icon: faBarsStaggered, name: 'Quản Lý Danh Mục', children: [
-            { icon: faCaretRight, name: 'Loại sản phẩm', to: '/admin/category' },
+        icon: faBarsStaggered, name: 'Category Management', children: [
+            { icon: faCaretRight, name: 'Product type', to: '/admin/category' },
         ]
     },
     {
@@ -157,9 +157,9 @@ function Sidebar(props) {
                         {/* su dung user[0] vi nhan data tu backend dang [0,[]]    */}
                         <img src={`/image/Avt/${user[0].nv_avt}`} alt='...' className='mb-4' style={{ borderRadius: "50%", width: "50px" }} />
                         <div className='text-white text-start mx-2'>
-                            <span className='h6'>Họ tên: {user[0].nv_hoten}</span>
+                            <span className='h6'>Name: {user[0].nv_hoten}</span>
                             <br></br>
-                            <span > Tài khoản:{user[0].nv_email} </span>
+                            <span>User:{user[0].nv_email} </span>
                         </div>
                     </div>
                     {

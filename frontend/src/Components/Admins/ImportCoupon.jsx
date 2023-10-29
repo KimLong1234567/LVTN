@@ -55,7 +55,6 @@ function ImportCoupon(props) {
     }, [refresh])
     useEffect(() => {
         setTotalValue(importProducts.reduce((prev, current) => prev + current.sp_sl * current.sp_gianhap, 0))
-
     }, [importProducts])
 
     function showContent(product) {
