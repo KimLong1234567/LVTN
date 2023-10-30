@@ -1,4 +1,4 @@
-import React, { useLayoutEffect, useState } from 'react';
+import React, { useEffect, useLayoutEffect, useState } from 'react';
 import { Container, Row, Col, Form, Button, Collapse } from 'react-bootstrap';
 import axios from 'axios';
 import { FontAwesomeIcon as Icon } from '@fortawesome/react-fontawesome';
@@ -13,7 +13,11 @@ function Cart(props) {
     const [products, setProducts] = useState([])
     const [refresh, setRefresh] = useState(0)
     const [infoBill, setInfoBill] = useState({})
-    const [address, setAddress] = useState()
+    //dia chi
+    const [address, setAddress] = useState({ dh_address: '' })
+    const [dchi, setDchi] = useState([]);
+    const [newAddress, setNewAddress] = useState('');// Biến để lưu địa chỉ mới
+    const [selectedAddress, setSelectedAddress] = useState('');
     const [open, setOpen] = useState(false);
     // thanh toán 
     const [show, setShow] = useState(false);
@@ -62,9 +66,19 @@ function Cart(props) {
     }
     const onChange = (e) => {
         const dh_address = e.target.value;
-        setAddress({ ...address, dh_address: dh_address })
+        setAddress({ dh_address })
+        setNewAddress(''); // Đặt giá trị địa chỉ mới về trống khi người dùng chọn từ danh sách
+        setSelectedAddress(dh_address);
     }
-    console.log(infoBill);
+    const onNewAddressChange = (e) => {
+        const newAddr = e.target.value;
+        setAddress({ dh_address: newAddr });
+        setNewAddress(newAddr); // Lưu giá trị địa chỉ mới
+        setSelectedAddress(newAddr); // Cập nhật selectedAddress khi người dùng nhập địa chỉ mới
+        console.log(newAddress);
+    }
+    console.log(selectedAddress);
+    // console.log(infoBill);
     function buttonPay(text) {
         if (text === 'Pay online') {
             return (
@@ -111,14 +125,23 @@ function Cart(props) {
             )
         }
     }
-    console.log(address);
+    useEffect(() => {
+        axios.get(`http://localhost:5000/api/dh/${curentAccount.user_id}`)
+            .then((res) => {
+                const response = res.data.data;
+                console.log(response);
+                setDchi(response);
+                console.log(dchi);
+            })
+        // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, [refresh], [dchi])
     useLayoutEffect(() => {
         async function fecthData() {
             const res = ((await axios.get(`http://localhost:5000/api/orders/user/orders/${curentAccount.user_id}`, {
                 params: { idCustomer: curentAccount.user_id }
             }))).data.data
             setProducts(res)
-            console.log(products);
+            // console.log(products);
         }
         fecthData()
         // eslint-disable-next-line react-hooks/exhaustive-deps
@@ -210,7 +233,7 @@ function Cart(props) {
             totalValue,
             totalUnit,
         };
-        console.log(Bill);
+        // console.log(Bill);
         return Bill;
 
     };
@@ -222,8 +245,8 @@ function Cart(props) {
             const DetailBill = products.map((product) => {
                 const sp_code = product.sp_code;
                 const gh_sl = product.gh_sl;
-
-                return { sp_code, gh_sl };
+                const sp_price = product.sp_price;
+                return { sp_code, gh_sl, sp_price };
             });
             return DetailBill;
         } else {
@@ -239,7 +262,7 @@ function Cart(props) {
             kh_id: Bill.user_id,
             dh_total: Bill.totalValue,
             dh_sl: Bill.totalUnit,
-            dh_address: address.dh_address,
+            dh_address: selectedAddress,
         }
         // console.log(DetailBill);
         axios
@@ -287,7 +310,7 @@ function Cart(props) {
     }
 
 
-
+    console.log(dchi);
     return (
         <Container fluid className='padding-header'>
             <ToastContainer />
@@ -322,12 +345,17 @@ function Cart(props) {
                             <Form>
                                 <Form.Group className="mb-3" controlId="exampleForm.ControlInput1">
                                     <Form.Label>Address </Form.Label>
-                                    <Form.Select aria-label="Default select example" name='dh_address' onChange={onchange}>
-                                        {products.dh_adress !== undefined ?
-                                            products?.map((item, idx) => (
-                                                <option value={item.dh_adress} key={idx}>{item.dh_adress}</option>
-                                            )) : <option>You not have address for shipping</option>
-                                        }
+                                    <Form.Select aria-label="Default select example" name='dh_address' onChange={onChange}>
+                                        <option> --- Select Address ---</option>
+                                        {dchi.length > 0 ? (
+                                            dchi.map((item, idx) => (
+                                                <option value={item.dh_address} key={idx}>
+                                                    {item.dh_address}
+                                                </option>
+                                            ))
+                                        ) : (
+                                            <option>You do not have an address for shipping</option>
+                                        )}
                                     </Form.Select>
                                 </Form.Group>
                             </Form>
@@ -343,7 +371,7 @@ function Cart(props) {
                                 <Collapse in={open}>
                                     <Form.Group className="mb-3" controlId="exampleForm.ControlInput1" id="example-collapse-text">
                                         <Form.Label>Address</Form.Label>
-                                        <Form.Control type="text" placeholder='Input new address' name='dh_adress' onChange={onChange} />
+                                        <Form.Control type="text" placeholder='Input new address' name='dh_adress' onChange={onNewAddressChange} value={newAddress} />
                                     </Form.Group>
                                 </Collapse>
 

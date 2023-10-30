@@ -18,24 +18,45 @@ function Login(props) {
             })
             .then((res) => {
                 if (res.data.data === 'signed' && res.data.admin) {
+                    const nv = res.data.admin;
                     console.log(res.data.admin);
-                    console.log('Logged in successfully');
-                    toast.success('Đăng nhập thành công.', {
-                        position: "top-center",
-                        autoClose: 2000,
-                        closeOnClick: true,
-                        pauseOnHover: true,
-                        draggable: true,
-                        progress: undefined,
-                        theme: "colored",
-                    })
-                    setTimeout(
-                        function () {
-                            localStorage.setItem("admin", JSON.stringify({ ...res.data.admin }))
-                            Navigate("/admin")
-                        },
-                        3000
-                    );
+                    if (nv.cv_id === 1) {
+                        console.log('Logged in successfully');
+                        toast.success('Đăng nhập thành công.', {
+                            position: "top-center",
+                            autoClose: 2000,
+                            closeOnClick: true,
+                            pauseOnHover: true,
+                            draggable: true,
+                            progress: undefined,
+                            theme: "colored",
+                        })
+                        setTimeout(
+                            function () {
+                                localStorage.setItem("admin", JSON.stringify({ ...res.data.admin }))
+                                Navigate("/admin")
+                            },
+                            3000
+                        );
+                    }
+                    else {
+                        toast.info('employee do not login here', {
+                            position: "top-center",
+                            autoClose: 2000,
+                            closeOnClick: true,
+                            pauseOnHover: true,
+                            draggable: true,
+                            progress: undefined,
+                            theme: "colored",
+                        })
+                        setTimeout(
+                            function () {
+                                // localStorage.setItem("shipper", JSON.stringify({ ...res.data.admin }))
+                                Navigate("/admin/login")
+                            },
+                            3000
+                        );
+                    }
 
                 }
                 else {

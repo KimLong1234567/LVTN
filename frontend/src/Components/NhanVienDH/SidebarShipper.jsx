@@ -24,9 +24,9 @@ function Sidebar(props) {
                 <div className='d-flex'>
                     <img src={`/image/Avt/${curent.nv_avt}`} alt='...' className='mb-4' style={{ borderRadius: "50%", width: "50px" }} />
                     <div className='text-white text-start mx-2'>
-                        <span className='h6'>Họ tên: {curent.nv_hoten}</span>
+                        <span className='h6'>Name: {curent.nv_hoten}</span>
                         <br></br>
-                        <span > Tài khoản: {curent.nv_email}</span>
+                        <span > Email: {curent.nv_email}</span>
                     </div>
                 </div>
                 <div>

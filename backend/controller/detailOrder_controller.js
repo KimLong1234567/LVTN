@@ -37,10 +37,10 @@ const controller = {
             console.log(carts);
             // Lặp qua danh sách sản phẩm và thêm từng sản phẩm vào chi tiết phiếu nhập
             for (var cart of carts) {
-                const { sp_code, gh_sl } = cart;
+                const { sp_code, gh_sl, sp_price } = cart;
 
-                const sql = "INSERT INTO ctdh (dh_id, sp_code, ctdh_sl, ctdh_create) VALUES (?,?,?,?)";
-                await pool.query(sql, [dh_id, sp_code, gh_sl, ctdh_create]);
+                const sql = "INSERT INTO ctdh (dh_id, sp_code, ctdh_sl, ctdh_create, sp_price) VALUES (?,?,?,?,?)";
+                await pool.query(sql, [dh_id, sp_code, gh_sl, ctdh_create, sp_price]);
             }
 
             res.json({

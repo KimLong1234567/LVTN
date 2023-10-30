@@ -70,6 +70,8 @@ const controller = {
             const sql = "INSERT INTO donhang (dh_pay, dh_total, sp_code, dh_create, kh_id, dh_sl, dh_address) VALUES (?,?,?,?,?,?,?)"
             const [result] = await pool.query(sql, [dh_pay, dh_total, sp_code, dh_create, kh_id, dh_sl, dh_address])
             const dh_id = result.insertId;
+            const sqla = "UPDATE cart SET status = 1 WHERE kh_id = ?"
+            await pool.query(sqla, [kh_id]);
             console.log(dh_id);
             res.json({
                 data: { dh_id }

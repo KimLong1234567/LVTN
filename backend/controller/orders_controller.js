@@ -87,7 +87,7 @@ const controller = {
     selectInCart: async (req, res) => {
         try {
             const { id } = req.params
-            const [rows, fields] = await pool.query("SELECT * FROM cart AS c, products AS p WHERE c.sp_code = p.sp_code AND c.kh_id = ?", [id])
+            const [rows, fields] = await pool.query("SELECT * FROM cart AS c, products AS p WHERE c.sp_code = p.sp_code AND c.kh_id = ? AND c.status = 0", [id])
             res.json({
                 data: rows
             })
