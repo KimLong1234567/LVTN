@@ -110,17 +110,6 @@ function Products(props) {
                                 </div>
                                 <span className=''>{item.sp_describe}</span>
                             </Card.Subtitle>
-                            <div className='rounded bg-light mt-2 mb-2 fw-bold' style={{ width: '150px' }}>
-                                {/* <FontAwesomeIcon icon={faCheck} /> &nbsp;{item.color} */}
-                            </div>
-                            <div className='d-flex flex-row'>
-                                <div className='rounded bg-light me-3 fw-bold' style={{ width: '120px' }}>
-                                    {/* <FontAwesomeIcon icon={faCheck} /> &nbsp;{item.loaiso} */}
-                                </div>
-                                <div className='rounded bg-light fw-bold' style={{ width: '100px' }}>
-                                    {/* <FontAwesomeIcon icon={faCheck} /> &nbsp;{item.wieght} */}
-                                </div>
-                            </div>
                         </Card.Body>
                         <Link className="text-primary fw-bold text-center" to={`/detail/${item.sp_id}`}>
                             <Card.Title className='footer-card'>
@@ -147,17 +136,6 @@ function Products(props) {
                                 </div>
                                 <span className=''>{item.sp_describe}</span>
                             </Card.Subtitle>
-                            <div className='rounded bg-light mt-2 mb-2 fw-bold' style={{ width: '150px' }}>
-                                {/* <FontAwesomeIcon icon={faCheck} /> &nbsp;{item.color} */}
-                            </div>
-                            <div className='d-flex flex-row'>
-                                <div className='rounded bg-light me-3 fw-bold' style={{ width: '120px' }}>
-                                    {/* <FontAwesomeIcon icon={faCheck} /> &nbsp;{item.loaiso} */}
-                                </div>
-                                <div className='rounded bg-light fw-bold' style={{ width: '100px' }}>
-                                    {/* <FontAwesomeIcon icon={faCheck} /> &nbsp;{item.wieght} */}
-                                </div>
-                            </div>
                         </Card.Body>
                         <Card.Title className='footer-card'>
                             <Link className="text-danger fw-bolder" to={`/detail/${item.sp_id}`} style={{ pointerEvents: "none" }}>sold out</Link>
@@ -185,18 +163,18 @@ function Products(props) {
     useEffect(() => {
         if (sort === 'Từ thấp đến cao') {
             axios
-                .get('http://localhost:5000/api/products')
+                .get('http://localhost:5000/api/products/low/a')
                 .then((res) => {
-                    const temp = (res?.data?.data?.filter((e) => (e.deleted !== true))).sort((a, b) => (a.price - b.price))
+                    const temp = res.data.data;
                     setProducts(temp)
                 })
         }
         else if (sort === "Từ cao đến thấp") {
             axios
-                .get('http://localhost:5000/api/products')
+                .get('http://localhost:5000/api/products/high/b')
                 .then((res) => {
                     // console.log(res);
-                    const temp = (res?.data?.data?.filter((e) => (e.deleted !== true))).sort((a, b) => (b.price - a.price))
+                    const temp = res.data.data;
                     setProducts(temp)
                 })
         }
@@ -233,7 +211,7 @@ function Products(props) {
     return (
         <div >
             <video controls autoPlay muted loop preload='auto' className='w-100'>
-                <source src='/image/Banner/videodemo.mp4' type='video/mp4' />
+                <source src='/image/Banner/videodemo1.mp4' type='video/mp4' />
             </video>
             <Container fluid>
                 <Row className='d-flex mt-4 pb-4 justify-content-center'>
@@ -267,28 +245,28 @@ function Products(props) {
                                     }} />
                                 </Col>
                                 <Col sm={6}>
-                                    <Form.Check inline type='radio' label="High to low" name='sp_price' value={''} onChange={(e) => {
+                                    <Form.Check inline type='radio' label="High to low" name='sp_price' value={'Từ cao đến thấp'} onChange={(e) => {
                                         setSort(e.target.value)
 
                                     }} />
                                 </Col>
                                 <Col sm={6}>
+                                    <Form.Check inline type='radio' label="Min 10$" value={10} name='sp_price' onChange={setPrice} />
+                                </Col>
+                                <Col sm={6}>
+                                    <Form.Check inline type='radio' label=" Min 20$" value={20} name='sp_price' onChange={setPrice} />
+                                </Col>
+                                <Col sm={6}>
+                                    <Form.Check inline type='radio' label=" Min 30$" value={30} name='sp_price' onChange={setPrice} />
+                                </Col>
+                                <Col sm={6}>
+                                    <Form.Check inline type='radio' label="Min 40$" value={40} name='sp_price' onChange={setPrice} />
+                                </Col>
+                                <Col sm={6}>
+                                    <Form.Check inline type='radio' label="Min 50$" value={50} name='sp_price' onChange={setPrice} />
+                                </Col>
+                                <Col sm={6}>
                                     <Form.Check inline type='radio' label="Min 100$" value={100} name='sp_price' onChange={setPrice} />
-                                </Col>
-                                <Col sm={6}>
-                                    <Form.Check inline type='radio' label=" Min 200$" value={200} name='sp_price' onChange={setPrice} />
-                                </Col>
-                                <Col sm={6}>
-                                    <Form.Check inline type='radio' label=" Min 300$" value={300} name='sp_price' onChange={setPrice} />
-                                </Col>
-                                <Col sm={6}>
-                                    <Form.Check inline type='radio' label="Min 400$" value={400} name='sp_price' onChange={setPrice} />
-                                </Col>
-                                <Col sm={6}>
-                                    <Form.Check inline type='radio' label="Min 500$" value={500} name='sp_price' onChange={setPrice} />
-                                </Col>
-                                <Col sm={6}>
-                                    <Form.Check inline type='radio' label="Min 1000$" value={1000} name='sp_price' onChange={setPrice} />
                                 </Col>
                             </Row>
                         </div>

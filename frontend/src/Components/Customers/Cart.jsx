@@ -370,7 +370,7 @@ function Cart(props) {
                                 </Button>
                                 <Collapse in={open}>
                                     <Form.Group className="mb-3" controlId="exampleForm.ControlInput1" id="example-collapse-text">
-                                        <Form.Label>Address</Form.Label>
+                                        <Form.Label>New Address</Form.Label>
                                         <Form.Control type="text" placeholder='Input new address' name='dh_adress' onChange={onNewAddressChange} value={newAddress} />
                                     </Form.Group>
                                 </Collapse>

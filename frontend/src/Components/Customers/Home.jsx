@@ -67,38 +67,43 @@ function Home(props) {
                 <Carousel>
                     <Carousel.Item>
                         <img
+                            height={700}
                             className="d-block w-100"
-                            src="/image/Banner/vinfast.jpg"
+                            src="/image/Banner/banner1.jpg"
                             alt="First slide"
                         />
-                        <Carousel.Caption className='info-banner'>
-                            <h1>VinFast</h1>
-                            <p>The company was founded in 2017 by Vingroup.The company designed its models with the help of Pininfarina, BMW and Magna Steyr and participated in the 2018 Paris Motor Show.VinFast claims it will be the first volume automotive manufacturer in Vietnam as well as the first Vietnamese automaker to participate in a major international auto show.</p>
+                        <Carousel.Caption className='info-banner' style={{ color: "black" }}>
+                            <h1>Furina</h1>
+                            <p>For over 90 years, we've been guided by the belief that pets and people are better together.</p>
+                            <p>The reason we're so invested in the quality of our food is because we love pets as much as you do. You'll find pets in our homes, and even sitting by our feet as we work in our offices.
+                                Our passion for pets goes beyond pushing pet nutrition forward, and into forging partnerships in the pet welfare world and raising awareness of what pets truly need. After all, we've seen firsthand how powerful the bond with a pet can be, and the many unique ways that pets can strengthen our families and bring our communities closer.</p>
                         </Carousel.Caption>
                     </Carousel.Item>
                     <Carousel.Item>
                         <img
+                            height={700}
                             className="d-block w-100"
-                            src="/image/Banner/maybach.jpg"
+                            src="/image/Banner/banner2.jpg"
                             alt="Second slide"
                         />
 
                         <Carousel.Caption className='info-banner'>
-                            <h1>Maybach</h1>
-                            <p>Wilhelm Maybach was technical director of the Daimler-Motoren-Gesellschaft (DMG) until he left in 1907. On 23 March 1909, he founded the new company, Luftfahrzeug-Motorenbau GmbH (literally "Aircraft Engine Building Company"), with his son Karl Maybach as director.</p>
+                            <h1>Fritz Aquatics</h1>
+                            <p>Fritz Aquatics has helped serve professional aquarists for over 30 years. We work with professionals from marine biologists and zoologists to transhippers and large retail destinations all over the world to help them optimize the lives of their fish.</p>
                         </Carousel.Caption>
                     </Carousel.Item>
                     <Carousel.Item>
                         <img
+                            height={700}
                             className="d-block w-100"
-                            src="/image/Banner/lambogini.jpg"
+                            src="/image/Banner/banner3.jpg"
                             alt="Third slide"
                         />
 
-                        <Carousel.Caption className='info-banner'>
-                            <h1>Lamborghini</h1>
+                        <Carousel.Caption className='info-banner' style={{ color: "black" }}>
+                            <h1>Stella & Chewy's </h1>
                             <p>
-                                Launched on 28 February 2011 at the Geneva Motor Show, five months after its initial unveiling in Sant'Agata Bolognese, the vehicle, internally codenamed LB834, was designed to replace the then-decade-old Murciélago as the new flagship model.
+                                At Stella & Chewy's, we put pets first; behind everything we do is our mission to help dogs and cats thrive. Founded in 2003 by Marie Moody to help her own rescue dogs, we are the innovators of raw frozen and freeze dried raw pet food. Today, we are a full line manufacturer of premium pet food, focused on best-in-class nutrition with high-quality ingredients, offering a range of products including frozen raw, freeze dried raw, kibble, wet food, and treats. We are the fastest growing pet food brand in neighborhood pet and offer a flexible and dog-friendly office culture.
                             </p>
                         </Carousel.Caption>
                     </Carousel.Item>

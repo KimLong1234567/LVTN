@@ -45,12 +45,52 @@ const controller = {
         }
     },
     //no use
-    getByPnId: async (req, res) => {
+    getByUserId: async (req, res) => {
         try {
             const { id } = req.params
-            const [rows, fields] = await pool.query("SELECT * FROM donhang AS p, nhan_vien AS n, ctpnhap AS c, products AS pr WHERE p.pn_id = c.pn_id AND n.nv_id = p.nv_id AND p.pn_id = ? AND pr.sp_code = c.sp_code ", [id])
+            const [rows, fields] = await pool.query("SELECT d.dh_id, d.dh_sl, d.dh_total , d.dh_create, d.dh_pay, d.dh_status, d.dh_address, u.user_name, u.user_email, u.user_phone, c.ctdh_id, c.sp_code, c.ctdh_sl, p.sp_name, p.sp_image, c.ctdh_price FROM donhang AS d LEFT JOIN ctdh AS c ON d.dh_id = c.dh_id LEFT JOIN products AS p ON c.sp_code = p.sp_code LEFT JOIN users AS u ON d.kh_id = u.user_id WHERE u.user_id = ? ORDER BY d.dh_create DESC", [id])
+
+            // Tạo một đối tượng mới để lập trình lại cấu trúc dữ liệu
+            const result = [];
+            let currentDhId = -1;
+            let currentCtdhId = -1;
+            let currentRow = null;
+
+            for (const row of rows) {
+                if (row.dh_id !== currentDhId) {
+                    // Bắt đầu một đơn hàng mới
+                    currentRow = {
+                        dh_id: row.dh_id,
+                        dh_create: row.dh_create,
+                        dh_address: row.dh_address,
+                        dh_pay: row.dh_pay,
+                        dh_status: row.dh_status,
+                        dh_sl: row.dh_sl,
+                        dh_total: row.dh_total,
+                        user_name: row.user_name,
+                        user_email: row.user_email,
+                        user_phone: row.user_phone,
+                        ctdh: [],
+                    };
+                    result.push(currentRow);
+                    currentDhId = row.dh_id;
+                }
+
+                if (row.ctdh_id !== currentCtdhId) {
+                    // Thêm chi tiết sản phẩm vào đơn hàng
+                    currentRow.ctdh.push({
+                        ctdh_id: row.ctdh_id,
+                        sp_code: row.sp_code,
+                        ctdh_sl: row.ctdh_sl,
+                        sp_name: row.sp_name,
+                        sp_image: row.sp_image,
+                        ctdh_price: row.ctdh_price,
+                    });
+                    currentCtdhId = row.ctdh_id;
+                }
+            }
             res.json({
-                data: rows
+                data: result,
             })
 
         } catch (error) {

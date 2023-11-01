@@ -95,6 +95,34 @@ const controller = {
             })
         }
     },
+    getByLowToHighPrice: async (req, res) => {
+        try {
+            // const { id } = req.params
+            const [rows, fields] = await pool.query("(SELECT * FROM products AS p, cate AS c WHERE p.s_status = 1 AND p.cate_id = c.cate_id)ORDER BY sp_price ASC")
+            res.json({
+                data: rows
+            })
+        } catch (error) {
+            console.log(error);
+            res.json({
+                status: "error"
+            })
+        }
+    },
+    getByHighToLowPrice: async (req, res) => {
+        try {
+            // const { id } = req.params
+            const [rows, fields] = await pool.query("(SELECT * FROM products WHERE s_status = 1) ORDER BY sp_price DESC")
+            res.json({
+                data: rows
+            })
+        } catch (error) {
+            console.log(error);
+            res.json({
+                status: "error"
+            })
+        }
+    },
     create: async (req, res) => {
         try {
             const sp_image = req.file.filename;

@@ -14,16 +14,18 @@ function Bill(props) {
     const [feedback, setFeedback] = useState({})
     const [start, setStart] = useState(0)
 
-    const curentAccount = localStorage.currentAccount ? JSON.parse(localStorage.currentAccount) : null
+    // const curentAccount = localStorage.currentAccount ? JSON.parse(localStorage.currentAccount) : null
+    const curentAccount = localStorage["currentAccount"] ? JSON.parse(localStorage["currentAccount"]) : null
     useLayoutEffect(() => {
         async function fetchData() {
-            const res = await axios.get(`http://localhost:5000/api/bill/user/${curentAccount._id}`)
+            const res = await axios.get(`http://localhost:5000/api/dh/dh/${curentAccount.user_id}`)
             setBill(res.data.data)
             setFilterBill(res.data.data)
         }
         fetchData()
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [refresh])
+    console.log(bill);
     function filter(text) {
         setShow(text)
         var temp = []
@@ -63,7 +65,7 @@ function Bill(props) {
     }
 
     function renderButton(status, id) {
-        if (status === 'Đã giao hàng thành công') {
+        if (status === 2) {
             return (
                 <>
                     <td>
@@ -84,7 +86,7 @@ function Bill(props) {
                 </>
             )
         }
-        else if (status === 'Đơn hàng đã bị hủy bỏ') {
+        else if (status === 3) {
             return (
                 <>
                     <td>
@@ -105,7 +107,7 @@ function Bill(props) {
                 </>
             )
         }
-        else if (status === 'Chờ xác nhận') {
+        else if (status === 0) {
             return (
                 <>
                     <td>
@@ -126,7 +128,7 @@ function Bill(props) {
                 </>
             )
         }
-        else if (status === 'Đang giao hàng') {
+        else {
             return (
                 <>
                     <td>
@@ -149,22 +151,22 @@ function Bill(props) {
         }
     }
     function renderStatus(status) {
-        if (status === '2') {
+        if (status === 2) {
             return (
                 <td className='text-success fw-bold'>{status}</td>
             )
         }
-        else if (status === '3') {
+        else if (status === 3) {
             return (
 
                 <td className='text-danger fw-bold'>{status}</td>
 
             )
         }
-        else if (status === '0') {
+        else if (status === 0) {
             return (
-
-                <td className='text-warning fw-bold'>{status}</td>
+                // {status}
+                <td className='text-warning fw-bold'> Wait</td>
 
             )
         }
@@ -217,15 +219,15 @@ function Bill(props) {
             <ToastContainer />
             <Modal show={showModal !== false} onHide={() => setShowModal(false)} aria-labelledby="contained-modal-title-vcenter" centered>
                 <Modal.Header>
-                    <Modal.Title>Đánh giá dịch vụ</Modal.Title>
+                    <Modal.Title>Service reviews</Modal.Title>
                 </Modal.Header>
                 <Modal.Body>
                     <Form>
                         <Form.Group className="mb-3" controlId="exampleForm.ControlTextarea1">
-                            <Form.Control as="textarea" rows={4} placeholder="Vui lòng cho chúng tôi ý kiến về đơn hàng của bạn" name='content' onChange={onchange} />
+                            <Form.Control as="textarea" rows={4} placeholder="Please give us feedback about your order" name='content' onChange={onchange} />
                         </Form.Group>
                         <Form.Group className="mb-3" controlId="formBasicPassword">
-                            <Form.Label>Đính kèm ảnh</Form.Label>
+                            <Form.Label>Image feedback</Form.Label>
                             <Form.Control type="file"
                                 multiple
                                 name="image"
@@ -236,48 +238,48 @@ function Bill(props) {
                 </Modal.Body>
                 <Modal.Footer>
                     <Button variant="success" onClick={() => addFeedback()}>
-                        Thêm nhận xét
+                        Add feedback
                     </Button>
                 </Modal.Footer>
             </Modal>
             <div>
-                <h2 className='text-primary text-uppercase'>danh sách đơn đặt hàng</h2>
+                <h2 className='text-primary text-uppercase'>Bill List</h2>
                 <Row className='m-0'>
                     <h3 className='text-uppercase text-start text-success fw-bolder mx-2'>filter <Icon icon={faFilter} /></h3>
                     <Col xs={12} md={3}>
-                        <h4 style={{ color: 'tomato', fontWeight: "bolder" }}>Tất cả đơn hàng <input type='checkbox' onChange={() => { filter('') }} checked={show === ''} /> </h4>
+                        <h4 style={{ color: 'tomato', fontWeight: "bolder" }}>All Bill <input type='checkbox' onChange={() => { filter('') }} checked={show === ''} /> </h4>
+                    </Col>
+                    <Col xs={12} md={2}>
+                        <h4 className='text-warning'>Wait <input type='checkbox' onChange={() => { filter('0') }} checked={show === 'Chờ xác nhận'} /> </h4>
+                    </Col>
+                    <Col xs={12} md={2}>
+                        <h4 className='text-primary'>On going <input type='checkbox' onChange={() => { filter('1') }} checked={show === 'Đang giao hàng'} /> </h4>
                     </Col>
                     <Col xs={12} md={3}>
-                        <h4 className='text-warning'>Chờ xác nhận <input type='checkbox' onChange={() => { filter('0') }} checked={show === 'Chờ xác nhận'} /> </h4>
+                        <h4 className='text-success'>Has received products<input type='checkbox' onChange={() => { filter('2') }} checked={show === 'Đã giao hàng thành công'} /> </h4>
                     </Col>
                     <Col xs={12} md={2}>
-                        <h4 className='text-primary'>Đang giao hàng <input type='checkbox' onChange={() => { filter('1') }} checked={show === 'Đang giao hàng'} /> </h4>
-                    </Col>
-                    <Col xs={12} md={2}>
-                        <h4 className='text-success'>Đã nhận hàng <input type='checkbox' onChange={() => { filter('2') }} checked={show === 'Đã giao hàng thành công'} /> </h4>
-                    </Col>
-                    <Col xs={12} md={2}>
-                        <h4 className='text-danger'>Đã hủy <input type='checkbox' onChange={() => { filter('3') }} checked={show === 'Đơn hàng đã bị hủy bỏ'} /> </h4>
+                        <h4 className='text-danger'>Deleted <input type='checkbox' onChange={() => { filter('3') }} checked={show === 'Đơn hàng đã bị hủy bỏ'} /> </h4>
                     </Col>
                 </Row>
             </div>
             <table className="table table-bordered align-middle justify-content-center">
                 <thead>
                     <tr className="table-secondary text-center">
-                        <th scope="col">STT</th>
-                        <th scope="col">TÊN SẢN PHẨM</th>
-                        <th scope="col">HÌNH ẢNH</th>
-                        <th scope="col">SỐ LƯỢNG</th>
-                        <th scope="col">GIÁ TIỀN</th>
-                        <th scope="col">TÊN KHÁCH HÀNG</th>
-                        <th scope="col">ĐỊA CHỈ NHẬN HÀNG</th>
-                        <th scope="col">SĐT LIÊN HỆ</th>
-                        <th scope="col">THANH TOÁN</th>
-                        <th scope="col">TRẠNG THÁI ĐƠN HÀNG</th>
-                        <th scope="col">NGÀY ĐẶT</th>
+                        <th scope="col">No</th>
+                        <th scope="col">PRODUCT NAME</th>
+                        <th scope="col">IMAGE</th>
+                        <th scope="col">QUANTITY</th>
+                        <th scope="col">PRICE</th>
+                        <th scope="col">CUSTOMER NAME</th>
+                        <th scope="col">ADDRESS SHIP</th>
+                        <th scope="col">CUSTOMER PHONE</th>
+                        <th scope="col">TYPE BILL</th>
+                        <th scope="col">STATUS BILL</th>
+                        <th scope="col">DATE ORDER</th>
                         <th scope="col">SHIPPER</th>
-                        <th scope="col">SĐT</th>
-                        <th scope="col" colSpan={3}>THAO TÁC</th>
+                        <th scope="col">SHIPPER PHONE</th>
+                        <th scope="col" colSpan={3}>MOVE</th>
                     </tr>
                 </thead>
                 {
@@ -286,46 +288,48 @@ function Bill(props) {
                             {
                                 dataPage.map((value, idx) => {
                                     return [
-                                        value.products.map((item, i) => {
+                                        value.ctdh.map((item, i) => {
                                             return (
                                                 <tr key={i}>
                                                     <td>{i + 1}</td>
-                                                    <td>{item.id_product.name}</td>
+                                                    <td>{item.sp_name}</td>
                                                     <td>
-                                                        <img src={`/image/SanPham/${item.id_product.image}`} style={{ width: "100px" }} alt='...' />
+                                                        <img src={`/image/SanPham/${item.sp_image}`} style={{ width: "100px" }} alt='...' />
                                                     </td>
-                                                    <td>{item.quantity}</td>
-                                                    <td>{item.id_product.price}</td>
-                                                    <td>{value.name_customer !== undefined ? value.name_customer : value.customer.name}</td>
-                                                    <td>{value.adress !== undefined ? value.adress : value.customer.adress}</td>
-                                                    <td>{value.sdt !== undefined ? value.sdt : value.customer.sdt}</td>
-                                                    <td>{value.pay}</td>
-                                                    {renderStatus(value.status)}
-                                                    <td>{value.createdAt = new Date(value.createdAt).toLocaleString()}</td>
-                                                    <td>{value.nhanvien !== undefined ? value.nhanvien : "Hiện chưa có người giao"}</td>
-                                                    <td>{value.sdtnhanvien !== undefined ? value.sdtnhanvien : "Trống"}</td>
+                                                    <td>{item.ctdh_sl}</td>
+                                                    <td>{item.ctdh_price}</td>
+                                                    <td>{value.user_name !== undefined ? value.user_name : value.user_name}</td>
+                                                    <td>{value.dh_address !== undefined ? value.dh_address : value.dh_address}</td>
+                                                    <td>{value.user_phone !== undefined ? value.user_phone : value.user_phone}</td>
+                                                    <td>{value.dh_pay}</td>
+                                                    {renderStatus(value.dh_status)}
+                                                    <td>{value.dh_create = new Date(value.dh_create).toLocaleString()}</td>
+                                                    <td>{value.nv_hoten !== undefined ? value.nv_hoten : "There is currently no delivery person"}</td>
+                                                    <td>{value.nv_phone !== undefined ? value.nv_phone : "Empty"}</td>
                                                     <td colSpan={3}></td>
                                                 </tr>
                                             )
                                         }),
                                         <tr key={idx}>
-                                            <td colSpan={3} className='fw-bolder text-uppercase text-start'>Tổng tiền</td>
-                                            <td className='fw-bolder text-primary text-end' colSpan={10}>{new Intl.NumberFormat('vi').format(value.total)} $</td>
+                                            <td colSpan={3} className='fw-bolder text-uppercase text-end'>Sum quantity:</td>
+                                            <td colSpan={1} className='fw-bolder text-uppercase text-center'>{value.dh_sl}</td>
+                                            <td colSpan={8} className='fw-bolder text-uppercase text-end'>Sum: </td>
+                                            <td className='fw-bolder text-primary text-end' colSpan={1}>{new Intl.NumberFormat('vi').format(value.dh_total)} $</td>
                                             {
-                                                renderButton(value.status, value._id, value.total)
+                                                renderButton(value.dh_status, curentAccount.user_id, value.dh_total)
                                             }
                                         </tr>
                                     ]
                                 })
                             }
                         </tbody> : <tbody>
-                            <tr className='text-center fw-bolder text-danger h3'><td colSpan={12}>Hiện chưa có đơn hàng</td></tr>
+                            <tr className='text-center fw-bolder text-danger h3'><td colSpan={12}>Not have bill yet</td></tr>
                         </tbody>
                 }
             </table>
             <ReactPaginate
-                previousLabel="Trang trước"
-                nextLabel="Trang sau"
+                previousLabel="Previous page"
+                nextLabel="Next page"
                 breakLabel="..."
                 breakClassName="page-item"
                 breakLinkClassName="page-link"
