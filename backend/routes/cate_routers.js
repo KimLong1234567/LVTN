@@ -34,7 +34,8 @@ const controllerCate = require("../controller/cate_controller");
 
 // Define routes and their corresponding controller methods
 router.get("/", controllerCate.getAll); // Get all items
-router.get("/:id", controllerCate.getById); // Get item by ID
+router.get("/:id", controllerCate.getById);// Get item by ID
+router.put("/status/:id", controllerCate.updateStatus);
 router.post("/", upload.single('cate_img'), controllerCate.create); // Create a new item
 router.put("/:id", upload.single('cate_img'), controllerCate.update); // Update an item by ID
 router.put("/status/:id", controllerCate.updateStatus); // Update an item by ID

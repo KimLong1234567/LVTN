@@ -160,10 +160,27 @@ function Products() {
                 // Thực hiện các hành động khác khi xảy ra lỗi
             });
     };
-    const statusProducts = (id) => {
+    const statusProducts = (id, s_status) => {
         axios
-            .put(`http://localhost:5000/api/products/status/${id}`)
-            .then((res) => { })
+            .put(`http://localhost:5000/api/products/status/${id}`, { s_status })
+            .then((res) => {
+                toast.info('Update success.', {
+                    position: "top-center",
+                    autoClose: 2000,
+                    closeOnClick: true,
+                    pauseOnHover: true,
+                    draggable: true,
+                    progress: undefined,
+                    theme: "colored",
+                });
+
+                setTimeout(
+                    function () {
+                        setRefresh((prev) => prev + 1)
+                    },
+                    3000
+                );
+            })
         setRefresh((prev) => prev + 1);
     }
 
@@ -448,7 +465,7 @@ function Products() {
                                     <td>{product.sp_price}</td>
                                     <td>{product.sp_sl}</td>
                                     <td>
-                                        <Form.Check type="switch" id='custom-switch' onChange={() => { statusProducts(product.sp_id) }} checked={product.status} />
+                                        <Form.Check type="switch" id='custom-switch' onChange={() => { statusProducts(product.sp_id, product.s_status) }} checked={product.s_status === 1 ? true : false} />
                                     </td>
                                     <td className="text-center">
                                         <button

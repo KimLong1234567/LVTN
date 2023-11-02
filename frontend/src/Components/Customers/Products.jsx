@@ -124,7 +124,7 @@ function Products(props) {
             return (
                 <Col xs={12} md={6} sm={6} key={idx} className='g-3'>
                     <Card className='card cardProduct border-success border border-2' >
-                        <Card.Img variant="top" src={`/image/SanPham/${item.sp_image}`} className='w-100' />
+                        <Card.Img variant="top" src={`/image/SanPham/${item.sp_image}`} className='w-100' style={{ height: '430px' }} />
                         <Card.Body>
                             <Card.Title className='text-uppercase mt-3'>{item.sp_name}</Card.Title>
                             <Card.Subtitle className='text-line'>
@@ -146,7 +146,7 @@ function Products(props) {
         }
     }
     function renderType(item, idx) {
-        if (item.c_status) {
+        if (item.c_status === 1) {
             return (
                 <h5 key={idx} className='m-1 text-start text-uppercase type' >
                     <Link className=" text-dark" onClick={() => ProductType(item.cate_id)}><img src={`/image/Loai/${item.cate_img}`} alt='...' style={{ width: "50px" }} className='m-3' />{item.cate_name}</Link>

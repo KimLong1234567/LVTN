@@ -123,6 +123,28 @@ const controller = {
             })
         }
     },
+    updateStatus: async (req, res) => {
+        try {
+            const { id } = req.params;
+            const s_status = req.body.s_status;
+            console.log(req.body, s_status, id);
+            let rows;
+            if (s_status === 0) { //c_status la mong muon cua user nen cu update ko can kiem tra vi chi co 0 1
+                [rows] = await pool.query("UPDATE products SET s_status = 1 WHERE sp_id = ?", [id]);
+            }
+            else {
+                [rows] = await pool.query("UPDATE products SET s_status = 0 WHERE sp_id = ?", [id])
+            }
+            res.json({
+                data: rows
+            })
+        } catch (error) {
+            console.log(error);
+            res.json({
+                status: "error"
+            })
+        }
+    },
     create: async (req, res) => {
         try {
             const sp_image = req.file.filename;

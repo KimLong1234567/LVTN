@@ -53,7 +53,7 @@ function Home(props) {
                                 <span>{item.sp_describe}</span>
                             </Card.Text>
                             <Card.Title >
-                                <Link className="text-danger fw-bolder" to={`/detail/${item.sp_id}`} style={{ pointerEvents: "none" }}>Tạm hết hàng</Link>
+                                <Link className="text-danger fw-bolder" to={`/detail/${item.sp_id}`} style={{ pointerEvents: "none" }}>Sold out</Link>
                             </Card.Title>
                         </Card.Body>
                     </Card>

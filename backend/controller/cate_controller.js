@@ -84,9 +84,26 @@ const controller = {
         }
     },
     updateStatus: async (req, res) => {
-        const { id } = req.params;
-        const { status } = req.body;
-
+        try {
+            const { id } = req.params;
+            const c_status = req.body.c_status;
+            console.log(req.body, c_status, id);
+            let rows;
+            if (c_status === 0) { //c_status la mong muon cua user nen cu update ko can kiem tra vi chi co 0 1
+                [rows] = await pool.query("UPDATE cate SET c_status = 1 WHERE cate_id = ?", [id]);
+            }
+            else {
+                [rows] = await pool.query("UPDATE cate SET c_status = 0 WHERE cate_id = ?", [id])
+            }
+            res.json({
+                data: rows
+            })
+        } catch (error) {
+            console.log(error);
+            res.json({
+                status: "error"
+            })
+        }
     },
     delete: async (req, res) => {
         try {

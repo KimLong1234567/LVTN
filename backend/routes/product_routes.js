@@ -42,6 +42,7 @@ router.get("/name/:id", controller.getByName);
 // router.get("/user", controller.getAllUser); // Get all users
 router.get("/low/a", controller.getByLowToHighPrice);
 router.get("/high/b", controller.getByHighToLowPrice);
+router.put("/status/:id", controller.updateStatus);
 router.post("/", upload.single('sp_image'), controller.create); // Create a new item
 router.put("/:id", upload.single('sp_image'), controller.update); // Update an item by ID
 router.delete("/:id", controller.delete); // Delete an item by ID

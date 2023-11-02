@@ -9,7 +9,7 @@ function Header(props) {
     const Navigate = useNavigate();
     // const curentAdmin = localStorage.admin ? JSON.parse(localStorage.admin) : null
     const curentAdmin = localStorage["admin"] ? JSON.parse(localStorage["admin"]) : null
-    console.log(curentAdmin);
+    // console.log(curentAdmin);
     useEffect(() => {
         if (!curentAdmin) {
             Navigate("/admin/login")

@@ -12,19 +12,20 @@ function Oder(props) {
     const [refresh, setRefresh] = useState(0)
     const [listAccount, setListAccount] = useState([])
     const [showListAccount, setShowListAccount] = useState(false)
-    const curentAccount = localStorage.admin ? JSON.parse(localStorage.admin) : null
+    // const curentAccount = localStorage.admin ? JSON.parse(localStorage.admin) : null
+    const curentAccount = localStorage["admin"] ? JSON.parse(localStorage["admin"]) : null
 
     useLayoutEffect(() => {
         async function fetchData() {
-            await axios.get('http://localhost:5000/api/bill')
+            await axios.get('http://localhost:5000/api/dh/dhang/all')
                 .then((res) => {
-                    const temp = res.data.data.bill.filter((e) => (e.status !== 'Đã giao hàng thành công'))
+                    const temp = res.data.data.filter((e) => (e.status !== 2))
                     setBill(temp.reverse())
                     setFilterBill(temp)
                 })
-            await axios.get('http://localhost:5000/api/admin/nhanvien')
+            await axios.get('http://localhost:5000/api/admins/')
                 .then((res) => {
-                    setListAccount(res.data.data.nhanvien)
+                    setListAccount(res.data.data)
                 })
         }
         fetchData()
@@ -45,7 +46,7 @@ function Oder(props) {
         setBill(temp)
     }
     function renderButton(status, id) {
-        if (status === 'Đã giao hàng thành công') {
+        if (status === 2) {
             return (
                 <>
                     <td>
@@ -66,7 +67,7 @@ function Oder(props) {
                 </>
             )
         }
-        else if (status === 'Đơn hàng đã bị hủy bỏ') {
+        else if (status === 3) {
             return (
                 <>
                     <td>
@@ -87,16 +88,16 @@ function Oder(props) {
                 </>
             )
         }
-        else if (status === 'Chờ xác nhận') {
+        else if (status === 0) {
             return (
                 <>
                     <td>
-                        <button className='btn btn-outline-success' onClick={() => updateStatus(id, 'Đang giao hàng', curentAccount._id)}>
+                        <button className='btn btn-outline-success' onClick={() => updateStatus(id, 'Đang giao hàng', curentAccount.nv_id)}>
                             <Icon icon={faCheckDouble} />
                         </button>
                     </td>
                     <td>
-                        <button className='btn btn-outline-danger' onClick={() => updateStatus(id, 'Đơn hàng đã bị hủy bỏ', curentAccount._id)}>
+                        <button className='btn btn-outline-danger' onClick={() => updateStatus(id, 'Đơn hàng đã bị hủy bỏ', curentAccount.nv_id)}>
                             <Icon icon={faCircleXmark} />
                         </button>
                     </td>
@@ -209,13 +210,13 @@ function Oder(props) {
                     <h4 style={{ color: 'tomato', fontWeight: "bolder" }}>All Orders <input type='checkbox' onChange={() => { filter('') }} checked={show === ''} /> </h4>
                 </Col>
                 <Col xs={12} md={3}>
-                    <h4 className='text-warning'>Wait <input type='checkbox' onChange={() => { filter('Chờ xác nhận') }} checked={show === 'Chờ xác nhận'} /> </h4>
+                    <h4 className='text-warning'>Wait <input type='checkbox' onChange={() => { filter(0) }} checked={show === 'Chờ xác nhận'} /> </h4>
                 </Col>
                 <Col xs={12} md={3}>
-                    <h4 className='text-primary'>On Shipping <input type='checkbox' onChange={() => { filter('Đang giao hàng') }} checked={show === 'Đang giao hàng'} /> </h4>
+                    <h4 className='text-primary'>On Shipping <input type='checkbox' onChange={() => { filter(1) }} checked={show === 'Đang giao hàng'} /> </h4>
                 </Col>
                 <Col xs={12} md={3}>
-                    <h4 className='text-danger'>Delete <input type='checkbox' onChange={() => { filter('Đơn hàng đã bị hủy bỏ') }} checked={show === 'Đơn hàng đã bị hủy bỏ'} /> </h4>
+                    <h4 className='text-danger'>Delete <input type='checkbox' onChange={() => { filter(3) }} checked={show === 'Đơn hàng đã bị hủy bỏ'} /> </h4>
                 </Col>
                 <Col>
                     <div className='d-flex m-3 justify-content-center'>
@@ -246,35 +247,34 @@ function Oder(props) {
                                 <th scope="col">Reception Staff</th>
                                 <th scope="col">Staff's Phone</th>
                                 <th scope='col'>Status</th>
-                                <th scope="col" colSpan={3}>Move</th>
                             </tr>
                         </thead>
                         {
-                            dataPage !== undefined && dataPage.length !== 0 ?
+                            bill !== undefined && bill.length !== 0 ?
                                 <tbody>
                                     {
                                         dataPage.map((value, idx) => {
                                             return [
-                                                value.products.map((item, i) => {
+                                                value.ctdh.map((item, i) => {
                                                     return (
                                                         <tr key={i}>
                                                             <td>{i + 1}</td>
-                                                            <td>{item.id_product.name}</td>
+                                                            <td>{item.sp_name}</td>
                                                             <td>
-                                                                <img src={`/image/SanPham/${item.id_product.image}`} style={{ width: "100px" }} alt='...' />
+                                                                <img src={`/image/SanPham/${item.sp_image}`} style={{ width: "100px" }} alt='...' />
                                                             </td>
-                                                            <td>{item.quantity}</td>
-                                                            <td>{item.id_product.price}</td>
-                                                            <td>{value.name_customer !== undefined ? value.name_customer : value.customer.name}</td>
-                                                            <td>{value.adress !== undefined ? value.adress : value.customer.adress}</td>
-                                                            <td>{value.sdt !== undefined ? value.sdt : value.customer.sdt}</td>
-                                                            <td>{value.pay}</td>
-                                                            {renderStatus(value.status)}
-                                                            <td>{value.createdAt = new Date(value.createdAt).toLocaleString()}</td>
-                                                            {value.nhanvien !== undefined && value.sdtnhanvien !== undefined && value.sdtnhanvien !== '0' ?
+                                                            <td>{item.ctdh_sl}</td>
+                                                            <td>{item.ctdh_price}</td>
+                                                            <td>{value.user_name !== undefined ? value.user_name : value.user_name}</td>
+                                                            <td>{value.dh_address !== undefined ? value.dh_address : value.dh_address}</td>
+                                                            <td>{value.user_phone !== undefined ? value.user_phone : value.user_phone}</td>
+                                                            <td>{value.dh_pay}</td>
+                                                            {renderStatus(value.dh_status)}
+                                                            <td>{value.dh_create = new Date(value.dh_create).toLocaleString()}</td>
+                                                            {value.nv_hoten !== undefined && value.nv_phone !== undefined && value.nv_phone !== '0' ?
                                                                 <>
-                                                                    <td>{value.nhanvien}</td>
-                                                                    <td>{value.sdtnhanvien}</td>
+                                                                    <td>{value.nv_hoten}</td>
+                                                                    <td>{value.nv_phone}</td>
                                                                     <td>Received</td>
                                                                 </> :
                                                                 <>
@@ -283,14 +283,17 @@ function Oder(props) {
                                                                     <td>Wait</td>
                                                                 </>
                                                             }
-                                                            {renderButton(value.status, value._id)}
+
                                                         </tr>
                                                     )
 
                                                 }),
                                                 <tr key={idx} className='table-secondary'>
-                                                    <td colSpan={14} className='fw-bolder text-uppercase text-start'>Sum</td>
-                                                    <td className='fw-bolder text-primary text-center' colSpan={3}>{new Intl.NumberFormat('vi').format(value.total)} $</td>
+                                                    <td colSpan={3} className='fw-bolder text-uppercase text-end'>Sum quantity:</td>
+                                                    <td colSpan={1} className='fw-bolder text-uppercase text-center'>{value.dh_sl}</td>
+                                                    <td colSpan={6} className='fw-bolder text-uppercase text-end'>Sum</td>
+                                                    <td className='fw-bolder text-primary text-center' colSpan={1}>{new Intl.NumberFormat('vi').format(value.dh_total)} $</td>
+                                                    {renderButton(value.dh_status, value.dh_id)}
                                                 </tr>
                                             ]
                                         })
@@ -335,7 +338,7 @@ function Oder(props) {
                             listAccount?.map((item, i) => (
                                 <div key={i} className='d-flex'>
                                     <button disabled className='text-dark fw-bold'>{i + 1}</button>
-                                    <button className='border-0 btn btn-outline-info text-dark w-100 text-start m-1' onClick={() => { updateStatus(showListAccount, 'Wait for commit', item._id); setShowListAccount(false) }}>{item.hoten}</button>
+                                    <button className='border-0 btn btn-outline-info text-dark w-100 text-start m-1' onClick={() => { updateStatus(showListAccount, 'Wait for commit', item.nv_id); setShowListAccount(false) }}>{item.nv_hoten}</button>
                                 </div>
                             )) :
                             <div>

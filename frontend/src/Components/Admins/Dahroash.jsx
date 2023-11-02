@@ -7,9 +7,6 @@ import Chart from 'chart.js/auto';
 import { Badge } from 'react-bootstrap';
 function Dahroash(props) {
     const curentAdmin = localStorage.admin ? JSON.parse(localStorage.admin) : null
-    const [user, setUser] = useState([]);
-    const userId = getCookie("userId");
-    const [requested, setRequested] = useState(false);
     const Navigate = useNavigate()
     const [products, setProducts] = useState([])
     const [customer, setCustomer] = useState([])
@@ -18,22 +15,6 @@ function Dahroash(props) {
     const [totalValue, setTotalValue] = useState(0)
     const date = new Date().toLocaleDateString()
     var newoder = 0;
-    function getCookie(name) {
-        const cookieName = name + "=";
-        const decodedCookie = decodeURIComponent(document.cookie);
-        const cookieArray = decodedCookie.split(";");
-
-        for (let i = 0; i < cookieArray.length; i++) {
-            let cookie = cookieArray[i];
-            while (cookie.charAt(0) === " ") {
-                cookie = cookie.substring(1);
-            }
-            if (cookie.indexOf(cookieName) === 0) {
-                return cookie.substring(cookieName.length, cookie.length);
-            }
-        }
-        return "";
-    }
     if (curentAdmin === null) {
         Navigate('/admin/login')
     }
@@ -46,11 +27,10 @@ function Dahroash(props) {
             await axios.get('http://localhost:5000/api/users/')
                 .then((res) => {
                     setCustomer(res.data.data);
-                    setRequested(true);  // Đã gọi request
                 })
-            await axios.get('http://localhost:5000/api/bill')
+            await axios.get('http://localhost:5000/api/dh/dhang/all')
                 .then((res) => {
-                    const temp = res.data.data.filter((e) => (e.status === 'Chờ xác nhận'))
+                    const temp = res.data.data.filter((e) => (e.status === 0))
                     setOder(temp)
                     setTotalValue(res.data.total)
                 })
@@ -61,7 +41,7 @@ function Dahroash(props) {
         }
         loadData();
     }, [])
-    const count = oder?.filter((e) => ((e.createdAt = new Date(e.createdAt).toLocaleDateString()) === date))
+    const count = oder?.filter((e) => ((e.dh_create = new Date(e.dh_create).toLocaleDateString()) === date))
     newoder = count?.length
     const data = {
         labels: ['Sản phẩm', 'Đơn hàng mới',
@@ -89,9 +69,6 @@ function Dahroash(props) {
         ]
     }
     // Nếu chưa request hoặc chưa có dữ liệu, không hiển thị component
-    if (!requested || !user[0]) {
-        return null;
-    }
     return (
         <div className='boder-main'>
             <div className="bg-white align-items-center my-2 p-2 rounded-3">

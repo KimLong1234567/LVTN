@@ -163,7 +163,7 @@ function Category(props) {
         axios
             .put(`http://localhost:5000/api/cate/status/${id}`, { c_status })
             .then((res) => {
-                toast.info('Cập nhật thành công.', {
+                toast.info('Update success.', {
                     position: "top-center",
                     autoClose: 2000,
                     closeOnClick: true,
@@ -257,7 +257,7 @@ function Category(props) {
                                         <img src={`/image/Loai/${Type.cate_img}`} className="mb-2 mt-2" style={{ width: "150px" }} alt="..." />
                                     </td>
                                     <td>
-                                        <Form.Check type="switch" id='custom-switch' onChange={() => { statusType(Type.cate_id, Type.c_status) }} checked={Type.c_status === 0 ? true : false} />
+                                        <Form.Check type="switch" id='custom-switch' onChange={() => { statusType(Type.cate_id, Type.c_status) }} checked={Type.c_status === 1 ? true : false} />
                                     </td>
                                     <td className="text-center">
                                         <button
