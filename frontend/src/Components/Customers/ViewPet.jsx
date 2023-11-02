@@ -254,7 +254,7 @@ function ViewPet(props) {
                         <th scope="col">Pet service fee</th>
                         <th scope="col">Pet service date</th>
                         <th scope='col'>Status</th>
-                        <th scope="col" colSpan={3}>THAO TÁC</th>
+                        <th scope="col" colSpan={3}>Move</th>
                     </tr>
                 </thead>
                 {
@@ -276,15 +276,10 @@ function ViewPet(props) {
                                         <td>{item.p_s_fee !== undefined ? '0' : item.p_s_fee}</td>
                                         <td>{item.p_s_date !== undefined ? "till waitting" : item.p_s_date = new Date(item.p_s_date).toLocaleString()}</td>
                                         {renderStatus(item.p_status)}
-
+                                        {renderButton(item.p_status, item.p_id)}
                                     </tr>
                                 ))}
                             <tr>
-                                <td colSpan={2} className='fw-bolder text-uppercase text-start'>Sum</td>
-                                <td className='fw-bolder text-primary text-end' colSpan={9}>{new Intl.NumberFormat('vi').format(pet.total)} $</td>
-                                <td colSpan={3}>
-                                    {renderButton(pet.p_status, pet.p_id)}
-                                </td>
                             </tr>
                         </tbody >
                     ) : (

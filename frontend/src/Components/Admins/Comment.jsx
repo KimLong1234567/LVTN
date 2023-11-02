@@ -19,7 +19,7 @@ function Comment(props) {
         axios
             .delete(`http://localhost:5000/api/comments/${id}`)
             .then((res) => {
-                toast('Bình luận đã bị xóa.', {
+                toast('Comment deteled.', {
                     position: "top-center",
                     autoClose: 2000,
                     closeOnClick: true,
@@ -36,10 +36,26 @@ function Comment(props) {
                 );
             })
     }
-    function statusComments(id) {
+    function statusComments(id, b_status) {
         axios
-            .put(`http://localhost:5000/api/comment/status/${id}`)
+            .put(`http://localhost:5000/api/comments/status/${id}`, { b_status })
             .then((res) => {
+                toast.info('Update success.', {
+                    position: "top-center",
+                    autoClose: 2000,
+                    closeOnClick: true,
+                    pauseOnHover: true,
+                    draggable: true,
+                    progress: undefined,
+                    theme: "colored",
+                });
+
+                setTimeout(
+                    function () {
+                        setRefresh((prev) => prev + 1)
+                    },
+                    3000
+                );
             })
         setRefresh((prev) => prev + 1);
     }
@@ -75,7 +91,7 @@ function Comment(props) {
                                         <img src={`/image/SanPham/${item.sp_image}`} style={{ width: "150px" }} alt="..." />
                                     </td>
                                     <td>
-                                        <Form.Check type="switch" id='custom-switch' onChange={() => { statusComments(item._id) }} checked={item.status} />
+                                        <Form.Check type="switch" id='custom-switch' onChange={() => { statusComments(item.bl_id, item.b_status) }} checked={item.b_status === 0 ? true : false} />
                                     </td>
                                     <td>
                                         <button className="text-danger" onClick={() => deleteComment(item.bl_id)} >

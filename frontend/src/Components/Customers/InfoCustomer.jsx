@@ -57,7 +57,7 @@ function InfoCustomer(props) {
                 console.log(dataRes);
                 setUser(res.data.user[0]);
                 // setUpdateInfo(res.data.data);
-                toast.success('Cập nhật thành công.', {
+                toast.success('Update success.', {
                     position: "top-center",
                     autoClose: 2000,
                     closeOnClick: true,
@@ -99,7 +99,7 @@ function InfoCustomer(props) {
                                     </Form.Group>
                                     <Form.Group className="mb-3" >
                                         <Form.Label>Password</Form.Label>
-                                        <Form.Control type="password" placeholder={'Mật khẩu mới'} name='user_password' onChange={onchange} />
+                                        <Form.Control type="password" placeholder={'New password'} name='user_password' onChange={onchange} />
                                     </Form.Group>
 
                                     <Form.Group className="mb-3" >

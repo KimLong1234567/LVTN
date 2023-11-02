@@ -52,7 +52,7 @@ function Login(props) {
                         setTimeout(
                             function () {
                                 // localStorage.setItem("shipper", JSON.stringify({ ...res.data.admin }))
-                                Navigate("/admin/login")
+                                Navigate("/shipper")
                             },
                             3000
                         );

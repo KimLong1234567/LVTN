@@ -103,10 +103,10 @@ const controller = {
                         }
                         </style>
                         <div>
-                            <h3>Xin chào ${email}</h3>
-                            <p>Dưới đây là thông tin phản hồi từ chúng tôi đến bạn</p>
+                            <h3>Hi, ${email}</h3>
+                            <p>Here is what we had to say to you.</p>
                             <p>${updateData.lh_ph}<p>
-                            <h4>Petshop xin chân thành cảm ơn quý khách. Xin chúc quý khách hàng ngày càng thành công trong công việc, gặp nhiều may mắn và sức khỏe.</h4>
+                            <h4>Petshop is truly grateful. We wish our clients continued professional success, fortune, and health.</h4>
                         </div>
                     `
             };

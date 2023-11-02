@@ -260,6 +260,7 @@ WHERE
 -- DROP FOREIGN KEY donhang_ibfk_4;
 -- INSERT into admin (admin_name, admin_password) VALUES ("admin","admin"); 
 ALTER TABLE ctdh ADD sp_price double
+ALTER TABLE comments ADD b_status tinyint(1) DEFAULT 0
 
 INSERT INTO chuc_vu (cv_name, cv_luong) VALUES 
 ('admin', 9000000),

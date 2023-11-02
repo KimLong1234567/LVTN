@@ -113,7 +113,7 @@ function Details(props) {
         axios
             .get(`http://localhost:5000/api/comments/${id}`)
             .then((res) => {
-                setComments(res.data?.data?.filter((e) => (e.bl_status === 0)))
+                setComments(res.data?.data?.filter((e) => (e.b_status === 0)))
                 setDataLoaded(true);
             })
         // eslint-disable-next-line

@@ -30,7 +30,7 @@ function Dahroash(props) {
                 })
             await axios.get('http://localhost:5000/api/dh/dhang/all')
                 .then((res) => {
-                    const temp = res.data.data.filter((e) => (e.status === 0))
+                    const temp = res.data.data.filter((e) => (e.dh_status === 0))
                     setOder(temp)
                     setTotalValue(res.data.total)
                 })
@@ -44,11 +44,11 @@ function Dahroash(props) {
     const count = oder?.filter((e) => ((e.dh_create = new Date(e.dh_create).toLocaleDateString()) === date))
     newoder = count?.length
     const data = {
-        labels: ['Sản phẩm', 'Đơn hàng mới',
-            'Khách hàng', 'Nhân viên', 'Doanh thu / 10.000%'],
+        labels: ['Products', 'New Orders',
+            'Customer', 'Employee', 'Sales / 10.000%'],
         datasets: [
             {
-                label: 'Biểu đồ thể hiện trực quan cửa hàng',
+                label: 'The diagram shows the store in visual form',
                 backgroundColor: [
                     'rgba(255, 99, 132, 0.2)',
                     'rgba(255, 159, 64, 0.2)',
@@ -77,7 +77,7 @@ function Dahroash(props) {
                         <div className="card text-white  border border-3 border-primary">
                             <div className="card-body d-flex align-items-center bg-primary p-2">
                                 <div>
-                                    <p className="card-text mb-0">Sản phẩm</p>
+                                    <p className="card-text mb-0">Products</p>
                                     <h2 className="card-title">{products?.length}</h2>
                                 </div>
                             </div>
@@ -85,7 +85,7 @@ function Dahroash(props) {
                                 to="/admin/product"
                                 className="card-body d-block text-primary p-2 fw-bold"
                             >
-                                Xem chi tiết <i className="fa-solid fa-circle-right"></i>
+                                Detail <i className="fa-solid fa-circle-right"></i>
                             </Link>
                         </div>
                     </div>
@@ -93,7 +93,7 @@ function Dahroash(props) {
                         <div className="card text-white border border-3 border-success">
                             <div className="card-body d-flex align-items-center bg-success p-2">
                                 <div>
-                                    <p className="card-text mb-0">Khách hàng</p>
+                                    <p className="card-text mb-0">Customer</p>
                                     <h2 className="card-title">{customer?.length}</h2>
                                 </div>
                             </div>
@@ -101,7 +101,7 @@ function Dahroash(props) {
                                 to="/admin/customer "
                                 className="card-body d-block text-success p-2 fw-bold"
                             >
-                                Xem chi tiết <i className="fa-solid fa-circle-right"></i>
+                                Detail <i className="fa-solid fa-circle-right"></i>
                             </Link>
                         </div>
                     </div>
@@ -110,7 +110,7 @@ function Dahroash(props) {
                             <div className="card-body d-flex align-items-center bg-warning p-2">
                                 <div>
                                     <div className='d-flex'>
-                                        <p className="card-text mb-0">Tất cả đơn hàng
+                                        <p className="card-text mb-0">All Orders
                                             <Badge bg='info' className='ms-1 h4 mb-0' text='white'>{newoder}</Badge>
                                         </p>
                                     </div>
@@ -121,7 +121,7 @@ function Dahroash(props) {
                                 to='/admin/order'
                                 className="card-body d-block text-warning p-2 fw-bold"
                             >
-                                Xem chi tiết <i className="fa-solid fa-circle-right"></i>
+                                Detail <i className="fa-solid fa-circle-right"></i>
                             </Link>
                         </div>
                     </div>
@@ -130,7 +130,7 @@ function Dahroash(props) {
                             <div className="card-body d-flex align-items-center bg-danger p-2">
 
                                 <div>
-                                    <p className="card-text mb-0">Tổng doanh thu</p>
+                                    <p className="card-text mb-0">total earnings</p>
                                     <h2 className="card-title">
                                         {
                                             totalValue ? new Intl.NumberFormat('vi').format(totalValue) : 0
@@ -142,7 +142,7 @@ function Dahroash(props) {
                                 to='/admin/bill'
                                 className="card-body d-block text-warning p-2 fw-bold"
                             >
-                                Xem chi tiết <i className="fa-solid fa-circle-right"></i>
+                                Detail <i className="fa-solid fa-circle-right"></i>
                             </Link>
                         </div>
                     </div>

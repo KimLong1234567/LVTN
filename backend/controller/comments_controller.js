@@ -29,6 +29,28 @@ const controller = {
             })
         }
     },
+    updateStatus: async (req, res) => {
+        try {
+            const { id } = req.params;
+            const b_status = req.body.b_status;
+            console.log(req.body, b_status, id);
+            let rows;
+            if (b_status === 0) { //c_status la mong muon cua user nen cu update ko can kiem tra vi chi co 0 1
+                [rows] = await pool.query("UPDATE comments SET b_status = 1 WHERE bl_id = ?", [id]);
+            }
+            else {
+                [rows] = await pool.query("UPDATE comments SET b_status = 0 WHERE bl_id = ?", [id])
+            }
+            res.json({
+                data: rows
+            })
+        } catch (error) {
+            console.log(error);
+            res.json({
+                status: "error"
+            })
+        }
+    },
     create: async (req, res) => {
         try {
             const { bl_content, sp_id, kh_id } = req.body;

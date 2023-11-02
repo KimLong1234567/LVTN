@@ -72,9 +72,9 @@ function ProfitOverTime(props) {
             <ToastContainer />
             <div className='m-0 d-flex'>
                 <div className='mx-auto fw-bold' >
-                    <h2 className='text-primary text-uppercase'>doanh thu bán hàng</h2>
+                    <h2 className='text-primary text-uppercase'>Sales</h2>
                     <div className='bg-light mt-3'>
-                        Từ ngày : <input type="date" onChange={e => setStartDate(e.target.value)} /> Đến ngày : <input type="date" onChange={e => setEndDate(e.target.value)} />
+                        From Date : <input type="date" onChange={e => setStartDate(e.target.value)} /> To date : <input type="date" onChange={e => setEndDate(e.target.value)} />
                     </div>
                 </div>
             </div>
@@ -82,12 +82,12 @@ function ProfitOverTime(props) {
                 <table className="table table-bordered" >
                     <thead>
                         <tr className="table-secondary text-center">
-                            <th> STT</th>
-                            <th>NGÀY</th>
-                            <th>SẢN PHẨM ĐÃ BÁN</th>
-                            <th>ẢNH</th>
-                            <th>GIÁ BÁN</th>
-                            <th>SỐ LƯỢNG BÁN</th>
+                            <th>No</th>
+                            <th>Date</th>
+                            <th>SOLD PRODUCTS</th>
+                            <th>IMAGE</th>
+                            <th>PRICE</th>
+                            <th>NUMBER SALES</th>
                         </tr>
                     </thead>
                     {Bill.length > 0 ?
@@ -113,12 +113,12 @@ function ProfitOverTime(props) {
                         })
                         :
                         <div className='d-flex'>
-                            <h5 className='m-3 text-warning'>Chưa bán được đơn hàng nào</h5>
+                            <h5 className='m-3 text-warning'>Orders have not yet been sold.</h5>
                         </div>
                     }
                     <tfoot>
                         <tr className="table-secondary text-center">
-                            <td className='text-start h5' colSpan={5}>Tổng Lợi nhuận</td>
+                            <td className='text-start h5' colSpan={5}>Sum sales</td>
                             <td className='h5'>{TotalProfitOverDay(Bill)} $</td>
                         </tr>
 

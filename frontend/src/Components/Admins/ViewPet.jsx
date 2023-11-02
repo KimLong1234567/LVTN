@@ -18,7 +18,7 @@ function ViewPet(props) {
         async function fetchData() {
             await axios.get('http://localhost:5000/api/pets/')
                 .then((res) => {
-                    const temp = res.data.data.filter((e) => (e.p_status !== 'Đã giao hàng thành công'))
+                    const temp = res.data.data.filter((e) => (e.p_status !== 2))
                     setBill(temp.reverse())
                     setFilterBill(temp)
                 })
@@ -202,7 +202,7 @@ function ViewPet(props) {
     return (
         <div className='boder-main'>
             <ToastContainer />
-            <h2 className='text-uppercase text-center text-primary fw-bolder mt-2'>quản lý đơn hàng</h2>
+            <h2 className='text-uppercase text-center text-primary fw-bolder mt-2'>Quản lý bill</h2>
             <h3 className='text-uppercase text-start text-success fw-bolder mx-2'>filter <Icon icon={faFilter} /></h3>
             <Row className='m-0'>
                 <Col xs={12} md={3}>
@@ -232,73 +232,50 @@ function ViewPet(props) {
                     <table className="table table-bordered">
                         <thead>
                             <tr className="table-secondary text-center">
-                                <th scope="col">STT</th>
-                                <th scope="col">TÊN SẢN PHẨM</th>
-                                <th scope="col">HÌNH ẢNH</th>
-                                <th scope="col">SỐ LƯỢNG</th>
-                                <th scope="col">GIÁ TIỀN</th>
-                                <th scope="col">KHÁCH HÀNG</th>
-                                <th scope="col">ĐỊA CHỈ NHẬN HÀNG</th>
-                                <th scope="col">SĐT LIÊN HỆ</th>
-                                <th scope="col">THANH TOÁN</th>
-                                <th scope="col">TRẠNG THÁI ĐƠN HÀNG</th>
-                                <th scope="col">NGÀY ĐẶT</th>
-                                <th scope="col">NHÂN VIÊN TIẾP NHẬN</th>
-                                <th scope="col">ĐIỆN THOẠI</th>
-                                <th scope='col'>TRẠNG THÁI</th>
-                                <th scope="col" colSpan={3}>THAO TÁC</th>
+                                <th scope="col">No</th>
+                                <th scope="col">Pet name</th>
+                                <th scope="col">Image</th>
+                                <th scope="col">Pet des</th>
+                                <th scope="col">Pet's ower</th>
+                                <th scope="col">Pet loai</th>
+                                <th scope="col">Date book</th>
+                                <th scope="col">Pet service detail </th>
+                                <th scope="col">Pet service fee</th>
+                                <th scope="col">Pet service date</th>
+                                <th scope='col'>Status</th>
+                                <th scope="col" colSpan={3}>Move</th>
                             </tr>
                         </thead>
                         {
-                            dataPage !== undefined && dataPage.length !== 0 ?
+                            bill !== undefined && bill.length !== 0 ? (
                                 <tbody>
                                     {
-                                        dataPage.map((value, idx) => {
-                                            return [
-                                                value.pet.map((item, i) => {
-                                                    return (
-                                                        <tr key={i}>
-                                                            <td>{i + 1}</td>
-                                                            <td>{item.id_product.name}</td>
-                                                            <td>
-                                                                <img src={`/image/SanPham/${item.id_product.image}`} style={{ width: "100px" }} alt='...' />
-                                                            </td>
-                                                            <td>{item.quantity}</td>
-                                                            <td>{item.id_product.price}</td>
-                                                            <td>{value.name_customer !== undefined ? value.name_customer : value.customer.name}</td>
-                                                            <td>{value.adress !== undefined ? value.adress : value.customer.adress}</td>
-                                                            <td>{value.sdt !== undefined ? value.sdt : value.customer.sdt}</td>
-                                                            <td>{value.pay}</td>
-                                                            {renderStatus(value.status)}
-                                                            <td>{value.createdAt = new Date(value.createdAt).toLocaleString()}</td>
-                                                            {value.nhanvien !== undefined && value.sdtnhanvien !== undefined && value.sdtnhanvien !== '0' ?
-                                                                <>
-                                                                    <td>{value.nhanvien}</td>
-                                                                    <td>{value.sdtnhanvien}</td>
-                                                                    <td>Đã tiếp nhận</td>
-                                                                </> :
-                                                                <>
-                                                                    <td>Chưa có</td>
-                                                                    <td>Trống </td>
-                                                                    <td>Chờ xử lí</td>
-                                                                </>
-                                                            }
-                                                            {renderButton(value.status, value._id)}
-                                                        </tr>
-                                                    )
-
-                                                }),
-                                                <tr key={idx} className='table-secondary'>
-                                                    <td colSpan={14} className='fw-bolder text-uppercase text-start'>Tổng tiền</td>
-                                                    <td className='fw-bolder text-primary text-center' colSpan={3}>{new Intl.NumberFormat('vi').format(value.total)} $</td>
-                                                </tr>
-                                            ]
-                                        })
-                                    }
-                                </tbody> :
+                                        dataPage.map((item, i) => (
+                                            <tr key={i}>
+                                                <td>{i + 1}</td>
+                                                <td>{item.p_name}</td>
+                                                <td>
+                                                    <img src={`/image/Pet/${item.p_img}`} style={{ width: "100px" }} alt='...' />
+                                                </td>
+                                                <td>{item.p_des}</td>
+                                                <td>{item.user_name}</td>
+                                                <td>{item.cate_name}</td>
+                                                <td>{item.p_create = new Date(item.p_create).toLocaleString()}</td>
+                                                <td>{item.p_s_detail !== undefined ? "Not doing yet" : item.p_s_detail}</td>
+                                                <td>{item.p_s_fee !== undefined ? '0' : item.p_s_fee}</td>
+                                                <td>{item.p_s_date !== undefined ? "till waitting" : item.p_s_date = new Date(item.p_s_date).toLocaleString()}</td>
+                                                {renderStatus(item.p_status)}
+                                                {renderButton(item.p_status, item.p_id)}
+                                            </tr>
+                                        ))}
+                                    <tr>
+                                    </tr>
+                                </tbody >
+                            ) : (
                                 <tbody>
-                                    <tr className='text-center fw-bolder text-danger h3'><td colSpan={15}>Hiện chưa có đơn hàng</td></tr>
+                                    <tr className='text-center fw-bolder text-danger h3'><td colSpan={12}>No pets in book pets</td></tr>
                                 </tbody>
+                            )
                         }
                     </table>
                     <ReactPaginate

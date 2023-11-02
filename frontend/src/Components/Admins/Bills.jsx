@@ -120,7 +120,7 @@ function Bills(props) {
                                         })
                                     }
                                 </tbody> : <tbody>
-                                    <tr className='text-center fw-bolder text-danger h3'><td colSpan={15}>There are currently no orders</td></tr>
+                                    <tr className='text-center fw-bolder text-danger h3'><td colSpan={15}>As of right now, no orders exist.</td></tr>
                                 </tbody>
                         }
                     </table>

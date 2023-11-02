@@ -67,13 +67,13 @@ const ADMIN_SIDEBAR = [
     },
     {
         icon: faMessage, name: 'Customer Care', children: [
-            { icon: faCaretRight, name: 'Customer Feedback', to: '/admin/feedbacks' },
+            { icon: faCaretRight, name: 'Customers Feedback', to: '/admin/feedbacks' },
         ]
     },
     {
-        icon: faFileContract, name: 'Quản Lý Phiếu Nhập Hàng', children: [
-            { icon: faCircleInfo, name: 'Thông tin phiếu nhập hàng', to: '/admin/phieunhap' },
-            { icon: faCalendarPlus, name: 'Tạo mới phiếu nhập', to: '/admin/themphieunhap' },
+        icon: faFileContract, name: 'Control Products Receipt', children: [
+            { icon: faCircleInfo, name: "Details of the goods' receipt", to: '/admin/phieunhap' },
+            { icon: faCalendarPlus, name: 'Make a fresh entry form', to: '/admin/themphieunhap' },
         ]
     },
 

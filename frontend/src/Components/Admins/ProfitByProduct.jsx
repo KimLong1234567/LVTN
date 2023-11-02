@@ -19,8 +19,8 @@ function ProfitByProduct(props) {
         axios
             .get('http://localhost:5000/api/products')
             .then((res) => {
-                setProducts(res.data.data.cars)
-                setProductFind(res.data.data.cars)
+                setProducts(res.data.data)
+                setProductFind(res.data.data)
             });
     }, [])
 
@@ -40,7 +40,7 @@ function ProfitByProduct(props) {
             TotalProfit += profit
         })
         // eslint-disable-next-line
-    }, [Products,Bill])
+    }, [Products, Bill])
 
     const productsfind = (e) => {
         const temp = ProductFind.filter(element => element.name.toLowerCase().includes(e.target.value.toLowerCase()))

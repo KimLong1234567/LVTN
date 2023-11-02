@@ -26,11 +26,11 @@ function ShowCoupon(props) {
                             <th scope="col-1">
                                 NO
                             </th>
-                            <th scope="col">NGƯỜI LẬP PHIẾU</th>
-                            <th scope="col">NGÀY LẬP PHIẾU</th>
-                            <th scope="col">TỔNG TIỀN </th>
+                            <th scope="col">PROVIDER</th>
+                            <th scope="col">DATE OF ISSUE</th>
+                            <th scope="col">SUM IN TOTAL </th>
                             <th scope="col" colSpan={2} >
-                                TÁC VỤ
+                                TASK
                             </th>
                         </tr>
                     </thead>
