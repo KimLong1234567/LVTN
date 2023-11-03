@@ -25,18 +25,22 @@ function Bill(props) {
         fetchData()
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [refresh])
-    console.log(bill);
+    // console.log(bill);
     function filter(text) {
+        console.log(text)
         setShow(text)
         var temp = []
         if (text) {
-            temp = filterBill.filter(element => element.status === text)
+            temp = filterBill.filter(element => element.dh_status === text)
         }
         else {
             temp = filterBill
         }
         setBill(temp)
+        console.log(temp)
     }
+
+
 
     async function updateStatus(id, status) {
         await axios.put(`http://localhost:5000/api/bill/${id}`, {
@@ -172,7 +176,7 @@ function Bill(props) {
         }
         else {
             return (
-                <td className='text-primary fw-bold'>{status}</td>
+                <td className='text-primary fw-bold'>On Shipping</td>
             )
         }
     }
@@ -206,8 +210,14 @@ function Bill(props) {
     }
 
     const end = start + 2;
-    const dataPage = bill.reverse().slice(start, end);
-    // setBill(dataPage)
+    // const dataPage = bill.reverse().slice(start, end);
+    // // setBill(dataPage)
+    // const pageCount = Math.ceil(bill.length / 2);
+    // const handlePageClick = (event) => {
+    //     const number = (event.selected * 2) % bill.length;
+    //     setStart(number);
+    // };
+    const dataPage = bill.slice(start, end);
     const pageCount = Math.ceil(bill.length / 2);
     const handlePageClick = (event) => {
         const number = (event.selected * 2) % bill.length;
@@ -250,16 +260,16 @@ function Bill(props) {
                         <h4 style={{ color: 'tomato', fontWeight: "bolder" }}>All Bill <input type='checkbox' onChange={() => { filter('') }} checked={show === ''} /> </h4>
                     </Col>
                     <Col xs={12} md={2}>
-                        <h4 className='text-warning'>Wait <input type='checkbox' onChange={() => { filter('0') }} checked={show === 'Chờ xác nhận'} /> </h4>
+                        <h4 className='text-warning'>Wait <input type='checkbox' onChange={() => { filter(0) }} checked={show === 0} /> </h4>
                     </Col>
                     <Col xs={12} md={2}>
-                        <h4 className='text-primary'>On going <input type='checkbox' onChange={() => { filter('1') }} checked={show === 'Đang giao hàng'} /> </h4>
+                        <h4 className='text-primary'>On going <input type='checkbox' onChange={() => { filter(1) }} checked={show === 1} /> </h4>
                     </Col>
                     <Col xs={12} md={3}>
-                        <h4 className='text-success'>Has received products<input type='checkbox' onChange={() => { filter('2') }} checked={show === 'Đã giao hàng thành công'} /> </h4>
+                        <h4 className='text-success'>Has received products<input type='checkbox' onChange={() => { filter(2) }} checked={show === 2} /> </h4>
                     </Col>
                     <Col xs={12} md={2}>
-                        <h4 className='text-danger'>Deleted <input type='checkbox' onChange={() => { filter('3') }} checked={show === 'Đơn hàng đã bị hủy bỏ'} /> </h4>
+                        <h4 className='text-danger'>Deleted <input type='checkbox' onChange={() => { filter(3) }} checked={show === 3} /> </h4>
                     </Col>
                 </Row>
             </div>
@@ -292,7 +302,8 @@ function Bill(props) {
                                             return (
                                                 <tr key={i}>
                                                     <td>{i + 1}</td>
-                                                    <td>{item.sp_name}</td>
+                                                    <td>{item.sp_name} </td>
+                                                    {/* <td>{value.dh_id}</td> */}
                                                     <td>
                                                         <img src={`/image/SanPham/${item.sp_image}`} style={{ width: "100px" }} alt='...' />
                                                     </td>
@@ -304,8 +315,8 @@ function Bill(props) {
                                                     <td>{value.dh_pay}</td>
                                                     {renderStatus(value.dh_status)}
                                                     <td>{value.dh_create = new Date(value.dh_create).toLocaleString()}</td>
-                                                    <td>{value.nv_hoten !== undefined ? value.nv_hoten : "There is currently no delivery person"}</td>
-                                                    <td>{value.nv_phone !== undefined ? value.nv_phone : "Empty"}</td>
+                                                    <td>{value.nv_hoten !== null ? value.nv_hoten : "There is currently no delivery person"}</td>
+                                                    <td>{value.nv_phone !== null ? value.nv_phone : "Empty"}</td>
                                                     <td colSpan={3}></td>
                                                 </tr>
                                             )

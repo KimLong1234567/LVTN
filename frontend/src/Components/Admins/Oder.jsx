@@ -20,7 +20,7 @@ function Oder(props) {
             await axios.get('http://localhost:5000/api/dh/dhang/all')
                 .then((res) => {
                     const temp = res.data.data.filter((e) => (e.status !== 2))
-                    setBill(temp.reverse())
+                    setBill(temp) //.reverse()
                     setFilterBill(temp)
                 })
             await axios.get('http://localhost:5000/api/admins/')
@@ -30,11 +30,12 @@ function Oder(props) {
         }
         fetchData()
     }, [refresh])
-    function filter(text) {
-        setShow(text)
+    console.log(filterBill);
+    function filter(Number) {
+        setShow(Number)
         var temp = []
-        if (text) {
-            temp = filterBill.filter(element => element.status === text)
+        if (Number) {
+            temp = filterBill.filter(element => element.dh_status === Number)
         }
         else {
             temp = filterBill
@@ -42,7 +43,7 @@ function Oder(props) {
         setBill(temp)
     }
     const onChange = (e) => {
-        const temp = filterBill.filter(element => element.customer.name.toLowerCase().includes(e.target.value.toLowerCase()))
+        const temp = filterBill.filter(element => element.user_name.toLowerCase().includes(e.target.value.toLowerCase()))
         setBill(temp)
     }
     function renderButton(status, id) {
@@ -92,12 +93,12 @@ function Oder(props) {
             return (
                 <>
                     <td>
-                        <button className='btn btn-outline-success' onClick={() => updateStatus(id, 'Đang giao hàng', curentAccount.nv_id)}>
+                        <button className='btn btn-outline-success' onClick={() => updateStatus(id, 1, curentAccount.nv_id)}>
                             <Icon icon={faCheckDouble} />
                         </button>
                     </td>
                     <td>
-                        <button className='btn btn-outline-danger' onClick={() => updateStatus(id, 'Đơn hàng đã bị hủy bỏ', curentAccount.nv_id)}>
+                        <button className='btn btn-outline-danger' onClick={() => updateStatus(id, 3, curentAccount.nv_id)}>
                             <Icon icon={faCircleXmark} />
                         </button>
                     </td>
@@ -109,16 +110,16 @@ function Oder(props) {
                 </>
             )
         }
-        else if (status === 'Đang giao hàng') {
+        else if (status === 1) {
             return (
                 <>
                     <td>
-                        <button className='btn btn-outline-success' onClick={() => updateStatus(id, "Đã giao hàng thành công")}>
+                        <button className='btn btn-outline-success' onClick={() => updateStatus(id, 2)}>
                             <Icon icon={faCheckDouble} />
                         </button>
                     </td>
                     <td>
-                        <button className='btn btn-outline-danger' onClick={() => updateStatus(id, "Đơn hàng đã bị hủy bỏ")}>
+                        <button className='btn btn-outline-danger' onClick={() => updateStatus(id, 3)}>
                             <Icon icon={faCircleXmark} />
                         </button>
                     </td>
@@ -133,13 +134,13 @@ function Oder(props) {
     }
     async function updateStatus(id, status, idAccount) {
 
-        await axios.put(`http://localhost:5000/api/bill/${id}`, {
-            id: id,
-            status: status,
-            nhanvien: idAccount
+        await axios.put(`http://localhost:5000/api/dh/${id}`, {
+            dh_id: id,
+            dh_status: status,
+            nv_id: idAccount
         })
             .then((res) => {
-                toast.info('Cập nhật thành công', {
+                toast.info('Update success', {
                     position: "top-center",
                     autoClose: 2000,
                     closeOnClick: true,
@@ -157,35 +158,28 @@ function Oder(props) {
             })
     }
     function renderStatus(status) {
-        if (status === 'Đã giao hàng thành công') {
+        if (status === 2) {
             return (
-                <td className='text-success fw-bold'>{status}</td>
+                <td className='text-success fw-bold'>Has received</td>
             )
         }
-        else if (status === 'Đơn hàng đã bị hủy bỏ') {
+        else if (status === 3) {
             return (
 
-                <td className='text-danger fw-bold'>{status}</td>
-
-            )
-        }
-        else if (status === 'Chờ xác nhận') {
-            return (
-
-                <td className='text-warning fw-bold'>{status}</td>
+                <td className='text-danger fw-bold'>Deleted</td>
 
             )
         }
-        else if (status === 'Đơn hàng đã bị hủy bỏ') {
+        else if (status === 0) {
             return (
-                <td className='text-primary fw-bold'>{status}</td>
+
+                <td className='text-warning fw-bold'>Wait</td>
 
             )
         }
         else {
             return (
-
-                <td className='text-primary fw-bold'>{status}</td>
+                <td className='text-primary fw-bold'>On Shipping</td>
             )
         }
     }
@@ -210,13 +204,13 @@ function Oder(props) {
                     <h4 style={{ color: 'tomato', fontWeight: "bolder" }}>All Orders <input type='checkbox' onChange={() => { filter('') }} checked={show === ''} /> </h4>
                 </Col>
                 <Col xs={12} md={3}>
-                    <h4 className='text-warning'>Wait <input type='checkbox' onChange={() => { filter(0) }} checked={show === 'Chờ xác nhận'} /> </h4>
+                    <h4 className='text-warning'>Wait <input type='checkbox' onChange={() => { filter(0) }} checked={show === 0} /> </h4>
                 </Col>
                 <Col xs={12} md={3}>
-                    <h4 className='text-primary'>On Shipping <input type='checkbox' onChange={() => { filter(1) }} checked={show === 'Đang giao hàng'} /> </h4>
+                    <h4 className='text-primary'>On Shipping <input type='checkbox' onChange={() => { filter(1) }} checked={show === 1} /> </h4>
                 </Col>
                 <Col xs={12} md={3}>
-                    <h4 className='text-danger'>Delete <input type='checkbox' onChange={() => { filter(3) }} checked={show === 'Đơn hàng đã bị hủy bỏ'} /> </h4>
+                    <h4 className='text-danger'>Delete <input type='checkbox' onChange={() => { filter(3) }} checked={show === 3} /> </h4>
                 </Col>
                 <Col>
                     <div className='d-flex m-3 justify-content-center'>
@@ -260,6 +254,7 @@ function Oder(props) {
                                                         <tr key={i}>
                                                             <td>{i + 1}</td>
                                                             <td>{item.sp_name}</td>
+                                                            {/* <td>{value.dh_id}</td> */}
                                                             <td>
                                                                 <img src={`/image/SanPham/${item.sp_image}`} style={{ width: "100px" }} alt='...' />
                                                             </td>
@@ -271,11 +266,11 @@ function Oder(props) {
                                                             <td>{value.dh_pay}</td>
                                                             {renderStatus(value.dh_status)}
                                                             <td>{value.dh_create = new Date(value.dh_create).toLocaleString()}</td>
-                                                            {value.nv_hoten !== undefined && value.nv_phone !== undefined && value.nv_phone !== '0' ?
+                                                            {value.nv_hoten !== null && value.nv_phone !== null && value.nv_phone !== '0' ?
                                                                 <>
                                                                     <td>{value.nv_hoten}</td>
                                                                     <td>{value.nv_phone}</td>
-                                                                    <td>Received</td>
+                                                                    <td>Staff's Received</td>
                                                                 </> :
                                                                 <>
                                                                     <td>Not yet</td>
@@ -338,7 +333,7 @@ function Oder(props) {
                             listAccount?.map((item, i) => (
                                 <div key={i} className='d-flex'>
                                     <button disabled className='text-dark fw-bold'>{i + 1}</button>
-                                    <button className='border-0 btn btn-outline-info text-dark w-100 text-start m-1' onClick={() => { updateStatus(showListAccount, 'Wait for commit', item.nv_id); setShowListAccount(false) }}>{item.nv_hoten}</button>
+                                    <button className='border-0 btn btn-outline-info text-dark w-100 text-start m-1' onClick={() => { updateStatus(showListAccount, 1, item.nv_id); setShowListAccount(false) }}>{item.nv_hoten}</button>
                                 </div>
                             )) :
                             <div>
@@ -346,11 +341,11 @@ function Oder(props) {
                             </div>
                     }
                 </Modal.Body>
-                <Modal.Footer>
+                {/* <Modal.Footer>
                     <Button variant="secondary" onClick={() => setListAccount(false)}>
                         Close
                     </Button>
-                </Modal.Footer>
+                </Modal.Footer> */}
             </Modal>
         </div>
 

@@ -10,30 +10,27 @@ function AllOrder(props) {
     const [bill, setBill] = useState([])
     const [filterBill, setFilterBill] = useState([])
     const [refresh, setRefresh] = useState(0)
-    const curentAccount = localStorage.shipper ? JSON.parse(localStorage.shipper) : null
+    // const curentAccount = localStorage.shipper ? JSON.parse(localStorage.shipper) : null
+    const curentAccount = localStorage["shipper"] ? JSON.parse(localStorage["shipper"]) : null
     const Navigate = useNavigate()
     if (!curentAccount) {
         Navigate('/shipper')
     }
     useLayoutEffect(() => {
         async function fetchData() {
-            const res = await axios.get('http://localhost:5000/api/bill/status/1', {
-                params: {
-                    status: 'Chờ xác nhận',
-                    nhanvien: curentAccount.user_id
-                }
-            })
+            const res = await axios.get(`http://localhost:5000/api/dh/shipper/${curentAccount.user_id}`)
             setBill(res.data.data)
             setFilterBill(res.data.data)
         }
         fetchData()
         // eslint-disable-next-line
     }, [refresh])
+    console.log(bill);
     function filter(text) {
         setShow(text)
         var temp = []
         if (text) {
-            temp = filterBill.filter(element => element.status === text)
+            temp = filterBill.filter(element => element.dh_status === text)
         }
         else {
             temp = filterBill
@@ -41,7 +38,7 @@ function AllOrder(props) {
         setBill(temp)
     }
     const onChange = (e) => {
-        const temp = filterBill.filter(element => element.customer.name.toLowerCase().includes(e.target.value.toLowerCase()))
+        const temp = filterBill.filter(element => element.user_name.toLowerCase().includes(e.target.value.toLowerCase()))
         setBill(temp)
     }
 
@@ -215,7 +212,7 @@ function AllOrder(props) {
         else {
             return (
 
-                <td className='text-primary fw-bold'>{status}</td>
+                <td className='text-primary fw-bold'>{status} fafw</td>
             )
         }
     }
@@ -262,30 +259,30 @@ function AllOrder(props) {
                                 {
                                     bill.map((value, idx) => {
                                         return [
-                                            value.products.map((item, i) => {
+                                            value.ctdh.map((item, i) => {
                                                 return (
                                                     <tr key={i}>
                                                         <td>{i + 1}</td>
-                                                        <td>{item.id_product.name}</td>
+                                                        <td>{item.sp_name}</td>
                                                         <td>
-                                                            <img src={`/image/SanPham/${item.id_product.image}`} style={{ width: "100px" }} alt='...' />
+                                                            <img src={`/image/SanPham/${item.sp_image}`} style={{ width: "100px" }} alt='...' />
                                                         </td>
-                                                        <td>{item.quantity}</td>
-                                                        <td>{item.id_product.price}</td>
-                                                        <td>{value.name_customer !== undefined ? value.name_customer : value.customer.name}</td>
-                                                        <td>{value.adress !== undefined ? value.adress : value.customer.adress}</td>
-                                                        <td>{value.sdt !== undefined ? value.sdt : value.customer.sdt}</td>
-                                                        <td>{value.pay}</td>
-                                                        {renderStatus(value.status)}
-                                                        <td>{value.createdAt = new Date(value.createdAt).toLocaleString()}</td>
+                                                        <td>{item.ctdh_sl}</td>
+                                                        <td>{item.cttd_price}</td>
+                                                        <td>{value.user_name !== undefined ? value.user_name : value.user_name}</td>
+                                                        <td>{value.user_address !== undefined ? value.user_address : value.user_address}</td>
+                                                        <td>{value.user_phone !== undefined ? value.user_phone : value.user_phone}</td>
+                                                        <td>{value.dh_pay}</td>
+                                                        {renderStatus(value.dh_status)}
+                                                        <td>{value.dh_create = new Date(value.dh_create).toLocaleString()}</td>
                                                         <td colSpan={3}></td>
                                                     </tr>
                                                 )
                                             }),
                                             <tr key={idx}>
                                                 <td colSpan={3} className='fw-bolder text-uppercase text-start'>Tổng tiền</td>
-                                                <td className='fw-bolder text-primary text-end' colSpan={8}>{new Intl.NumberFormat('vi').format(value.total)}</td>
-                                                {renderButton(value.status, value._id)}
+                                                <td className='fw-bolder text-primary text-end' colSpan={8}>{new Intl.NumberFormat('vi').format(value.dh_total)} $</td>
+                                                {renderButton(value.dh_status, value.dh__id)}
                                             </tr>
                                         ]
                                     })

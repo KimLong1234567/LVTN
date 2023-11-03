@@ -12,6 +12,7 @@ router.get("/dh", controllerDh.getByDh); // Update an item by ID
 router.get("/:id", controllerDh.getById); // Get item by ID
 router.get("/dh/:id", controllerDh.getByUserId);
 router.get("/dhang/all", controllerDh.getAllBill);
+router.get("/shipper/:id", controllerDh.getByShipperId);
 router.post("/", controllerDh.create); // Create a new item
 router.put("/:id", controllerDh.update); // Update an item by ID
 

@@ -152,11 +152,6 @@ function ViewPet(props) {
 
             )
         }
-        else {
-            return (
-                <td className='text-primary fw-bold'>{p_status}</td>
-            )
-        }
     }
 
     const onchange = (e) => {
@@ -230,13 +225,13 @@ function ViewPet(props) {
                         <h4 style={{ color: 'tomato', fontWeight: "bolder" }}>All pets <input type='checkbox' onChange={() => { filter('') }} checked={show === ''} /> </h4>
                     </Col>
                     <Col xs={12} md={3}>
-                        <h4 className='text-warning'>Wait for care <input type='checkbox' onChange={() => { filter('0') }} checked={show === 'wait for care'} /> </h4>
+                        <h4 className='text-warning'>Wait for care <input type='checkbox' onChange={() => { filter(0) }} checked={show === 0} /> </h4>
                     </Col>
                     <Col xs={12} md={3}>
-                        <h4 className='text-primary'>finish care <input type='checkbox' onChange={() => { filter('1') }} checked={show === 'Đang giao hàng'} /> </h4>
+                        <h4 className='text-primary'>finish care <input type='checkbox' onChange={() => { filter(1) }} checked={show === 1} /> </h4>
                     </Col>
                     <Col xs={12} md={3}>
-                        <h4 className='text-danger'>Delete book <input type='checkbox' onChange={() => { filter('3') }} checked={show === 'Đơn hàng đã bị hủy bỏ'} /> </h4>
+                        <h4 className='text-danger'>Delete book <input type='checkbox' onChange={() => { filter(3) }} checked={show === 3} /> </h4>
                     </Col>
                 </Row>
             </div>

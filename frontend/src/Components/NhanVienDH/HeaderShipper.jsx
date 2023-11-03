@@ -10,8 +10,6 @@ import { faRightFromBracket } from '@fortawesome/free-solid-svg-icons';
 function HeaderShipper(props) {
     const Navigate = useNavigate();
     // const curentAdmin = localStorage.shipper && JSON.parse(localStorage.shipper)
-    const [user, setUser] = useState([]);
-    const [requested, setRequested] = useState(false);
     const curentAdmin = localStorage["shipper"] ? JSON.parse(localStorage["shipper"]) : null
     const logout = async () => {
         await Navigate("/shipper");

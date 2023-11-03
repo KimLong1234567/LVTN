@@ -11,7 +11,7 @@ function Dahroash(props) {
     const [products, setProducts] = useState([])
     const [customer, setCustomer] = useState([])
     const [employee, setEmployee] = useState([])
-    const [oder, setOder] = useState([])
+    const [order, setOrder] = useState([])
     const [totalValue, setTotalValue] = useState(0)
     const date = new Date().toLocaleDateString()
     var newoder = 0;
@@ -31,8 +31,11 @@ function Dahroash(props) {
             await axios.get('http://localhost:5000/api/dh/dhang/all')
                 .then((res) => {
                     const temp = res.data.data.filter((e) => (e.dh_status === 0))
-                    setOder(temp)
-                    setTotalValue(res.data.total)
+                    setOrder(temp)
+                    // setTotalValue(res.data.total)
+                    // Tính tổng dh_total từ danh sách temp
+                    const totalValue = temp.reduce((total, order) => total + order.dh_total, 0);
+                    setTotalValue(totalValue);
                 })
             await axios.get('http://localhost:5000/api/admins/')
                 .then((res) => {
@@ -41,11 +44,11 @@ function Dahroash(props) {
         }
         loadData();
     }, [])
-    const count = oder?.filter((e) => ((e.dh_create = new Date(e.dh_create).toLocaleDateString()) === date))
+    const count = order?.filter((e) => ((e.dh_create = new Date(e.dh_create).toLocaleDateString()) === date))
     newoder = count?.length
     const data = {
         labels: ['Products', 'New Orders',
-            'Customer', 'Employee', 'Sales / 10.000%'],
+            'Customer', 'Employee', 'Sales / 10.00%'],
         datasets: [
             {
                 label: 'The diagram shows the store in visual form',
@@ -64,7 +67,7 @@ function Dahroash(props) {
                     'rgb(54, 162, 235)',
                 ],
                 borderWidth: 1,
-                data: [products.length, oder.length, customer.length, employee.length, totalValue / 10000]
+                data: [products.length, order.length, customer.length, employee.length, totalValue / 100]
             }
         ]
     }
@@ -114,7 +117,7 @@ function Dahroash(props) {
                                             <Badge bg='info' className='ms-1 h4 mb-0' text='white'>{newoder}</Badge>
                                         </p>
                                     </div>
-                                    <h2 className="card-title">{oder?.length}</h2>
+                                    <h2 className="card-title">{order?.length}</h2>
                                 </div>
                             </div>
                             <Link
