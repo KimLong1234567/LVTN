@@ -51,7 +51,7 @@ const ADMIN_SIDEBAR = [
     {
         icon: faCartFlatbed, name: 'Order Management', isAdmin: true, children: [
             { icon: faCartPlus, name: 'Orders', to: '/admin/order' },
-            { icon: faBookJournalWhills, name: 'Bill', to: '/admin/bill' },
+            { icon: faBookJournalWhills, name: 'Bills', to: '/admin/bill' },
         ]
     },
     {

@@ -12,8 +12,8 @@ function HeaderShipper(props) {
     // const curentAdmin = localStorage.shipper && JSON.parse(localStorage.shipper)
     const curentAdmin = localStorage["shipper"] ? JSON.parse(localStorage["shipper"]) : null
     const logout = async () => {
-        await Navigate("/shipper");
         localStorage.removeItem("shipper");
+        await Navigate("/shipper");
     };
 
     return (

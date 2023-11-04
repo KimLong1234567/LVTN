@@ -11,8 +11,9 @@ function Feedbacks(props) {
     const [refresh, setRefresh] = useState(0)
 
     const onchange = (e) => {
-        setReply({ ...reply, [e.target.name]: e.target.value })
+        setReply({ ...reply, [e.target.name]: e.target.value, lh_email: showModal.lh_email })
     }
+    console.log(showModal);
     console.log(reply);
     useEffect(() => {
         axios.get('http://localhost:5000/api/contacts/')

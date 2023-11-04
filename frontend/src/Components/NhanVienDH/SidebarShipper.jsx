@@ -28,10 +28,10 @@ function Sidebar(props) {
                     </div>
                 </div>
                 <div>
-                    <Link to={'/shipper/allorder'} className='name menuItem'><Icon icon={faMoneyBill1Wave} className='iconItem' /> Danh sách đơn hàng</Link>
+                    <Link to={'/shipper/allorder'} className='name menuItem'><Icon icon={faMoneyBill1Wave} className='iconItem' /> An order list</Link>
                     {/* <Link to={'/shipper/orderdelivered'} className='name menuItem'><Icon icon={faMoneyBillTransfer} className='iconItem' /> Đơn hàng cần giao</Link> */}
-                    <Link to={'/shipper/status/success'} className='name menuItem'><Icon icon={faMoneyBill1Wave} className='iconItem' /> Đơn hàng đã giao</Link>
-                    <Link to={'/shipper/orderdestroy'} className='name menuItem'><Icon icon={faRectangleXmark} className='iconItem' /> Đơn hàng giao không thành công</Link>
+                    <Link to={'/shipper/status/success'} className='name menuItem'><Icon icon={faMoneyBill1Wave} className='iconItem' /> Orders fulfilled</Link>
+                    <Link to={'/shipper/orderdestroy'} className='name menuItem'><Icon icon={faRectangleXmark} className='iconItem' /> Orders were not delivered.</Link>
                 </div>
             </div>
         </Col >

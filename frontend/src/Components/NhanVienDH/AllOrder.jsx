@@ -18,7 +18,7 @@ function AllOrder(props) {
     }
     useLayoutEffect(() => {
         async function fetchData() {
-            const res = await axios.get(`http://localhost:5000/api/dh/shipper/${curentAccount.user_id}`)
+            const res = await axios.get(`http://localhost:5000/api/dh/shipper/${curentAccount.nv_id}`)
             setBill(res.data.data)
             setFilterBill(res.data.data)
         }
@@ -155,11 +155,11 @@ function AllOrder(props) {
     return (
         <div className='boder-main'>
             <ToastContainer />
-            <h2 className='text-uppercase text-center text-primary fw-bolder mt-2'>danh sách đơn hàng</h2>
+            <h2 className='text-uppercase text-center text-primary fw-bolder mt-2'>orders need to Deliver</h2>
             <h3 className='text-uppercase text-start text-success fw-bolder mx-2'>filter <Icon icon={faFilter} /></h3>
             <Row className='m-0'>
                 <Col xs={12} md={3}>
-                    <h4 style={{ color: 'tomato', fontWeight: "bolder" }}>Tất cả đơn hàng <input type='checkbox' onChange={() => { filter('') }} checked={show === ''} /> </h4>
+                    <h4 style={{ color: 'tomato', fontWeight: "bolder" }}>All Bills <input type='checkbox' onChange={() => { filter('') }} checked={show === ''} /> </h4>
                 </Col>
                 <Col xs={12} md={9}>
                     <div className='d-flex mb-2 justify-content-center'>
@@ -175,18 +175,18 @@ function AllOrder(props) {
                 <table className="table table-bordered">
                     <thead>
                         <tr className="table-secondary text-center">
-                            <th scope="col-1">STT</th>
-                            <th scope="col-1">TÊN SẢN PHẨM</th>
-                            <th scope="col-1">HÌNH ẢNH</th>
-                            <th scope="col-1">SỐ LƯỢNG</th>
-                            <th scope="col-1">GIÁ TIỀN</th>
-                            <th scope="col-1">TÊN KHÁCH HÀNG</th>
-                            <th scope="col-1">ĐỊA CHỈ NHẬN HÀNG</th>
-                            <th scope="col-1">SĐT LIÊN HỆ</th>
-                            <th scope="col-1">THANH TOÁN</th>
-                            <th scope="col-1">TRẠNG THÁI ĐƠN HÀNG</th>
-                            <th scope="col-1">NGÀY ĐẶT</th>
-                            <th scope="col-1" colSpan={3}>THAO TÁC</th>
+                            <th scope="col-1">No</th>
+                            <th scope="col-1">PRODUCTS NAME</th>
+                            <th scope="col-1">IMAGES</th>
+                            <th scope="col-1">QUANTITY</th>
+                            <th scope="col-1">PRICE</th>
+                            <th scope="col-1">CUSTOMER NAME</th>
+                            <th scope="col-1">CUSTOMER'S ADDRESS</th>
+                            <th scope="col-1">CUSTOMER'S PHONE</th>
+                            <th scope="col-1">PAYMENT</th>
+                            <th scope="col-1">STATUS ORDER</th>
+                            <th scope="col-1">DATE ORDER</th>
+                            <th scope="col-1" colSpan={3}>MOVE</th>
                         </tr>
                     </thead>
                     {

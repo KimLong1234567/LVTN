@@ -190,17 +190,17 @@ function OrderDestroy(props) {
                 <table className="table table-bordered table table-reponsive">
                     <thead>
                         <tr className="table-secondary text-center">
-                            <th scope="col">STT</th>
-                            <th scope="col">TÊN SẢN PHẨM</th>
-                            <th scope="col">HÌNH ẢNH</th>
-                            <th scope="col">SỐ LƯỢNG</th>
-                            <th scope="col">GIÁ TIỀN</th>
-                            <th scope="col">TÊN KHÁCH HÀNG</th>
-                            <th scope="col">ĐỊA CHỈ NHẬN HÀNG</th>
-                            <th scope="col">SĐT LIÊN HỆ</th>
-                            <th scope="col">THANH TOÁN</th>
-                            <th scope="col">TRẠNG THÁI ĐƠN HÀNG</th>
-                            <th scope="col">NGÀY ĐẶT</th>
+                            <th scope="col-1">No</th>
+                            <th scope="col-1">PRODUCTS NAME</th>
+                            <th scope="col-1">IMAGES</th>
+                            <th scope="col-1">QUANTITY</th>
+                            <th scope="col-1">PRICE</th>
+                            <th scope="col-1">CUSTOMER NAME</th>
+                            <th scope="col-1">CUSTOMER'S ADDRESS</th>
+                            <th scope="col-1">CUSTOMER'S PHONE</th>
+                            <th scope="col-1">PAYMENT</th>
+                            <th scope="col-1">STATUS ORDER</th>
+                            <th scope="col-1">DATE ORDER</th>
                             <th scope="col" colSpan={3}>THAO TÁC</th>
                         </tr>
                     </thead>

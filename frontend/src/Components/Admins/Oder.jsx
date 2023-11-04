@@ -38,12 +38,10 @@ function Oder(props) {
         if (Number === 0) {
             temp = filterBill.filter(element => element.dh_status === 0)
             console.log(temp);
-            console.log(1, 2);
         }
         else if (Number) {
             temp = filterBill.filter(element => element.dh_status === Number)
             console.log(temp);
-            console.log(1, 2);
         }
         else {
             temp = filterBill

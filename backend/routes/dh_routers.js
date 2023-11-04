@@ -15,6 +15,7 @@ router.get("/dhang/all", controllerDh.getAllBill);
 router.get("/dhang/success", controllerDh.getDhSuccess);
 router.get("/dhang/success/:id", controllerDh.getDhSuccessId);
 router.get("/shipper/:id", controllerDh.getByShipperId);
+router.get("/shipper/success/:id", controllerDh.getShipperSuccess);
 router.post("/", controllerDh.create); // Create a new item
 router.put("/:id", controllerDh.update); // Update an item by ID
 

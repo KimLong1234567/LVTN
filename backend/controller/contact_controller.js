@@ -107,6 +107,7 @@ const controller = {
                             <p>Here is what we had to say to you.</p>
                             <p>${updateData.lh_ph}<p>
                             <h4>Petshop is truly grateful. We wish our clients continued professional success, fortune, and health.</h4>
+                            <h3>Do not rely this mail </h3>
                         </div>
                     `
             };

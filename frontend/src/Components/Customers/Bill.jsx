@@ -12,6 +12,7 @@ function Bill(props) {
     const [refresh, setRefresh] = useState(0)
     const [showModal, setShowModal] = useState(false)
     const [feedback, setFeedback] = useState({})
+    const [files, setFiles] = useState()
     const [start, setStart] = useState(0)
 
     // const curentAccount = localStorage.currentAccount ? JSON.parse(localStorage.currentAccount) : null
@@ -26,21 +27,29 @@ function Bill(props) {
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [refresh])
     // console.log(bill);
-    function filter(text) {
-        console.log(text)
-        setShow(text)
+    function filter(Number) {
+        setShow(Number)
+        console.log(Number);
         var temp = []
-        if (text) {
-            temp = filterBill.filter(element => element.dh_status === text)
+        if (Number === 0) {
+            temp = filterBill.filter(element => element.dh_status === 0)
+            console.log(temp);
+
+        }
+        else if (Number) {
+            temp = filterBill.filter(element => element.dh_status === Number)
+            console.log(temp);
         }
         else {
             temp = filterBill
         }
         setBill(temp)
-        console.log(temp)
     }
 
-
+    const changeFile = (e) => {
+        setFiles(e.target.files[0]);
+        console.log(e.target.files);
+    }
 
     async function updateStatus(id, status) {
         await axios.put(`http://localhost:5000/api/bill/${id}`, {
@@ -185,10 +194,15 @@ function Bill(props) {
         setFeedback({ ...feedback, [e.target.name]: e.target.value })
     }
     function addFeedback() {
-        axios.post('http://localhost:5000/api/feedback/', {
-            ...feedback,
-            customer: curentAccount.user_id
-        })
+        const feedbackData = new FormData();
+        feedbackData.append('lh_img', files);
+
+        feedbackData.append('lh_name', curentAccount.user_name);
+        feedbackData.append('lh_email', curentAccount.user_email);
+        feedbackData.append('lh_sdt', curentAccount.user_phone);
+        feedbackData.append('lh_content', feedback.lh_content);
+        feedbackData.append('lh_address', curentAccount.user_address);
+        axios.post('http://localhost:5000/api/contacts/', feedbackData)
             .then((res) => {
                 toast.success('Đã phản hồi, vui lòng kiểm tra email để nhận thông tin', {
                     position: "top-center",
@@ -210,13 +224,6 @@ function Bill(props) {
     }
 
     const end = start + 2;
-    // const dataPage = bill.reverse().slice(start, end);
-    // // setBill(dataPage)
-    // const pageCount = Math.ceil(bill.length / 2);
-    // const handlePageClick = (event) => {
-    //     const number = (event.selected * 2) % bill.length;
-    //     setStart(number);
-    // };
     const dataPage = bill.slice(start, end);
     const pageCount = Math.ceil(bill.length / 2);
     const handlePageClick = (event) => {
@@ -234,14 +241,14 @@ function Bill(props) {
                 <Modal.Body>
                     <Form>
                         <Form.Group className="mb-3" controlId="exampleForm.ControlTextarea1">
-                            <Form.Control as="textarea" rows={4} placeholder="Please give us feedback about your order" name='content' onChange={onchange} />
+                            <Form.Control as="textarea" rows={4} placeholder="Please give us feedback about your order" name='lh_content' onChange={onchange} />
                         </Form.Group>
                         <Form.Group className="mb-3" controlId="formBasicPassword">
                             <Form.Label>Image feedback</Form.Label>
                             <Form.Control type="file"
                                 multiple
-                                name="image"
-                                onChange={onchange}
+                                name="lh_img"
+                                onChange={changeFile}
                             />
                         </Form.Group>
                     </Form>
