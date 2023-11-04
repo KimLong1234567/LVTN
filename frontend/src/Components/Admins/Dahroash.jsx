@@ -34,8 +34,12 @@ function Dahroash(props) {
                     setOrder(temp)
                     // setTotalValue(res.data.total)
                     // Tính tổng dh_total từ danh sách temp
-                    const totalValue = temp.reduce((total, order) => total + order.dh_total, 0);
-                    setTotalValue(totalValue);
+                    axios.get('http://localhost:5000/api/dh/dhang/success')
+                        .then((res) => {
+                            const total = res.data.data
+                            const totalValue = total.reduce((total, order) => total + order.dh_total, 0);
+                            setTotalValue(totalValue);
+                        })
                 })
             await axios.get('http://localhost:5000/api/admins/')
                 .then((res) => {

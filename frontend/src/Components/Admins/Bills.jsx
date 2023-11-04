@@ -11,11 +11,7 @@ function Bills(props) {
     const [filterBill, setFilterBill] = useState([])
     useLayoutEffect(() => {
         async function fetchData() {
-            const res = await axios.get('http://localhost:5000/api/bill/status/1', {
-                params: {
-                    status: 'Đã giao hàng thành công',
-                }
-            })
+            const res = await axios.get('http://localhost:5000/api/dh/dhang/success')
             setBill(res.data.data)
             setFilterBill(res.data.data)
         }
@@ -27,7 +23,7 @@ function Bills(props) {
         setBill(temp)
     }
     const onChange = (e) => {
-        const temp = filterBill.filter(element => element.customer.name.toLowerCase().includes(e.target.value.toLowerCase()))
+        const temp = filterBill.filter(element => element.user_name.toLowerCase().includes(e.target.value.toLowerCase()))
         setBill(temp)
     }
 
@@ -54,7 +50,7 @@ function Bills(props) {
                     <div className='d-flex mb-2'>
                         <input type="text"
                             className="form-control w-50 "
-                            placeholder="Nhập tên khách hàng"
+                            placeholder="Type customer name"
                             onChange={onChange}
                         />
                     </div>
@@ -83,38 +79,40 @@ function Bills(props) {
                             </tr>
                         </thead>
                         {
-                            dataPage !== undefined && dataPage.length !== 0 ?
+                            bill !== undefined && bill.length !== 0 ?
                                 <tbody>
                                     {
                                         dataPage.reverse().map((value, idx) => {
                                             return [
-                                                value.products.map((item, i) => {
+                                                value.ctdh.map((item, i) => {
                                                     return (
                                                         <tr key={i}>
                                                             <td>{i + 1}</td>
-                                                            <td>{item.id_product.name}</td>
+                                                            <td>{item.sp_name}</td>
                                                             <td>
-                                                                <img src={`/image/SanPham/${item.id_product.image}`} style={{ width: "100px" }} alt='...' />
+                                                                <img src={`/image/SanPham/${item.sp_image}`} style={{ width: "100px" }} alt='...' />
                                                             </td>
-                                                            <td>{item.quantity}</td>
-                                                            <td>{item.id_product.price}</td>
-                                                            <td>{value.name_customer !== undefined ? value.name_customer : value.customer.name}</td>
-                                                            <td>{value.adress !== undefined ? value.adress : value.customer.adress}</td>
-                                                            <td>{value.sdt !== undefined ? value.sdt : value.customer.sdt}</td>
-                                                            <td>{value.pay}</td>
-                                                            <td className='text-success fw-bold'>{value.status}</td>
-                                                            <td>{value.createdAt = new Date(value.createdAt).toLocaleString()}</td>
-                                                            <td>{value.updatedAt = new Date(value.createdAt).toLocaleString()}</td>
-                                                            <td>{value.nhanvien !== undefined ? value.nhanvien : "Hiện chưa có người giao"}</td>
-                                                            <td>{value.sdtnhanvien !== undefined ? '' + value.sdtnhanvien : "Trống"}</td>
+                                                            <td>{item.ctdh_sl}</td>
+                                                            <td>{item.ctdh_price}</td>
+                                                            <td>{value.user_name !== undefined ? value.user_name : value.user_name}</td>
+                                                            <td>{value.dh_address !== undefined ? value.dh_address : value.customer.dh_address}</td>
+                                                            <td>{value.user_phone !== undefined ? value.user_phone : value.customer.user_phone}</td>
+                                                            <td>{value.dh_pay}</td>
+                                                            <td className='text-success fw-bold'>{value.dh_status}</td>
+                                                            <td>{value.dh_create = new Date(value.dh_create).toLocaleString()}</td>
+                                                            <td>{value.dh_update = new Date(value.dh_update).toLocaleString()}</td>
+                                                            <td>{value.nv_hoten !== undefined ? value.nv_hoten : "Hiện chưa có người giao"}</td>
+                                                            <td>{value.nv_phone !== undefined ? '' + value.nv_phone : "Trống"}</td>
                                                             <td></td>
                                                         </tr>
                                                     )
                                                 }),
                                                 <tr key={idx} className='table-secondary'>
-                                                    <td colSpan={3} className='fw-bolder text-uppercase text-start'>Sum</td>
-                                                    <td className='fw-bolder text-primary text-end' colSpan={11}>{new Intl.NumberFormat('vi').format(value.total)} $</td>
-                                                    <td colSpan={1}> <button className='btn btn-success'><Link className='text-white' to={`/admin/export/${value._id}`}><Icon icon={faPrint} /></Link></button></td>
+                                                    <td colSpan={3} className='fw-bolder text-uppercase text-end'>Sum quantity:</td>
+                                                    <td colSpan={1} className='fw-bolder text-uppercase text-center'>{value.dh_sl}</td>
+                                                    <td colSpan={8} className='fw-bolder text-uppercase text-start'>Sum</td>
+                                                    <td className='fw-bolder text-primary text-end' colSpan={2}>{new Intl.NumberFormat('vi').format(value.dh_total)} $</td>
+                                                    <td colSpan={1}> <button className='btn btn-success'><Link className='text-white' to={`/admin/export/${value.dh_id}`}><Icon icon={faPrint} /></Link></button></td>
                                                 </tr>
                                             ]
                                         })

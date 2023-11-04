@@ -7,15 +7,15 @@ import axios from 'axios';
 import { Button, Col, Form, Modal, Row } from 'react-bootstrap';
 import { ToastContainer, toast } from 'react-toastify';
 function Products() {
-    const userId = getCookie("userId");
     // const curentAdmin = localStorage.admin ? JSON.parse(localStorage.admin) : null
+    const curentAdmin = localStorage["admin"] ? JSON.parse(localStorage["admin"]) : null
     const [refresh, setRefresh] = useState(0)
     const [Type, setType] = useState([])
     const [Products, setProducts] = useState([])
     const [show, setShow] = useState(false)
     const [selected, setSelected] = useState({
         sp_image: null,
-        nv_id: userId,
+        nv_id: curentAdmin.user_id,
         sp_code: '',
         sp_name: '',
         sp_price: 0,
@@ -30,7 +30,7 @@ function Products() {
     const [pn, setPn] = useState({
         sp_code: '',
         pn_total: selected.sp_sl * selected.sp_gianhap,
-        nv_id: userId,
+        nv_id: curentAdmin.user_id,
     })
     const [total, setTotal] = useState({
         pn_total: 0,
@@ -38,22 +38,6 @@ function Products() {
     const [ProductFind, setProductFind] = useState([])
     const [files, setFiles] = useState()
 
-    function getCookie(name) {
-        const cookieName = name + "=";
-        const decodedCookie = decodeURIComponent(document.cookie);
-        const cookieArray = decodedCookie.split(";");
-
-        for (let i = 0; i < cookieArray.length; i++) {
-            let cookie = cookieArray[i];
-            while (cookie.charAt(0) === " ") {
-                cookie = cookie.substring(1);
-            }
-            if (cookie.indexOf(cookieName) === 0) {
-                return cookie.substring(cookieName.length, cookie.length);
-            }
-        }
-        return "";
-    }
     const changeFile = (e) => {
         setFiles(e.target.files[0]);
         console.log(e.target.files);
@@ -78,7 +62,7 @@ function Products() {
 
     const productData = {
         sp_image: files,
-        nv_id: userId,
+        nv_id: curentAdmin.user_id,
         sp_code: selected.sp_code,
         sp_name: selected.sp_name,
         sp_price: selected.sp_price,
@@ -93,7 +77,7 @@ function Products() {
 
     const pnData = {
         sp_code: pn.sp_code,
-        nv_id: userId,
+        nv_id: curentAdmin.user_id,
         pn_total: total.pn_total,
     }
     console.log(pnData);
@@ -109,7 +93,7 @@ function Products() {
 
                 console.log(pnData);
                 addPnhap();
-                toast.success('Thêm mới sản phẩm thành công.', {
+                toast.success('Add product success', {
                     position: "top-center",
                     autoClose: 2000,
                     closeOnClick: true,
@@ -127,7 +111,7 @@ function Products() {
                 setShow(false);
             })
             .catch((Error) => {
-                toast.error('Đã xảy ra lỗi! Vui lòng kiểm tra lại.', {
+                toast.error('Error, please contact admin.', {
                     position: "top-center",
                     autoClose: 2000,
                     closeOnClick: true,

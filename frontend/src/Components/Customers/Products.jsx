@@ -202,7 +202,7 @@ function Products(props) {
                     console.log(sanitizedTranscript);
                     setSearchValue(sanitizedTranscript); // Cập nhật giá trị từ giọng nói
                     if (ProductFind && sanitizedTranscript) {
-                        const temp = ProductFind.filter(e => e.name && e.name.toLowerCase().includes(sanitizedTranscript.toLowerCase()));
+                        const temp = ProductFind.filter(e => e.sp_name && e.sp_name.toLowerCase().includes(sanitizedTranscript.toLowerCase()));
                         setProducts(temp);
                     }
                 }

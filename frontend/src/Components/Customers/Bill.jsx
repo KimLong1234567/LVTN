@@ -157,13 +157,13 @@ function Bill(props) {
     function renderStatus(status) {
         if (status === 2) {
             return (
-                <td className='text-success fw-bold'>{status}</td>
+                <td className='text-success fw-bold'>Has received products</td>
             )
         }
         else if (status === 3) {
             return (
 
-                <td className='text-danger fw-bold'>{status}</td>
+                <td className='text-danger fw-bold'>Deleted</td>
 
             )
         }
