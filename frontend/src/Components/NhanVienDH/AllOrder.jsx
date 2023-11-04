@@ -43,7 +43,7 @@ function AllOrder(props) {
     }
 
     function renderButton(status, id) {
-        if (status === 'Đã giao hàng thành công') {
+        if (status === 2) {
             return (
                 <>
                     <td>
@@ -64,7 +64,7 @@ function AllOrder(props) {
                 </>
             )
         }
-        else if (status === 'Đơn hàng đã bị hủy bỏ') {
+        else if (status === 3) {
             return (
                 <>
                     <td>
@@ -85,37 +85,16 @@ function AllOrder(props) {
                 </>
             )
         }
-        else if (status === 'Chờ xác nhận') {
+        else if (status === 1) {
             return (
                 <>
                     <td>
-                        <button className='btn btn-outline-success' onClick={() => updateStatus(id, 'Đang giao hàng')}>
+                        <button className='btn btn-outline-success' onClick={() => updateStatus(id, 2)}>
                             <Icon icon={faCheckDouble} />
                         </button>
                     </td>
                     <td>
-                        <button className='btn btn-outline-danger' onClick={() => refuse(id)}>
-                            <Icon icon={faCircleXmark} />
-                        </button>
-                    </td>
-                    <td>
-                        <button className='btn btn-outline-warning' disabled>
-                            <Icon icon={faTrashCanArrowUp} />
-                        </button>
-                    </td>
-                </>
-            )
-        }
-        else if (status === 'Đang giao hàng') {
-            return (
-                <>
-                    <td>
-                        <button className='btn btn-outline-success' disabled>
-                            <Icon icon={faCheckDouble} />
-                        </button>
-                    </td>
-                    <td>
-                        <button className='btn btn-outline-danger' disabled>
+                        <button className='btn btn-outline-danger' onClick={() => updateStatus(id, 3)}>
                             <Icon icon={faCircleXmark} />
                         </button>
                     </td>
@@ -129,13 +108,12 @@ function AllOrder(props) {
         }
     }
     async function updateStatus(id, status) {
-        await axios.put(`http://localhost:5000/api/bill/${id}`, {
-            id: id,
-            status: status,
-            nhanvien: curentAccount._id
+        await axios.put(`http://localhost:5000/api/dh/${id}`, {
+            dh_id: id,
+            dh_status: status,
         })
             .then((res) => {
-                toast('Cập nhật thành công.', {
+                toast('Update Success.', {
                     position: "top-center",
                     autoClose: 2000,
                     closeOnClick: true,
@@ -152,67 +130,25 @@ function AllOrder(props) {
                 );
             })
     }
-
-    async function refuse(id) {
-        for (let i = 0; i < filterBill.length; i++) {
-            if (filterBill[i]._id === id) {
-                filterBill.pop(filterBill[i])
-            }
-        }
-        const temp = filterBill.filter(element => filterBill.includes(element));
-        setBill(temp)
-        await axios.put(`http://localhost:5000/api/bill/${id}`, {
-            sdtnhanvien: '0'
-        })
-            .then((res) => {
-                toast('Cập nhật thành công.', {
-                    position: "top-center",
-                    autoClose: 2000,
-                    closeOnClick: true,
-                    pauseOnHover: true,
-                    draggable: true,
-                    progress: undefined,
-                    theme: "dark",
-                })
-                setTimeout(
-                    function () {
-                        setRefresh((prev) => prev + 1)
-                    },
-                    3000
-                );
-            })
-    }
-
     function renderStatus(status) {
-        if (status === 'Đã giao hàng thành công') {
+        if (status === 3) {
             return (
-                <td className='text-success fw-bold'>{status}</td>
+                <td className='text-danger fw-bold'>Deleted</td>
             )
         }
-        else if (status === 'Đơn hàng đã bị hủy bỏ') {
+        else if (status === 0) {
             return (
-
-                <td className='text-danger fw-bold'>{status}</td>
-
+                <td className='text-warning fw-bold'>Wait</td>
             )
         }
-        else if (status === 'Chờ xác nhận') {
+        else if (status === 1) {
             return (
-
-                <td className='text-warning fw-bold'>{status}</td>
-
-            )
-        }
-        else if (status === 'Đơn hàng đã bị hủy bỏ') {
-            return (
-                <td className='text-primary fw-bold'>{status}</td>
-
+                <td className='text-primary fw-bold'>On ship</td>
             )
         }
         else {
             return (
-
-                <td className='text-primary fw-bold'>{status} fafw</td>
+                <td className='text-danger fw-bold'>Please contact to manager</td>
             )
         }
     }
@@ -268,9 +204,9 @@ function AllOrder(props) {
                                                             <img src={`/image/SanPham/${item.sp_image}`} style={{ width: "100px" }} alt='...' />
                                                         </td>
                                                         <td>{item.ctdh_sl}</td>
-                                                        <td>{item.cttd_price}</td>
+                                                        <td>{item.ctdh_price}</td>
                                                         <td>{value.user_name !== undefined ? value.user_name : value.user_name}</td>
-                                                        <td>{value.user_address !== undefined ? value.user_address : value.user_address}</td>
+                                                        <td>{value.dh_address !== undefined ? value.dh_address : value.dh_address}</td>
                                                         <td>{value.user_phone !== undefined ? value.user_phone : value.user_phone}</td>
                                                         <td>{value.dh_pay}</td>
                                                         {renderStatus(value.dh_status)}
@@ -280,9 +216,11 @@ function AllOrder(props) {
                                                 )
                                             }),
                                             <tr key={idx}>
-                                                <td colSpan={3} className='fw-bolder text-uppercase text-start'>Tổng tiền</td>
-                                                <td className='fw-bolder text-primary text-end' colSpan={8}>{new Intl.NumberFormat('vi').format(value.dh_total)} $</td>
-                                                {renderButton(value.dh_status, value.dh__id)}
+                                                <td colSpan={3} className='fw-bolder text-uppercase text-end'>Sum quantity:</td>
+                                                <td colSpan={1} className='fw-bolder text-uppercase text-center'>{value.dh_sl}</td>
+                                                <td colSpan={6} className='fw-bolder text-uppercase text-end'>Sum</td>
+                                                <td className='fw-bolder text-primary text-center' colSpan={1}>{new Intl.NumberFormat('vi').format(value.dh_total)} $</td>
+                                                {renderButton(value.dh_status, value.dh_id)}
                                             </tr>
                                         ]
                                     })

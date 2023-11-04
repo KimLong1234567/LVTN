@@ -125,7 +125,7 @@ function Contact(props) {
                     </Col>
                     <Col sx={12} md={6} >
                         <div>
-                            <img src='/image/Avt/ava2.jpg' alt='...' style={{ width: "450px" }} />
+                            <img src='/image/Avt/717081.png' alt='...' style={{ width: "600px", height: "500px" }} />
                         </div>
                     </Col>
                 </Row>

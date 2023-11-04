@@ -40,7 +40,7 @@ function App() {
           <Route element={<LayoutShipper />}>
             <Route path="/shipper/status/success" element={<Components.Success />} />
             <Route path="/shipper/allorder" element={<Components.AllOrder />} />
-            <Route path="/shipper/orderdelivered" element={<Components.OrdersDelivered />} />
+            {/* <Route path="/shipper/orderdelivered" element={<Components.OrdersDelivered />} /> */}
             <Route path="/shipper/orderdestroy" element={<Components.OrderDestroy />} />
           </Route>
           <Route element={<LayoutCustomer />} >

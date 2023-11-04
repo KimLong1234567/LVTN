@@ -11,6 +11,7 @@ function Products(props) {
     const [Products, setProducts] = useState([])
     const [ProductFind, setProductFind] = useState([])
     const [start, setStart] = useState(0);
+    const [searchValue, setSearchValue] = useState('');
     //pagination
     // console.log(type);
     function PaginatedItems({ itemsPerPage }) {
@@ -180,11 +181,10 @@ function Products(props) {
         }
     }, [sort, Products])
 
-
     //voice
     speechApi.continuous = true;
     speechApi.interimResults = false;
-    speechApi.lang = 'vi-VN'
+    speechApi.lang = 'en-US'
     window.onload = function () {
         document.getElementById("voice").addEventListener("click", () => {
             if (status === 1) {
@@ -196,8 +196,16 @@ function Products(props) {
             speechApi.onresult = function (event) {
                 speechApi.stop()
                 console.log(event.results[0][0].transcript)
-                const temp = ProductFind.filter(e => e.name.toLowerCase().includes(event.results[0][0].transcript.toLowerCase()))
-                setProducts(temp)
+                if (event.results && event.results[0] && event.results[0][0]) {
+                    const transcript = event.results[0][0].transcript;
+                    const sanitizedTranscript = transcript.replace(/\./g, ''); //loai dau cham
+                    console.log(sanitizedTranscript);
+                    setSearchValue(sanitizedTranscript); // Cập nhật giá trị từ giọng nói
+                    if (ProductFind && sanitizedTranscript) {
+                        const temp = ProductFind.filter(e => e.name && e.name.toLowerCase().includes(sanitizedTranscript.toLowerCase()));
+                        setProducts(temp);
+                    }
+                }
                 status = 0
             };
             speechApi.onspeechend = function () {
@@ -221,6 +229,7 @@ function Products(props) {
                             placeholder="LOOKING FOR PRODUCT? TYPE HERE"
                             onChange={onChange}
                             style={{ height: "50px" }}
+                        // value={searchValue}
                         />
                         <Button variant='outline-success' id='voice' className='text-start'> <Icon icon={faMicrophone} /> </Button>
                     </div>

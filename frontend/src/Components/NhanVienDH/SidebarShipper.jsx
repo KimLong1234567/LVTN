@@ -2,8 +2,6 @@ import React, { useEffect, useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { Col } from 'react-bootstrap';
 import '../Admins/admin.css'
-import axios from "axios";
-import { toast } from "react-toastify";
 import { FontAwesomeIcon as Icon } from "@fortawesome/react-fontawesome";
 import {
     faMoneyBill1Wave,
@@ -31,7 +29,7 @@ function Sidebar(props) {
                 </div>
                 <div>
                     <Link to={'/shipper/allorder'} className='name menuItem'><Icon icon={faMoneyBill1Wave} className='iconItem' /> Danh sách đơn hàng</Link>
-                    <Link to={'/shipper/orderdelivered'} className='name menuItem'><Icon icon={faMoneyBillTransfer} className='iconItem' /> Đơn hàng cần giao</Link>
+                    {/* <Link to={'/shipper/orderdelivered'} className='name menuItem'><Icon icon={faMoneyBillTransfer} className='iconItem' /> Đơn hàng cần giao</Link> */}
                     <Link to={'/shipper/status/success'} className='name menuItem'><Icon icon={faMoneyBill1Wave} className='iconItem' /> Đơn hàng đã giao</Link>
                     <Link to={'/shipper/orderdestroy'} className='name menuItem'><Icon icon={faRectangleXmark} className='iconItem' /> Đơn hàng giao không thành công</Link>
                 </div>

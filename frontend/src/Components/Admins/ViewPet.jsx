@@ -202,7 +202,7 @@ function ViewPet(props) {
     return (
         <div className='boder-main'>
             <ToastContainer />
-            <h2 className='text-uppercase text-center text-primary fw-bolder mt-2'>Quản lý bill</h2>
+            <h2 className='text-uppercase text-center text-primary fw-bolder mt-2'>Pet management</h2>
             <h3 className='text-uppercase text-start text-success fw-bolder mx-2'>filter <Icon icon={faFilter} /></h3>
             <Row className='m-0'>
                 <Col xs={12} md={3}>
