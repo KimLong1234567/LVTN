@@ -52,7 +52,7 @@ function Dahroash(props) {
     newoder = count?.length
     const data = {
         labels: ['Products', 'New Orders',
-            'Customer', 'Employee', 'Sales / 10.00%'],
+            'Customer', 'Employee', 'Sales'],
         datasets: [
             {
                 label: 'The diagram shows the store in visual form',
@@ -71,7 +71,7 @@ function Dahroash(props) {
                     'rgb(54, 162, 235)',
                 ],
                 borderWidth: 1,
-                data: [products.length, order.length, customer.length, employee.length, totalValue / 100]
+                data: [products.length, order.length, customer.length, employee.length, totalValue]
             }
         ]
     }

@@ -40,6 +40,20 @@ const controller = {
 
                 const sql = "INSERT INTO ctpnhap (pn_id, sp_code, ctpn_sl, ctpn_gianhap, ctpn_create) VALUES (?,?,?,?,?)";
                 await pool.query(sql, [pn_id, sp_code, sp_sl, sp_gianhap, ctpn_create]);
+
+                // Cập nhật số lượng và giá nhập trong bảng products
+                const [productSql] = await pool.query("SELECT * FROM products WHERE sp_code = ?", [sp_code]);
+                if (productSql.length > 0) {
+                    const product = productSql[0];
+                    const newProductQuantity = product.sp_sl + sp_sl;
+                    const newProductCost = sp_gianhap;
+
+                    // Cập nhật số lượng và giá nhập sản phẩm trong bảng products
+                    await pool.query(
+                        "UPDATE products SET sp_sl = ?, sp_gianhap = ? WHERE sp_code = ?",
+                        [newProductQuantity, newProductCost, sp_code]
+                    );
+                }
             }
 
             res.json({

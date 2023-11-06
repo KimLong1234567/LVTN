@@ -123,6 +123,19 @@ const controller = {
                     [kh_id, sp_code, gh_sl, gh_create]
                 );
             }
+
+            // Cập nhật số lượng trong bảng products
+            const [productSql] = await pool.query("SELECT * FROM products WHERE sp_code = ?", [sp_code]);
+            if (productSql.length > 0) {
+                const product = productSql[0];
+                const newProductQuantity = product.sp_sl - gh_sl;
+
+                // Cập nhật số lượng sản phẩm trong bảng products
+                await pool.query(
+                    "UPDATE products SET sp_sl = ? WHERE sp_code = ?",
+                    [newProductQuantity, sp_code]
+                );
+            }
             res.json({
                 status: "success",
             });
@@ -134,7 +147,7 @@ const controller = {
             })
         }
     },
-    // Update order information
+    // Update order information no use
     updateOrder: async (req, res) => {
         try {
             const { id } = req.params;
@@ -174,7 +187,7 @@ const controller = {
             });
         }
     },
-
+    // use 
     delete: async (req, res) => {
         try {
             const { id } = req.params

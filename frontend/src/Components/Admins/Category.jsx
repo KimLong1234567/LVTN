@@ -31,7 +31,7 @@ function Category(props) {
         axios
             .delete(`http://localhost:5000/api/cate/${id}`)
             .then((res) => {
-                toast('Loài đã bị xóa.', {
+                toast('SPECIES ALREADY DELETED.', {
                     position: "top-center",
                     autoClose: 2000,
                     closeOnClick: true,
@@ -73,7 +73,7 @@ function Category(props) {
                 headers: { 'Content-Type': 'multipart/form-data' }
             })
             .then((res) => {
-                toast.success('Thêm mới thành công.', {
+                toast.success('ADD SUCCESS.', {
                     position: "top-center",
                     autoClose: 2000,
                     closeOnClick: true,
@@ -117,7 +117,7 @@ function Category(props) {
                 headers: { 'Content-Type': 'multipart/form-data' }
             })
             .then((res) => {
-                toast.info('Cập nhật thành công.', {
+                toast.info('UPDATE SUCCESS.', {
                     position: "top-center",
                     autoClose: 2000,
                     closeOnClick: true,
@@ -189,7 +189,7 @@ function Category(props) {
                 <h4 className='text-primary fw-bold text-uppercase'>Category List</h4>
                 <input type="text"
                     className="form-control w-50 "
-                    placeholder="Nhập thông tin cần tìm"
+                    placeholder="Find species"
                     onChange={TypeFind}
                 />
                 <Button variant="success" onClick={() => setShow(true)}>Add new category <Icon icon={faSquarePlus} /></Button>

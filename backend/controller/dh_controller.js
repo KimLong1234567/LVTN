@@ -1,4 +1,5 @@
 const pool = require("../database/index")
+const nodemailer = require('nodemailer');
 
 const controller = {
     getAll: async (req, res) => {
@@ -388,7 +389,7 @@ const controller = {
     },
     create: async (req, res) => {
         try {
-            const { sp_code, dh_pay, dh_total, kh_id, dh_sl, dh_address } = req.body;
+            const { sp_code, dh_pay, dh_total, kh_id, dh_sl, dh_address, user_email } = req.body;
             const dh_create = new Date();
 
             console.log(req.body);
@@ -399,6 +400,50 @@ const controller = {
             const sqla = "UPDATE cart SET status = 1 WHERE kh_id = ?"
             await pool.query(sqla, [kh_id]);
             console.log(dh_id);
+            //send email
+            let transporter = nodemailer.createTransport({
+                service: 'gmail',
+                secure: true,
+                auth: {
+                    user: process.env.EMAIL_USERNAME,
+                    pass: process.env.EMAIL_PASSWORD,
+                }
+            });
+            console.log(process.env.EMAIL_USERNAME);
+
+            var mailOptions = {
+                from: process.env.EMAIL_USERNAME,
+                to: user_email, // Gửi email đến địa chỉ email của khách hàng
+                subject: 'PETSHOP',
+                html:
+                    `   
+                        <style>
+                        h3 {
+                            color: blue;
+                        }
+                        h4 {
+                            font-weight: bold;
+                        }
+                        p {
+                            font-size: 18px;
+                        }
+                        </style>
+                        <div>
+                            <h3>Hi, ${user_email}</h3>
+                            <p>You recently placed an order with the following total quantity::${dh_sl}<p>
+                            <p>Including the sum of:${dh_total}</p>
+                            <p>Please periodically check your email to see the status of your order.</p>
+                            <h4>Petshop is truly grateful. We wish our clients continued professional success, fortune, and health.</h4>
+                        </div>
+                    `
+            };
+            transporter.sendMail(mailOptions, function (error, info) {
+                if (error) {
+                    console.log(error);
+                } else {
+                    console.log('Email sent: ' + info.response);
+                }
+            });
             res.json({
                 data: { dh_id }
             })
@@ -427,6 +472,57 @@ const controller = {
 
             const sql = "UPDATE donhang SET ? WHERE dh_id = ?"
             const [rows, fields] = await pool.query(sql, [updateData, id])
+            const [find] = await pool.query("SELECT * FROM donhang AS d, users AS u, nhan_vien AS n WHERE d.dh_id = 14 AND d.kh_id = u.user_id AND d.nv_id = n.nv_id;", [id])
+            console.log(find);
+            if (find.length > 0) {
+                // Cấu hình transporter ở đầu file
+                const email = find[0].user_email;
+                const dh_id = find[0].dh_id;
+                const dh_total = find[0].dh_total;
+                const nv_name = find[0].nv_hoten;
+                let transporter = nodemailer.createTransport({
+                    service: 'gmail',
+                    secure: true,
+                    auth: {
+                        user: process.env.EMAIL_USERNAME,
+                        pass: process.env.EMAIL_PASSWORD,
+                    }
+                });
+                console.log(process.env.EMAIL_USERNAME);
+
+                var mailOptions = {
+                    from: process.env.EMAIL_USERNAME,
+                    to: email, // Gửi email đến địa chỉ email của khách hàng
+                    subject: 'PETSHOP',
+                    html:
+                        `   
+                        <style>
+                        h3 {
+                            color: blue;
+                        }
+                        h4 {
+                            font-weight: bold;
+                        }
+                        p {
+                            font-size: 18px;
+                        }
+                        </style>
+                        <div>
+                            <h3>Hi, ${email}</h3>
+                            <p>The total value of your order with order code ${dh_id} is: ${dh_total} $</p>
+                            <p>Order details for you: On board by our staff member ${nv_name}<p>
+                            <h4>Petshop is truly grateful. We wish our clients continued professional success, fortune, and health.</h4>
+                        </div>
+                    `
+                };
+                transporter.sendMail(mailOptions, function (error, info) {
+                    if (error) {
+                        console.log(error);
+                    } else {
+                        console.log('Email sent: ' + info.response);
+                    }
+                });
+            }
             res.json({
                 data: rows
             })

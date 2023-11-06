@@ -9,13 +9,11 @@ function ProfitOverTime(props) {
     const [endDate, setEndDate] = useState('');
     useEffect(() => {
         axios
-            .get('http://localhost:5000/api/bill/status/1', {
-                params: { status: 'Đã giao hàng thành công' }
-            })
+            .get('http://localhost:5000/api/dh/dhang/success')
             .then((res) => {
                 var newBill = []
                 res.data?.data?.forEach(item => {
-                    newBill.push({ ...item, createdAt: format(parse(item.createdAt, "yyyy-MM-dd'T'HH:mm:ss.SSSX", new Date()), 'yyyy-MM-dd') })
+                    newBill.push({ ...item, dh_create: format(parse(item.dh_create, "yyyy-MM-dd'T'HH:mm:ss.SSSX", new Date()), 'yyyy-MM-dd') })
                 })
                 setBill(newBill);
                 setFilterBill(newBill)
@@ -57,16 +55,6 @@ function ProfitOverTime(props) {
         // eslint-disable-next-line
     }, [startDate, endDate])
 
-    const TotalProfitOverDay = (temp) => {
-        var TotalProfit = 0;
-        temp?.forEach(Element => {
-            Element.products.forEach(value => {
-                TotalProfit += (value.id_product.price - value.id_product.giatien) * value.quantity
-            })
-        })
-        return TotalProfit;
-    }
-
     return (
         <div className='boder-main'>
             <ToastContainer />
@@ -86,43 +74,36 @@ function ProfitOverTime(props) {
                             <th>Date</th>
                             <th>SOLD PRODUCTS</th>
                             <th>IMAGE</th>
-                            <th>PRICE</th>
                             <th>NUMBER SALES</th>
+                            <th>PRICE</th>
+                            {/* <th></th> */}
                         </tr>
                     </thead>
-                    {Bill.length > 0 ?
-                        Bill.map((value, idx) => {
-                            return [
-                                value.products.map((item, i) => {
-                                    return (
-                                        <tbody key={i}>
-                                            <tr>
-                                                <td>{idx}</td>
-                                                <td>{value.createdAt}</td>
-                                                <td>{item.id_product.name}</td>
-                                                <td>
-                                                    <img src={`/image/SanPham/${item.id_product.image}`} className="mb-2 mt-2" style={{ width: "150px" }} alt="..." />
-                                                </td>
-                                                <td>{item.id_product.price}</td>
-                                                <td>{item.quantity}</td>
-                                            </tr>
-                                        </tbody>
-                                    )
-                                }),
-                            ]
-                        })
-                        :
+                    {Bill.length > 0 ? Bill.map((value, idx) => (
+                        <tbody key={idx}>
+                            {value.ctdh.map((item, i) => (
+                                <tr key={i}>
+                                    <td>{idx + 1}</td>
+                                    <td>{value.dh_create}</td>
+                                    <td>{item.sp_name}</td>
+                                    <td>
+                                        <img src={`/image/SanPham/${item.sp_image}`} className="mb-2 mt-2" style={{ width: "150px" }} alt="..." />
+                                    </td>
+                                    <td>{item.ctdh_sl}</td>
+                                    <td>{item.ctdh_price}</td>
+                                </tr>
+                            ))}
+                            <tr className="table-secondary text-center">
+                                <td colSpan={4} className='fw-bolder text-uppercase text-end'>Sum:</td>
+                                <td className='fw-bolder text-uppercase text-center'>{value.dh_sl}</td>
+                                <td className='fw-bolder text-primary text-end' >{new Intl.NumberFormat('vi').format(value.dh_total)} $</td>
+                            </tr>
+                        </tbody>
+                    )) : (
                         <div className='d-flex'>
                             <h5 className='m-3 text-warning'>Orders have not yet been sold.</h5>
                         </div>
-                    }
-                    <tfoot>
-                        <tr className="table-secondary text-center">
-                            <td className='text-start h5' colSpan={5}>Sum sales</td>
-                            <td className='h5'>{TotalProfitOverDay(Bill)} $</td>
-                        </tr>
-
-                    </tfoot>
+                    )}
                 </table>
             </div>
         </div >

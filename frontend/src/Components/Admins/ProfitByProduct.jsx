@@ -1,103 +1,115 @@
 import axios from 'axios';
 import React, { useEffect, useState } from 'react';
 
-var TotalProfit = 0
+var TotalProfit = 0;
+
 function ProfitByProduct(props) {
-    const [Products, setProducts] = useState([])
-    const [Bill, setBill] = useState([])
-    const [ProductFind, setProductFind] = useState([])
-    const [calcs, setCalcs] = useState([])
+    const [Products, setProducts] = useState([]);
+    const [Bill, setBill] = useState([]);
+    const [ProductFind, setProductFind] = useState([]);
+    const [Calcs, setCalcs] = useState([]);
 
     useEffect(() => {
-        axios
-            .get('http://localhost:5000/api/bill/status/1', {
-                params: { status: 'Đã giao hàng thành công' }
-            })
-            .then((res) => {
-                setBill(res.data.data)
-            });
-        axios
-            .get('http://localhost:5000/api/products')
-            .then((res) => {
-                setProducts(res.data.data)
-                setProductFind(res.data.data)
-            });
-    }, [])
+        axios.get('http://localhost:5000/api/dh/dhang/success', {
+            params: { status: 'Đã giao hàng thành công' }
+        }).then((res) => {
+            setBill(res.data.data);
+        });
+
+        axios.get('http://localhost:5000/api/products').then((res) => {
+            setProducts(res.data.data);
+            setProductFind(res.data.data);
+        });
+    }, []);
 
     useEffect(() => {
-        console.log(1111);
-        Products.forEach(product => {
-            var count = 0;
-            var profit = 0;
-            Bill.forEach(bill => {
-                var current = bill?.products?.find(item => item?.id_product?._id === product._id);
-                if (current) {
-                    count += current.quantity
-                    profit += (current.id_product.price - current.id_product.giatien) * current.quantity
-                }
-            })
-            setCalcs((prev) => prev.concat({ id: product._id, sold: count, profit: profit }));
-            TotalProfit += profit
-        })
+        // Calculate profits and update Calcs
+        const newCalcs = Products.map((product) => {
+            let count = 0;
+            let profit = 0;
+            Bill.forEach((bill) => {
+                bill.ctdh.forEach((item) => {
+                    if (item.sp_code === product.sp_code) {
+                        count += item.ctdh_sl;
+                        profit += (item.ctdh_price - product.sp_gianhap) * item.ctdh_sl;
+                    }
+                });
+            });
+            return { id: product.sp_id, sold: count, profit: profit };
+        });
+
+        setCalcs(newCalcs);
+
+        // Calculate total profit
+        const totalProfit = newCalcs.reduce((sum, product) => sum + product.profit, 0);
+        TotalProfit = totalProfit;
+
         // eslint-disable-next-line
-    }, [Products, Bill])
+    }, [Products, Bill]);
 
     const productsfind = (e) => {
-        const temp = ProductFind.filter(element => element.name.toLowerCase().includes(e.target.value.toLowerCase()))
-        setProducts(temp)
-    }
+        const temp = ProductFind.filter((element) =>
+            element.sp_name.toLowerCase().includes(e.target.value.toLowerCase())
+        );
+        setProducts(temp);
+    };
+
     return (
-        <div className='boder-main'>
-            <div className='m-0'>
-                <h2 className='text-primary fw-bold text-uppercase'> doanh thu theo sản phẩm </h2>
-                <input type="text"
+        <div className="boder-main">
+            <div className="m-0">
+                <h2 className="text-primary fw-bold text-uppercase">REVENUE BY PRODUCT</h2>
+                <input
+                    type="text"
                     className="form-control w-50 mx-auto"
-                    placeholder="Nhập tên sản phẩm"
+                    placeholder="Type to find products"
                     onChange={productsfind}
                 />
             </div>
-            <div className='m-3'>
+            <div className="m-3">
                 <table className="table table-bordered">
                     <thead>
                         <tr className="table-secondary text-center">
-                            <th> STT</th>
-                            <th>TÊN SẢN PHẨM</th>
-                            <th>THƯƠNG HIỆU</th>
-                            <th>ẢNH</th>
-                            <th>GIÁ NHẬP</th>
-                            <th>GIÁ BÁN</th>
-                            <th>SỐ LƯỢNG BÁN</th>
-                            <th>LỢI NHUẬN</th>
+                            <th>No</th>
+                            <th>PRODUCTS NAME</th>
+                            <th>SPECIES</th>
+                            <th>IMAGE</th>
+                            <th>IMPORT PRICE</th>
+                            <th>PRICE</th>
+                            <th>QUANTITY SALES</th>
+                            <th>PROFIT</th>
                         </tr>
                     </thead>
                     <tbody>
-                        {
-                            Products.map((product, idx) => (
-                                <tr key={idx} >
-                                    <td> {idx}</td>
-                                    <td>{product.name}</td>
-                                    <td className="text-center">
-                                        {product.type.name}
-                                    </td>
-                                    <td >
-                                        <img src={`/image/SanPham/${product.image}`} className="mb-2 mt-2" style={{ width: "150px" }} alt="..." />
-                                    </td>
-                                    <td>{product.giatien}</td>
-                                    <td>{product.price}</td>
-                                    <td>{calcs[idx]?.sold}</td>
-                                    {
-                                        calcs[idx]?.profit >= 0
-                                            ? <td className='fw-bold'>{calcs[idx]?.profit}</td>
-                                            : <td className='fw-bold text-danger'>{calcs[idx]?.profit}</td>
-                                    }
-                                </tr>
-                            ))
-                        }
+                        {Products.map((product, idx) => (
+                            <tr key={idx}>
+                                <td>{idx + 1}</td>
+                                <td>{product.sp_name}</td>
+                                <td className="text-center">{product.cate_name}</td>
+                                <td>
+                                    <img
+                                        src={`/image/SanPham/${product.sp_image}`}
+                                        className="mb-2 mt-2"
+                                        style={{ width: "150px" }}
+                                        alt="..."
+                                    />
+                                </td>
+                                <td>{product.sp_gianhap}</td>
+                                <td>{product.sp_price}</td>
+                                <td>{Calcs[idx]?.sold}</td>
+                                <td>
+                                    {Calcs[idx]?.profit >= 0 ? (
+                                        <span className="fw-bold">{Calcs[idx]?.profit}</span>
+                                    ) : (
+                                        <span className="fw-bold text-danger">{Calcs[idx]?.profit}</span>
+                                    )}
+                                </td>
+                            </tr>
+                        ))}
                     </tbody>
                     <tfoot>
                         <tr className="table-secondary text-center">
-                            <td className='h5 text-start' colSpan={7}>Tổng lợi nhuận tất cả sản phẩm: </td>
-                            <td className='h5' colSpan={1}>{TotalProfit}</td>
+                            <td colSpan={7}>TOTAL REVENUE FROM ALL ITEMS: </td>
+                            <td>{TotalProfit} $</td>
                         </tr>
                     </tfoot>
                 </table>

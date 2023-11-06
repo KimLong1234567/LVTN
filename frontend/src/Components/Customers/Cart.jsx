@@ -263,6 +263,7 @@ function Cart(props) {
             dh_total: Bill.totalValue,
             dh_sl: Bill.totalUnit,
             dh_address: selectedAddress,
+            user_email: curentAccount.user_email,
         }
         // console.log(DetailBill);
         axios

@@ -1,6 +1,7 @@
 const pool = require("../database/index");
 
 const controller = {
+    //SELECT p.sp_id, p.sp_code, p.sp_name, p.sp_image, p.cate_id, p.sp_gianhap, p.s_status AS product_status, c.cate_name, c.cate_status AS category_status, c.cate_img, dh.ctdh_price, dh.ctdh_sl FROM products p LEFT JOIN cate c ON p.cate_id = c.cate_id LEFT JOIN ( SELECT ctdh.sp_code, ctdh.ctdh_price, ctdh.ctdh_sl FROM ctdh INNER JOIN donhang dh ON ctdh.dh_id = dh.dh_id WHERE dh.dh_status != 3 ) dh ON p.sp_code = dh.sp_code;
     getAll: async (req, res) => {
         try {
             const [rows, fields] = await pool.query("SELECT * FROM ctdh");
@@ -41,6 +42,19 @@ const controller = {
 
                 const sql = "INSERT INTO ctdh (dh_id, sp_code, ctdh_sl, ctdh_create, sp_price) VALUES (?,?,?,?,?)";
                 await pool.query(sql, [dh_id, sp_code, gh_sl, ctdh_create, sp_price]);
+
+                // Cập nhật số lượng trong bảng products
+                const [productSql] = await pool.query("SELECT * FROM products WHERE sp_code = ?", [sp_code]);
+                if (productSql.length > 0) {
+                    const product = productSql[0];
+                    const newProductQuantity = product.sp_sl - gh_sl;
+
+                    // Cập nhật số lượng sản phẩm trong bảng products
+                    await pool.query(
+                        "UPDATE products SET sp_sl = ? WHERE sp_code = ?",
+                        [newProductQuantity, sp_code]
+                    );
+                }
             }
 
             res.json({
