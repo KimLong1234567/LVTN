@@ -215,7 +215,9 @@ function Details(props) {
                             return item.cate_id === Product[0].cate_id && (
                                 <div key={idx} className='col-md-4 col-sm-6 col-xs-12'>
                                     <Card className='card'>
-                                        <Card.Img variant="top" src={`/image/SanPham/${item.sp_image}`} style={{ width: "auto", height: "400px", maxHeight: "300px" }} />
+                                        <Link className="text-primary" to={`/detail/${item.sp_id}`}>
+                                            <Card.Img variant="top" src={`/image/SanPham/${item.sp_image}`} style={{ width: "400px", height: "400px", maxHeight: "300px" }} />
+                                        </Link>
                                         <hr />
                                         <Card.Body>
                                             <Card.Title>{item.sp_name}</Card.Title>

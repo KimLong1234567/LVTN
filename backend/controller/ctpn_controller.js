@@ -45,10 +45,11 @@ const controller = {
                 const [productSql] = await pool.query("SELECT * FROM products WHERE sp_code = ?", [sp_code]);
                 if (productSql.length > 0) {
                     const product = productSql[0];
-                    const newProductQuantity = product.sp_sl + sp_sl;
+                    const newProductQuantity = parseInt(product.sp_sl) + parseInt(sp_sl);
                     const newProductCost = sp_gianhap;
-
+                    console.log(newProductQuantity);
                     // Cập nhật số lượng và giá nhập sản phẩm trong bảng products
+                    console.log(typeof (parseInt(product.sp_sl)));
                     await pool.query(
                         "UPDATE products SET sp_sl = ?, sp_gianhap = ? WHERE sp_code = ?",
                         [newProductQuantity, newProductCost, sp_code]

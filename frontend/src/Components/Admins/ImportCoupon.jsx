@@ -3,33 +3,19 @@ import { FontAwesomeIcon as Icon } from '@fortawesome/react-fontawesome';
 import { faBan, faEdit, faPlus, faPrint, faTrashCanArrowUp } from '@fortawesome/free-solid-svg-icons';
 import { Button, Col, InputGroup, Modal, Row, Form } from 'react-bootstrap';
 import axios from 'axios';
+import { useNavigate } from "react-router-dom";
 import { ToastContainer, toast } from 'react-toastify';
 
 function ImportCoupon(props) {
-    const userId = getCookie("userId");
     const [products, setProducts] = useState([])
     const [show, setShow] = useState(false);
+    const Navigate = useNavigate();
     const [refresh, setRefresh] = useState(0)
     const [importProducts, setImportProducts] = useState([])
     // const curentAdmin = localStorage.admin ? JSON.parse(localStorage.admin) : null
+    const curentAdmin = localStorage["admin"] ? JSON.parse(localStorage["admin"]) : null
     var [totalvalue, setTotalValue] = useState(0);
 
-    function getCookie(name) {
-        const cookieName = name + "=";
-        const decodedCookie = decodeURIComponent(document.cookie);
-        const cookieArray = decodedCookie.split(";");
-
-        for (let i = 0; i < cookieArray.length; i++) {
-            let cookie = cookieArray[i];
-            while (cookie.charAt(0) === " ") {
-                cookie = cookie.substring(1);
-            }
-            if (cookie.indexOf(cookieName) === 0) {
-                return cookie.substring(cookieName.length, cookie.length);
-            }
-        }
-        return "";
-    }
 
     const onChangegiatien = (id, e) => {
         for (let i = 0; i < importProducts.length; i++) {
@@ -68,7 +54,7 @@ function ImportCoupon(props) {
 
     function addCoupon() {
         axios.post('http://localhost:5000/api/pn/', {
-            nv_id: userId,
+            nv_id: curentAdmin.nv_id,
             // products: importProducts,
             pn_total: totalvalue,
         })
@@ -88,6 +74,7 @@ function ImportCoupon(props) {
                 setTimeout(
                     function () {
                         setRefresh((prev) => prev + 1)
+                        Navigate("/admin/phieunhap")
                     },
                     3000
                 );

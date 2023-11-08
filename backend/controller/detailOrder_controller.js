@@ -40,7 +40,7 @@ const controller = {
             for (var cart of carts) {
                 const { sp_code, gh_sl, sp_price } = cart;
 
-                const sql = "INSERT INTO ctdh (dh_id, sp_code, ctdh_sl, ctdh_create, sp_price) VALUES (?,?,?,?,?)";
+                const sql = "INSERT INTO ctdh (dh_id, sp_code, ctdh_sl, ctdh_create, ctdh_price) VALUES (?,?,?,?,?)";
                 await pool.query(sql, [dh_id, sp_code, gh_sl, ctdh_create, sp_price]);
 
                 // Cập nhật số lượng trong bảng products

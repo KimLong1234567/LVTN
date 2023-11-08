@@ -59,7 +59,7 @@ function Register(props) {
     return (
         <Container fluid className='padding-header' style={{ backgroundImage: `url('/image/Background/bg-register.png')`, backgroundSize: "cover" }}>
             <ToastContainer />
-            <h3 className=" fw-bold text-uppercase text-primary">Đăng ký tài khoản thành viên</h3>
+            <h3 className=" fw-bold text-uppercase text-primary">Create a membership account</h3>
             <Card style={{ background: "none", border: "none", color: "white" }}>
                 <Card.Body>
                     <Row>
@@ -68,7 +68,7 @@ function Register(props) {
                                 <Form.Group>
                                     <Form.Group>
                                         <Form.Label htmlFor="hoten" className="control-label">
-                                            <Icon icon={faUser} /> Họ và tên
+                                            <Icon icon={faUser} /> Name
                                         </Form.Label>
                                         <Form.Control
                                             className="form-control"
@@ -83,7 +83,7 @@ function Register(props) {
                                         htmlFor="email"
                                         className="control-label"
                                     >
-                                        <Icon icon={faUserLock} />  Tài khoản
+                                        <Icon icon={faUserLock} />  Email
                                     </Form.Label>
                                     <Form.Control
                                         className="form-control"
@@ -96,7 +96,7 @@ function Register(props) {
                                 </Form.Group>
                                 <Form.Group>
                                     <Form.Label htmlFor="password" className="control-label">
-                                        <Icon icon={faKey} />  Mật khẩu
+                                        <Icon icon={faKey} />  Password
                                     </Form.Label>
                                     <Form.Control
                                         className="form-control"
@@ -109,7 +109,7 @@ function Register(props) {
                                 </Form.Group>
                                 <Form.Group>
                                     <Form.Label htmlFor="avt" className="control-label">
-                                        <Icon icon={faImagePortrait} />   Hình ảnh
+                                        <Icon icon={faImagePortrait} />     Avatar
                                     </Form.Label>
                                     <input
                                         className="form-control"
@@ -121,13 +121,13 @@ function Register(props) {
                                 </Form.Group>
                                 <Form.Group>
                                     <Form.Label htmlFor="sdt" className="control-label">
-                                        <Icon icon={faPhoneVolume} />   Điện thoại
+                                        <Icon icon={faPhoneVolume} />   Phone
                                     </Form.Label>
                                     <Form.Control
                                         className="form-control"
                                         type="text"
                                         name="user_phone"
-                                        placeholder="Số điện thoại"
+                                        placeholder="Phone"
                                         onChange={onChangeHandle}
                                         required
                                     ></Form.Control>
@@ -137,31 +137,31 @@ function Register(props) {
                                         <Icon icon={faGenderless} />   Gender
                                     </Form.Label>
                                     <Form.Select aria-label="Default select example" name="user_gt" onChange={onChangeHandle}>
-                                        <option>-- Chọn Giới Tính --</option>
-                                        <option value='nam'>Nam</option>
-                                        <option value='nữ'>Nữ</option>
-                                        <option value='unknow'>Không tiết lộ</option>
+                                        <option>-- Choose a Gender --</option>
+                                        <option value='nam'>Male</option>
+                                        <option value='nữ'>Female</option>
+                                        <option value='unknow'>unknow</option>
                                     </Form.Select>
                                 </Form.Group>
                                 <Form.Group>
                                     <Form.Label htmlFor="username" className="control-label">
-                                        <Icon icon={faAddressCard} />   Địa chỉ liên hệ
+                                        <Icon icon={faAddressCard} />   Address
                                     </Form.Label>
                                     <Form.Control
                                         className="form-control"
                                         type="text"
                                         name="user_address"
-                                        placeholder="Địa chỉ hiện tại của bạn"
+                                        placeholder="Your address as of right now"
                                         onChange={onChangeHandle}
                                         required
                                     ></Form.Control>
                                 </Form.Group>
                                 <Form.Group className='m-2'>
                                     <Form.Label>
-                                        <Link to={'/login'} className={'text-white fw-bolder h5'}> <Icon icon={faRightFromBracket} /> Đăng nhập tài khoản hiện có </Link>
+                                        <Link to={'/login'} className={'text-white fw-bolder h5'}> <Icon icon={faRightFromBracket} /> Access an already-existing account </Link>
                                     </Form.Label>
                                 </Form.Group>
-                                <Button variant='primary' type='submit' onClick={() => onSubmit()}>Đăng Ký</Button>
+                                <Button variant='primary' type='submit' onClick={() => onSubmit()}>Sign up</Button>
                             </Form>
                         </Col>
                     </Row>

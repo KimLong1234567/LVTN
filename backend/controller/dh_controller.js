@@ -472,7 +472,7 @@ const controller = {
 
             const sql = "UPDATE donhang SET ? WHERE dh_id = ?"
             const [rows, fields] = await pool.query(sql, [updateData, id])
-            const [find] = await pool.query("SELECT * FROM donhang AS d, users AS u, nhan_vien AS n WHERE d.dh_id = 14 AND d.kh_id = u.user_id AND d.nv_id = n.nv_id;", [id])
+            const [find] = await pool.query("SELECT * FROM donhang AS d, users AS u, nhan_vien AS n WHERE d.dh_id = ? AND d.kh_id = u.user_id AND d.nv_id = n.nv_id;", [id])
             console.log(find);
             if (find.length > 0) {
                 // Cấu hình transporter ở đầu file

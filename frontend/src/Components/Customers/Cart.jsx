@@ -437,7 +437,7 @@ function Cart(props) {
                             <h4 >Sum quantity: {new Intl.NumberFormat('vi').format(totalUnit)} unit</h4>
                             <h4 >Sum: {new Intl.NumberFormat('vi').format(totalValue)} $</h4>
                             <h4 >VAT: 10%</h4>
-                            <h4 >Final: {new Intl.NumberFormat('vi').format(totalValue + totalValue * 0.01)} $</h4>
+                            <h4 >Final: {new Intl.NumberFormat('vi').format(totalValue + totalValue * 0.1)} $</h4>
                             <div>
                                 <h4>Pay with:</h4>
                                 <div className='d-flex justify-content-end'>

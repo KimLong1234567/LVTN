@@ -15,7 +15,7 @@ function Products() {
     const [show, setShow] = useState(false)
     const [selected, setSelected] = useState({
         sp_image: null,
-        nv_id: curentAdmin.user_id,
+        nv_id: curentAdmin.nv_id,
         sp_code: '',
         sp_name: '',
         sp_price: 0,
@@ -30,7 +30,7 @@ function Products() {
     const [pn, setPn] = useState({
         sp_code: '',
         pn_total: selected.sp_sl * selected.sp_gianhap,
-        nv_id: curentAdmin.user_id,
+        nv_id: curentAdmin.nv_id,
     })
     const [total, setTotal] = useState({
         pn_total: 0,
@@ -59,10 +59,10 @@ function Products() {
         setSelected({ ...selected, cate_id: categoryId });
         console.log(categoryId);
     }
-
+    // console.log(curentAdmin);
     const productData = {
         sp_image: files,
-        nv_id: curentAdmin.user_id,
+        nv_id: curentAdmin.nv_id,
         sp_code: selected.sp_code,
         sp_name: selected.sp_name,
         sp_price: selected.sp_price,
@@ -73,14 +73,14 @@ function Products() {
         sp_gianhap: selected.sp_gianhap,
         sp_note: selected.sp_note
     };
-    console.log(productData);
+    // console.log(productData);
 
     const pnData = {
         sp_code: pn.sp_code,
-        nv_id: curentAdmin.user_id,
+        nv_id: curentAdmin.nv_id,
         pn_total: total.pn_total,
     }
-    console.log(pnData);
+    // console.log(pnData);
 
     const addProducts = () => {
 
@@ -178,7 +178,7 @@ function Products() {
             formData.append(parentKey, value);
         }
     }
-    console.log(productData);
+    // console.log(productData);
     const editProducts = async (id) => {
         const formdata = new FormData()
         formdata.append('file', files)
@@ -239,7 +239,7 @@ function Products() {
     }, [])
     useEffect(() => {
         axios
-            .get('http://localhost:5000/api/products/u')
+            .get('http://localhost:5000/api/products/')
             .then((res) => {
                 setProducts(res.data.data)
                 // console.log(res.data.data)
