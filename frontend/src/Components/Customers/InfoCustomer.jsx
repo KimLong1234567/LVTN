@@ -108,7 +108,7 @@ function InfoCustomer(props) {
                                             user[0].user_phone ?
                                                 <Form.Control type="text" placeholder={user[0].user_phone} name='user_phone' onChange={onchange} />
                                                 :
-                                                <Form.Control type="text" placeholder={'Nhập vào số điện thoại của bạn'} name='user_phone' onChange={onchange} />
+                                                <Form.Control type="text" placeholder={'Input your phone number'} name='user_phone' onChange={onchange} />
                                         }
                                     </Form.Group>
 
@@ -123,7 +123,7 @@ function InfoCustomer(props) {
                                             user[0].user_address ?
                                                 <Form.Control type="text" placeholder={user[0].user_address} name='user_address' onChange={onchange} />
                                                 :
-                                                <Form.Control type="text" placeholder={'Nhập vào địa chỉ của bạn'} name='user_address' onChange={onchange} />
+                                                <Form.Control type="text" placeholder={'Input your address'} name='user_address' onChange={onchange} />
                                         }
                                     </Form.Group>
 
@@ -137,8 +137,8 @@ function InfoCustomer(props) {
                                     <div className='text-start ps-5 m-3'>
                                         <h5>Your name: <span className='text-danger'>{user[0].user_name}</span></h5>
                                         <h5>Your Account: <span className='text-danger'>{user[0].user_email}</span></h5>
-                                        <h5>Your Phone:<span className='text-danger'> {user[0].user_phone ? user[0].user_phone : <span className='text-danger'> Chưa có thông tin </span>}</span></h5>
-                                        <h5>Your Address:<span className='text-danger'> {user[0].user_address ? user[0].user_address : <span className='text-danger'> Chưa có thông tin </span>}</span></h5>
+                                        <h5>Your Phone:<span className='text-danger'> {user[0].user_phone ? user[0].user_phone : <span className='text-danger'> No information </span>}</span></h5>
+                                        <h5>Your Address:<span className='text-danger'> {user[0].user_address ? user[0].user_address : <span className='text-danger'> No information </span>}</span></h5>
                                         <h5>Your Image:
                                             <div>
                                                 <img src={`image/Avt/${user[0].user_avt}`} alt={user[0].user_avt} style={{ width: "300px" }} />

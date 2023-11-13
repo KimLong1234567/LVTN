@@ -9,10 +9,10 @@ function ForgotPasswordCustomer(props) {
     }
     function onSumit() {
         axios
-            .post('http://localhost:5000/api/user/reset-password',{
+            .post('http://localhost:5000/api/user/reset-password', {
                 email
-            })    
-            .then((res)=>{
+            })
+            .then((res) => {
                 toast.info('Email xác nhận đã được gởi. Vui lòng kiểm tra email của bạn', {
                     position: "top-center",
                     autoClose: 2000,
@@ -29,7 +29,7 @@ function ForgotPasswordCustomer(props) {
                     3000
                 );
             })
-            .catch((err)=>{
+            .catch((err) => {
                 toast.error('Tài khoản không chính xác. Vui lòng kiểm tra lại ', {
                     position: "top-center",
                     autoClose: 2000,
@@ -53,22 +53,22 @@ function ForgotPasswordCustomer(props) {
             <div style={{ width: "500px" }} className='mx-auto'>
                 <Form className='text-start'>
                     <h2 className='text-center'>
-                        Quên mật khẩu
+                        Find your account
                     </h2>
                     <Form.Group>
                         <Form.Label
                             htmlFor="username"
                             className="control-label fw-bold"
-                        > Tài khoản
+                        > Email:
                         </Form.Label>
                         <Form.Control
                             className="form-control"
                             type="text"
                             name="email"
-                            placeholder="Username/Email"
+                            placeholder="Email"
                             onChange={onChange}
                         ></Form.Control>
-                        <Button variant='danger' className='mt-2' onClick={() => onSumit()}>Gửi yêu cầu</Button>
+                        <Button variant='danger' className='mt-2' onClick={() => onSumit()}>Send require</Button>
                     </Form.Group>
                 </Form>
             </div>

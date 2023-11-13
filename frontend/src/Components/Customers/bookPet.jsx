@@ -74,7 +74,7 @@ function BookPet(props) {
             })
     }, [])
     return (
-        <Container fluid className='padding-header' style={{ backgroundImage: `url('/image/Background/bg-register.png')`, backgroundSize: "cover" }}>
+        <Container fluid className='padding-header' style={{ backgroundImage: `url('/image/Background/bg.jpg')`, backgroundSize: "cover" }}>
             <ToastContainer />
             <h3 className=" fw-bold text-uppercase text-primary">Book Pet</h3>
             <Card style={{ background: "none", border: "none", color: "white" }}>

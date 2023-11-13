@@ -91,6 +91,28 @@ const controller = {
             })
         }
     },
+    // 
+    createGoogleAcc: async (req, res) => {
+        try {
+            const { user_name, user_email, user_password, user_phone, user_address } = req.body.account;
+            const user_avt = "Avatartrang.jpg";
+            const user_create = new Date();
+
+            console.log(req.body);
+            console.log(user_avt);
+            console.log(user_email);
+            const sql = "INSERT INTO users (user_name, user_password, user_email, user_avt, user_phone, user_address, user_create) VALUES (?,?,?,?,?,?,?)"
+            const [rows, fields] = await pool.query(sql, [user_name, user_password, user_email, user_avt, user_phone, user_address, user_create])
+            res.json({
+                data: rows
+            })
+        } catch (error) {
+            console.log(error);
+            res.json({
+                status: "error"
+            })
+        }
+    },
     // den day
     update: async (req, res) => {
         try {
@@ -172,28 +194,56 @@ const controller = {
     login: async (req, res, next) => {
         try {
             const { user_email, user_password } = req.body;
-            const hashedpassword = hashPassword(user_password);
-            console.log(hashedpassword);
-            console.log(req.body);
-            const [rows] = await pool.query("SELECT * FROM users WHERE user_email = ?", user_email);
+            if (user_password !== "") {
+                const hashedpassword = hashPassword(user_password);
+                console.log(hashedpassword);
+                console.log(req.body);
+                const [rows] = await pool.query("SELECT * FROM users WHERE user_email = ?", user_email);
 
-            if (!rows.length) {
-                return res.json({ data: "Không tìm thấy users" });
+                if (!rows.length) {
+                    return res.json({ data: "Không tìm thấy users" });
+                }
+
+                const user = rows[0];
+
+                if (user.user_email !== user_email) {
+                    return res.json({ data: "email is not correct" });
+                } else if (user.user_password !== hashedpassword) {
+                    return res.json({ data: "password not correct" });
+                } else {
+                    console.log("da login");
+                    return res.status(200).json({ data: "signed", user });
+                }
             }
+            else {
+                const [rows] = await pool.query("SELECT * FROM users WHERE user_email = ?", user_email);
+                if (!rows.length) {
+                    return res.json({ data: "Không tìm thấy users" });
+                }
 
-            const user = rows[0];
+                const user = rows[0];
 
-            if (user.user_email !== user_email) {
-                return res.json({ data: "email is not correct" });
-            } else if (user.user_password !== hashedpassword) {
-                return res.json({ data: "password not correct" });
-            } else {
-                console.log("da login");
-                return res.status(200).json({ data: "signed", user });
+                if (user.user_email !== user_email) {
+                    return res.json({ data: "email is not correct" });
+                } else {
+                    console.log("da login");
+                    return res.status(200).json({ data: "signed", user });
+                }
             }
-
         } catch (error) {
             return res.json(error);
+        }
+    },
+    //dang phat trien
+    resetPassword: async (req, res, next) => {
+        try {
+            const { user_email } = req.body;
+            const [find] = await pool.query("SELECT * FROM users WHERE user_email = ?", user_email);
+            if (!find) {
+                const err = new Error
+            }
+        } catch (error) {
+            console.log(error);
         }
     }
 }

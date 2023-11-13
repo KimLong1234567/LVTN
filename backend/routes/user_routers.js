@@ -35,6 +35,7 @@ router.get("/", usersController.getAll); // Get all items
 router.get("/:id", usersController.getById); // Get item by ID
 router.get("/user/:id", usersController.getByUser); // Get item by ID
 router.post("/", upload.single('user_avt'), usersController.create); // Create a new item
+router.post("/gg", usersController.createGoogleAcc); // Create a new item
 router.put("/:id", upload.single('user_avt'), usersController.update); // Update an item by ID
 router.delete("/:id", usersController.delete); // Delete an item by ID
 router.post("/login", usersController.login);

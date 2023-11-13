@@ -64,6 +64,11 @@ function Cart(props) {
         const dh_pay = e.target.value;
         setInfoBill({ ...infoBill, dh_pay: dh_pay })
     }
+    const onchangePhone = (e) => {
+        const user_phone = e.target.value;
+        setInfoBill({ ...infoBill, user_phone: user_phone })
+    }
+    console.log(infoBill);
     const onChange = (e) => {
         const dh_address = e.target.value;
         setAddress({ dh_address })
@@ -172,15 +177,9 @@ function Cart(props) {
                 if (products[i].gh_id === id) {
                     const gh_id = products[i].gh_id;
                     axios
-                        .delete(`http://localhost:5000/api/orders/${gh_id}`, {
-                            // params: {
-                            //     gh_id: products[i].gh_id
-                            // }
-                        })
+                        .delete(`http://localhost:5000/api/orders/${gh_id}`)
                         .then((res) => {
-                            console.log("ádasdaasd", refresh)
-
-                            toast.error('Xóa sản phẩm thành công', {
+                            toast.error('Product was successfully removed from the order.', {
                                 position: "top-center",
                                 autoClose: 2000,
                                 closeOnClick: true,
@@ -264,15 +263,19 @@ function Cart(props) {
             dh_sl: Bill.totalUnit,
             dh_address: selectedAddress,
             user_email: curentAccount.user_email,
+
         }
         // console.log(DetailBill);
         axios
             .post('http://localhost:5000/api/dh/', dh)
             .then((res) => {
+                const user_phone = infoBill.user_phone
                 const dh = res.data.data
                 console.log(res.data.data, dh);
                 addChiTietDh(dh);
-                toast.success(' Đặt hàng thành công. Vui lòng chờ nhận hàng.', {
+                axios
+                    .put(`http://localhost:5000/api/users/${curentAccount.user_id}`, { user_phone })
+                toast.success('Purchase Success. Kindly await delivery.', {
                     position: "top-center",
                     autoClose: 2000,
                     closeOnClick: true,
@@ -323,7 +326,7 @@ function Cart(props) {
                             <Form>
                                 <Form.Group className="mb-3" controlId="exampleForm.ControlInput1">
                                     <Form.Label>Name</Form.Label>
-                                    <Form.Control type="text" placeholder={curentAccount.user_name} name='name_customer' onChange={onchange} required />
+                                    <Form.Control type="text" placeholder={curentAccount.user_name} name='name_customer' disabled required />
                                 </Form.Group>
                             </Form>
                             <Form>
@@ -337,9 +340,9 @@ function Cart(props) {
                                     <Form.Label>Phone</Form.Label>
                                     {
                                         curentAccount.user_phone ?
-                                            <Form.Control type="text" placeholder={curentAccount.user_phone} name='user_phone' onChange={onchange} />
+                                            <Form.Control type="text" placeholder={curentAccount.user_phone} name='user_phone' />
                                             :
-                                            <Form.Control type="text" placeholder={'Nhập vào số điện thoại của bạn'} name='user_phone' onChange={onchange} />
+                                            <Form.Control type="text" placeholder={'Input your phone number'} name='user_phone' onChange={onchangePhone} required />
                                     }
                                 </Form.Group>
                             </Form>

@@ -55,26 +55,24 @@ function Login(props) {
     }
     gapi.load('client:auth2', () => {
         window.gapi.auth2.init({
-            clientId: '53173986004-mg1hiuppv5aphkltb107s0l0mf9q2rbd.apps.googleusercontent.com',
+            clientId: '686379333298-ufinh94530414avacsme1lkr82779lp8.apps.googleusercontent.com',
             plugin_name: "chat"
         })
     })
     const onSuccess = async (googleData) => {
         const data = await googleData.getBasicProfile()
-        account.name = data.Ad
-        account.avt = "Avatartrang.jpg"
-        account.email = data.cu
-        account.adress = ''
-        account.sdt = ''
-        account.password = ''
-        account.id = data.NT
+        account.user_name = data.Ad
+        account.user_email = data.cu
+        account.user_address = ''
+        account.user_phone = ''
+        account.user_password = ''
         await axios
-            .post('http://localhost:5000/api/user/login', {
-                email: account.email,
-                password: account.password,
+            .post('http://localhost:5000/api/users/login', {
+                user_email: account.user_email,
+                user_password: account.user_password,
             })
             .then((res => {
-                if (res.data) {
+                if (res.data.user) {
                     toast.success('Đăng nhập thành công.', {
                         position: "top-center",
                         autoClose: 2000,
@@ -86,7 +84,7 @@ function Login(props) {
                     })
                     setTimeout(
                         function () {
-                            localStorage.setItem("currentAccount", JSON.stringify({ ...res.data }))
+                            localStorage.setItem("currentAccount", JSON.stringify({ ...res.data.user }))
                             Navigate('/')
                         },
                         3000
@@ -95,27 +93,33 @@ function Login(props) {
             }))
             .catch((err) => {
                 axios
-                    .post('http://localhost:5000/api/user', { account })
+                    .post('http://localhost:5000/api/users/gg', { account })
                     .then((res) => {
-                        if (res.data.data.user) {
-                            account._id = res.data.data.user._id
-                            toast.success('Đăng nhập thành công.', {
-                                position: "top-center",
-                                autoClose: 2000,
-                                closeOnClick: true,
-                                pauseOnHover: true,
-                                draggable: true,
-                                progress: undefined,
-                                theme: "colored",
+                        axios
+                            .post('http://localhost:5000/api/users/login', {
+                                user_email: account.user_email,
+                                user_password: account.user_password,
                             })
-                            setTimeout(
-                                function () {
-                                    localStorage.setItem("currentAccount", JSON.stringify({ ...res.data.data.user }))
-                                    Navigate('/')
-                                },
-                                3000
-                            );
-                        }
+                            .then((res) => {
+                                if (res.data.user) {
+                                    toast.success('Login Success.', {
+                                        position: "top-center",
+                                        autoClose: 2000,
+                                        closeOnClick: true,
+                                        pauseOnHover: true,
+                                        draggable: true,
+                                        progress: undefined,
+                                        theme: "colored",
+                                    })
+                                    setTimeout(
+                                        function () {
+                                            localStorage.setItem("currentAccount", JSON.stringify({ ...res.data.user }))
+                                            Navigate('/')
+                                        },
+                                        3000
+                                    );
+                                }
+                            })
                     })
             })
     };
@@ -130,66 +134,6 @@ function Login(props) {
             theme: "colored",
         })
     };
-    const onSuccessLoginFacebook = async (facebookData) => {
-        account.name = facebookData.name
-        account.avt = "Avatartrang.jpg"
-        account.email = facebookData.email
-        account.adress = ''
-        account.sdt = ''
-        account.password = ''
-        account.id = facebookData.id
-        await axios
-            .post('http://localhost:5000/api/user/login', {
-                email: account.email,
-                password: account.password,
-            })
-            .then((res => {
-                if (res.data) {
-                    toast.success('Đăng nhập thành công.', {
-                        position: "top-center",
-                        autoClose: 2000,
-                        closeOnClick: true,
-                        pauseOnHover: true,
-                        draggable: true,
-                        progress: undefined,
-                        theme: "colored",
-                    })
-                    setTimeout(
-                        function () {
-                            localStorage.setItem("currentAccount", JSON.stringify({ ...res.data }))
-                            Navigate('/')
-                        },
-                        3000
-                    );
-                }
-            }))
-            .catch((err) => {
-                axios
-                    .post('http://localhost:5000/api/user', { account })
-                    .then(async (res) => {
-                        if (res.data.data.user) {
-                            await (account._id = res.data.data.user._id)
-                            toast.success('Đăng nhập thành công.', {
-                                position: "top-center",
-                                autoClose: 2000,
-                                closeOnClick: true,
-                                pauseOnHover: true,
-                                draggable: true,
-                                progress: undefined,
-                                theme: "colored",
-                            })
-                            setTimeout(
-                                async function () {
-                                    await (localStorage.setItem("currentAccount", JSON.stringify({ ...res.data.data.user })))
-                                    Navigate('/')
-                                },
-                                3000
-                            );
-                        }
-                    })
-            })
-    }
-
     return (
         <Container fluid className='padding-header'>
             <ToastContainer />
@@ -253,19 +197,8 @@ function Login(props) {
                                             OR
                                         </span>
                                         <div className='g-3 mt-2'>
-                                            <FacebookLogin
-                                                appId="761007288730861"
-                                                autoLoad={false}
-                                                fields="name,email,picture"
-                                                textButton="Facebook"
-                                                onFailure={onFailure}
-                                                callback={onSuccessLoginFacebook}
-                                                icon={<Icon icon={faFacebook} className='me-2 fs-5' />}
-                                                cssClass='fs-6 text-white btn btn-primary fw-bolder facebook'
-                                            />
-
                                             <GoogleLogin
-                                                clientId={"53173986004-mg1hiuppv5aphkltb107s0l0mf9q2rbd.apps.googleusercontent.com"}
+                                                clientId={"686379333298-ufinh94530414avacsme1lkr82779lp8.apps.googleusercontent.com"}
                                                 onSuccess={onSuccess}
                                                 onFailure={onFailure}
                                                 className='mx-2 rounded'

@@ -31,18 +31,19 @@ function Header(props) {
                     <NavDropdown title="About us" menuVariant="dark">
                         <NavDropdown.Item as={NavLink} to={'/blog'}>blog</NavDropdown.Item>
                         <NavDropdown.Item as={NavLink} to={'/abouts'}> about us</NavDropdown.Item>
-                        <NavDropdown.Item as={NavLink} to={'/book/pet'}>book pet</NavDropdown.Item>
+
                     </NavDropdown>
                 </Nav.Item>
                 {
                     curentAccount !== null ?
                         <Nav.Item>
                             <NavDropdown title={`Hi, ${curentAccount.user_name}`} menuVariant="dark">
-                                <NavDropdown.Item as={NavLink} to={'/bill'}>bill</NavDropdown.Item>
+                                <NavDropdown.Item as={NavLink} to={'/bill'}>Bill</NavDropdown.Item>
                                 <NavDropdown.Item as={NavLink} to={'/view/pet'}>Pet</NavDropdown.Item>
-                                <NavDropdown.Item as={NavLink} to={'/cart'}> cart</NavDropdown.Item>
-                                <NavDropdown.Item as={NavLink} to={'/myinfo'}>profile</NavDropdown.Item>
-                                <NavDropdown.Item onClick={() => logout()}>logout</NavDropdown.Item>
+                                <NavDropdown.Item as={NavLink} to={'/book/pet'}>Book pet</NavDropdown.Item>
+                                <NavDropdown.Item as={NavLink} to={'/cart'}> Cart</NavDropdown.Item>
+                                <NavDropdown.Item as={NavLink} to={'/myinfo'}>Profile</NavDropdown.Item>
+                                <NavDropdown.Item onClick={() => logout()}>Logout</NavDropdown.Item>
                             </NavDropdown>
                         </Nav.Item>
 
