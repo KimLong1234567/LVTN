@@ -1,7 +1,8 @@
 const pool = require("../database/index")
 const multer = require("multer")
 const crypto = require('crypto');
-
+const jwt = require('jsonwebtoken');
+var nodemailer = require('nodemailer');
 // Hàm để mã hóa mật khẩu bằng SHA - 256
 const hashPassword = (password) => {
     const sha256 = crypto.createHash('sha256');
@@ -180,7 +181,7 @@ const controller = {
     delete: async (req, res) => {
         try {
             const { id } = req.params
-            const [rows, fields] = await pool.query("UPDATE nhan_vien SET nv_status = '1' WHERE nv_id = ?", [id])
+            const [rows, fields] = await pool.query("UPDATE users SET user_status = '2' WHERE user_id = ?", [id])
             res.json({
                 data: rows
             })
@@ -207,9 +208,9 @@ const controller = {
                 const user = rows[0];
 
                 if (user.user_email !== user_email) {
-                    return res.json({ data: "email is not correct" });
+                    return res.status(401).json({ error: "Wrong email or password" });
                 } else if (user.user_password !== hashedpassword) {
-                    return res.json({ data: "password not correct" });
+                    return res.status(401).json({ error: "Wrong email or password" });
                 } else {
                     console.log("da login");
                     return res.status(200).json({ data: "signed", user });
@@ -234,16 +235,94 @@ const controller = {
             return res.json(error);
         }
     },
-    //dang phat trien
+    //
     resetPassword: async (req, res, next) => {
         try {
             const { user_email } = req.body;
-            const [find] = await pool.query("SELECT * FROM users WHERE user_email = ?", user_email);
-            if (!find) {
-                const err = new Error
+            const [user] = await pool.query("SELECT * FROM users WHERE user_email = ?", user_email);
+            console.log(user);
+            if (!user[0]) {
+                const err = new Error('User not found');
+                err.statusCode = 404;
+                throw err;
+            }
+
+            const secret = jwt + user.user_password; // Replace with your actual secret key
+            const token = jwt.sign({ email: user[0].user_email }, secret, { expiresIn: '5m' });
+            console.log(user[0].user_email);
+            const link = `http://localhost:3000/${token}/reset-password`;
+
+            // Sending email logic
+            const transporter = nodemailer.createTransport({
+                service: 'gmail',
+                secure: true,
+                auth: {
+                    user: process.env.EMAIL_USERNAME, // Replace with your Gmail address
+                    pass: process.env.EMAIL_PASSWORD // Replace with your Gmail password
+                }
+            });
+
+            const mailOptions = {
+                from: process.env.EMAIL_USERNAME,
+                to: user_email,
+                subject: 'From Petshop: Password Reset ',
+                text: `Click the following link to reset your password: ` + link,
+            };
+
+            transporter.sendMail(mailOptions, (error, info) => {
+                if (error) {
+                    console.log(error);
+                    const err = new Error('Failed to send email');
+                    err.statusCode = 500;
+                    throw err;
+                } else {
+                    console.log('Email sent: ' + info.response);
+                }
+            });
+
+            res.status(200).json({
+                status: "success",
+                data: user
+            });
+        } catch (error) {
+            console.log(error);
+            next(error);
+        }
+    },
+    getToken: async (req, res, next) => {
+        try {
+            const decodedToken = jwt.decode(req.params.token);
+            if (decodedToken) {
+                res.status(200).json({
+                    status: "success",
+                    data: decodedToken
+                });
+            } else {
+                const err = new Error('Invalid token');
+                err.statusCode = 400;
+                throw err;
             }
         } catch (error) {
             console.log(error);
+            next(error);
+        }
+    },
+    updateResetPassword: async (req, res, next) => {
+        try {
+            const { email } = req.params;
+            const { user_password } = req.body;
+            console.log(req.body, req.params);
+            console.log(email);
+            console.log(user_password);
+            const passwordHashed = hashPassword(user_password);
+            console.log(passwordHashed);
+            const [rows, fields] = await pool.query("UPDATE users SET user_password = ? WHERE user_email = ?", [passwordHashed, email]);
+            res.json({
+                data: rows
+            })
+        } catch (error) {
+            console.log(error);
+            next(error);
         }
     }
 }

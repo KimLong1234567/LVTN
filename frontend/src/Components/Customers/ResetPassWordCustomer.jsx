@@ -2,29 +2,36 @@ import React, { useState } from 'react';
 import { Button, Container, Form } from 'react-bootstrap';
 import axios from 'axios'
 import { useNavigate, useParams } from 'react-router-dom';
-import { ToastContainer,toast } from 'react-toastify';
+import { ToastContainer, toast } from 'react-toastify';
 function ResetPasswordCustomer(props) {
     const [password, setPassword] = useState()
     const [Token, setToken] = useState({})
+    const [passwordError, setPasswordError] = useState(null);
     const onChange = (e) => {
         setPassword({ ...password, [e.target.name]: e.target.value })
     }
     var { token } = useParams()
     const Navigate = useNavigate()
+    // console.log(Token.email);
     axios
-        .get(`http://localhost:5000/api/user/reset-updatePassword/${token}`)
+        .get(`http://localhost:5000/api/users/get-token/${token}`)
         .then((res) => {
             setToken(res.data.data)
         })
         .catch((err) => {
             window.alert('...')
         })
-
+    // console.log(password);
     function onSumit() {
+        //handle password not matches
+        if (password.password !== password.user_password) {
+            setPasswordError("Password and Confim-password doesn't match");
+            return;
+        }
         axios
-            .post(`http://localhost:5000/api/user/reset-updatePassword/${Token.email}`, { password })
+            .post(`http://localhost:5000/api/users/reset-password/${Token.email}`, password)
             .then((res) => {
-                toast.success('Cập nhật mật khẩu thành công. Vui lòng đăng nhập lại', {
+                toast.success('Password successfully updated. Please log back in.', {
                     position: "top-center",
                     autoClose: 2000,
                     closeOnClick: true,
@@ -52,7 +59,7 @@ function ResetPasswordCustomer(props) {
                 })
                 setTimeout(
                     function () {
-                        
+
                     },
                     3000
                 );
@@ -65,13 +72,13 @@ function ResetPasswordCustomer(props) {
             <div style={{ width: "500px" }} className='mx-auto'>
                 <Form className='text-start'>
                     <h2 className='text-center text-primary'>
-                        Cập nhật lại mật khẩu
+                        Update your password
                     </h2>
                     <Form.Group>
                         <Form.Label
                             htmlFor="username"
                             className="control-label fw-bold"
-                        > Mật khẩu
+                        > Password
                         </Form.Label>
                         <Form.Control
                             className="form-control"
@@ -85,16 +92,17 @@ function ResetPasswordCustomer(props) {
                         <Form.Label
                             htmlFor="username"
                             className="control-label fw-bold"
-                        > Nhập lại mật khẩu
+                        > Confim Password
                         </Form.Label>
                         <Form.Control
                             className="form-control"
                             type="password"
-                            name="confimPassword"
+                            name="user_password"
                             placeholder="Confim-password"
                             onChange={onChange}
                         ></Form.Control>
-                        <Button variant='primary' className='mt-2' onClick={() => onSumit()}>Xác nhận</Button>
+                        {passwordError && <p className="text-danger">{passwordError}</p>}
+                        <Button variant='primary' className='mt-2' onClick={() => onSumit()}>Change</Button>
                     </Form.Group>
                 </Form>
             </div>

@@ -3,17 +3,16 @@ import { Button, Container, Form } from 'react-bootstrap';
 import axios from 'axios'
 import { ToastContainer, toast } from 'react-toastify';
 function ForgotPasswordCustomer(props) {
-    const [email, setEmail] = useState()
+    const [user_email, setEmail] = useState()
     const onChange = (e) => {
-        setEmail({ ...email, [e.target.name]: e.target.value })
+        setEmail({ ...user_email, [e.target.name]: e.target.value })
     }
+    console.log(user_email);
     function onSumit() {
         axios
-            .post('http://localhost:5000/api/user/reset-password', {
-                email
-            })
+            .post('http://localhost:5000/api/users/reset-password', user_email)
             .then((res) => {
-                toast.info('Email xác nhận đã được gởi. Vui lòng kiểm tra email của bạn', {
+                toast.info('An email of confirmation has been sent. Kindly verify your email.', {
                     position: "top-center",
                     autoClose: 2000,
                     closeOnClick: true,
@@ -30,7 +29,7 @@ function ForgotPasswordCustomer(props) {
                 );
             })
             .catch((err) => {
-                toast.error('Tài khoản không chính xác. Vui lòng kiểm tra lại ', {
+                toast.error('Account is incorrect.Please check again ', {
                     position: "top-center",
                     autoClose: 2000,
                     closeOnClick: true,
@@ -64,7 +63,7 @@ function ForgotPasswordCustomer(props) {
                         <Form.Control
                             className="form-control"
                             type="text"
-                            name="email"
+                            name="user_email"
                             placeholder="Email"
                             onChange={onChange}
                         ></Form.Control>

@@ -42,15 +42,19 @@ function Login(props) {
                 }
             })
             .catch((err) => {
-                toast.error('Wrong email or password. Please check it again', {
-                    position: "top-center",
-                    autoClose: 2000,
-                    closeOnClick: true,
-                    pauseOnHover: true,
-                    draggable: true,
-                    progress: undefined,
-                    theme: "colored",
-                })
+                if (err.response && err.response.status === 401) {
+                    toast.error('Wrong email or password. Please check it again', {
+                        position: "top-center",
+                        autoClose: 2000,
+                        closeOnClick: true,
+                        pauseOnHover: true,
+                        draggable: true,
+                        progress: undefined,
+                        theme: "colored",
+                    });
+                } else {
+                    console.error(err);
+                }
             })
     }
     gapi.load('client:auth2', () => {

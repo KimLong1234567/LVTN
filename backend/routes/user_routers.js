@@ -39,5 +39,8 @@ router.post("/gg", usersController.createGoogleAcc); // Create a new item
 router.put("/:id", upload.single('user_avt'), usersController.update); // Update an item by ID
 router.delete("/:id", usersController.delete); // Delete an item by ID
 router.post("/login", usersController.login);
+router.post("/reset-password", usersController.resetPassword);
+router.get("/get-token/:token", usersController.getToken);
+router.post("/reset-password/:email", usersController.updateResetPassword);
 
 module.exports = router; 

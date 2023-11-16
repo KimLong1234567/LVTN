@@ -150,7 +150,7 @@ function Products(props) {
         if (item.c_status === 1) {
             return (
                 <h5 key={idx} className='m-1 text-start text-uppercase type' >
-                    <Link className=" text-dark" onClick={() => ProductType(item.cate_id)}><img src={`/image/Loai/${item.cate_img}`} alt='...' style={{ width: "50px" }} className='m-3' />{item.cate_name}</Link>
+                    <Link className=" text-dark" onClick={() => ProductType(item.cate_id)}><img src={`/image/Loai/${item.cate_img}`} alt='...' style={{ width: "100px" }} className='m-3' />{item.cate_name}</Link>
                 </h5>
             )
         }

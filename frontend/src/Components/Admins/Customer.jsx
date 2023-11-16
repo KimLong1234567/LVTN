@@ -214,7 +214,7 @@ function Customer(props) {
                                     <tr key={i}>
                                         <td>{i + 1}</td>
                                         <td>{account.user_name}</td>
-                                        <td>TK:{account.user_email} </td>
+                                        <td>Email:{account.user_email} </td>
                                         {/* <td>MK:{account.user_password}</td> */}
                                         <td>
                                             <img src={`/image/avt/${account.user_avt}`} className="mb-2 mt-2" style={{ width: "150px" }} alt="..." />

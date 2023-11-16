@@ -28,7 +28,7 @@ function Register(props) {
         axios
             .post('http://localhost:5000/api/users', formDataToSend)
             .then((res) => {
-                toast.success('Đăng ký tài khoản thành công. Bây giờ bạn có thể đăng nhập.', {
+                toast.success('Account creation was accomplished. Click here to log in.', {
                     position: "top-center",
                     autoClose: 3000,
                     closeOnClick: true,
