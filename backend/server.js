@@ -19,7 +19,7 @@ const comments_router = require("./routes/comments_routers")
 const ctpn_router = require("./routes/ctpn_routers")
 const dh_router = require("./routes/dh_routers")
 const ctdh_router = require("./routes/detailOrder_router")
-
+const service_router = require("./routes/service_routers")
 
 app.use(express.urlencoded({ extended: false }))
 app.use(express.json())
@@ -37,6 +37,7 @@ app.use("/api/comments", comments_router);
 app.use("/api/ctpn", ctpn_router);
 app.use("/api/dh", dh_router);
 app.use("/api/ctdh", ctdh_router)
+app.use("/api/service", service_router);
 
 
 const PORT = process.env.PORT || 5000

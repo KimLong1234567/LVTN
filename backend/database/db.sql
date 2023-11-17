@@ -240,7 +240,23 @@ ALTER TABLE pet ADD p_name varchar(255)
 -- ALTER TABLE donhang ADD ctdh_id int
 -- ALTER TABLE donhang ADD FOREIGN KEY (ctdh_id) REFERENCES ctdh(ctdh_id)
 ALTER TABLE ctdh ADD FOREIGN KEY (dh_id) REFERENCES donhang(dh_id)
+CREATE TABLE service (
+	service_id int AUTO_INCREMENT PRIMARY KEY,
+    service_name varchar(255),
+    service_price int,
+    service_des varchar(255)
+);
 
+ALTER TABLE pet DROP COLUMN p_des
+ALTER TABLE pet ADD service_id int
+ALTER TABLE pet ADD FOREIGN KEY (service_id) REFERENCES service(service_id)
+
+INSERT INTO service (service_name, service_price, service_des) VALUES 
+('spa', 50, 'cleaning, grooming, and nail cutting for pets'),
+('vaccinate', 70, 'vaccinate pets'),
+('medical', 100,'medical for pets');
+
+--xem khoa ngoai
 SELECT 
   constraint_name,
   table_name,

@@ -57,7 +57,7 @@ function Register(props) {
             }))
     }
     return (
-        <Container fluid className='padding-header' style={{ backgroundImage: `url('/image/Background/bg.jpg')`, backgroundSize: "cover" }}>
+        <Container fluid className='padding-header' style={{ backgroundImage: `linear-gradient(rgba(0,0,0,0.5), rgba(0,0,0,0.5)), url('/image/Background/bg.jpg')`, backgroundSize: "cover" }}>
             <ToastContainer />
             <h3 className=" fw-bold text-uppercase text-primary">Create a membership account</h3>
             <Card style={{ background: "none", border: "none", color: "white" }}>

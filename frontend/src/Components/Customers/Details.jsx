@@ -24,7 +24,7 @@ function Details(props) {
     // console.log(comment);
     const addcomment = () => {
         if (curentAccount === null) {
-            toast('Vui lòng đăng nhập trước khi đăng bình luận ', {
+            toast('Login before leaving a comment.', {
                 position: "top-center",
                 autoClose: 3000,
                 closeOnClick: true,
@@ -50,7 +50,7 @@ function Details(props) {
     }
     const addToCart = () => {
         if (curentAccount === null) {
-            toast.error('Vui lòng đăng nhập trước khi mua hàng', {
+            toast.error('Login before making a purchase.', {
                 position: "top-center",
                 autoClose: 3000,
                 closeOnClick: true,
@@ -75,7 +75,7 @@ function Details(props) {
                 .then((res) => {
                     console.log(res.data.status);
                     if (res) {
-                        toast.success('Thêm vào giỏ hàng thành công ', {
+                        toast.success('Added to cart with success', {
                             position: "top-center",
                             autoClose: 3000,
                             closeOnClick: true,

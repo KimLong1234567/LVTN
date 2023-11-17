@@ -119,13 +119,8 @@ function ViewPet(props) {
                         </button>
                     </td>
                     <td>
-                        <button className='btn btn-outline-danger' onClick={() => updateStatus(id, 'Đơn hàng đã bị hủy bỏ')}>
+                        <button className='btn btn-outline-danger' onClick={() => updateStatus(id, 3)}>
                             <Icon icon={faCircleXmark} />
-                        </button>
-                    </td>
-                    <td>
-                        <button className='btn btn-outline-warning' disabled>
-                            <Icon icon={faTrashCanArrowUp} />
                         </button>
                     </td>
                 </>
@@ -199,7 +194,7 @@ function ViewPet(props) {
                 <Modal.Body>
                     <Form>
                         <Form.Group className="mb-3" controlId="exampleForm.ControlTextarea1">
-                            <Form.Control as="textarea" rows={4} placeholder="Vui lòng cho chúng tôi ý kiến về đơn hàng của bạn" name='content' onChange={onchange} />
+                            <Form.Control as="textarea" rows={4} placeholder="Vui lòng cho chúng tôi ý kiến về dịch vụ của chúng tôi" name='content' onChange={onchange} />
                         </Form.Group>
                         <Form.Group className="mb-3" controlId="formBasicPassword">
                             <Form.Label>Đính kèm ảnh</Form.Label>
@@ -245,7 +240,6 @@ function ViewPet(props) {
                         <th scope="col">Pet's ower</th>
                         <th scope="col">Pet loai</th>
                         <th scope="col">Date book</th>
-                        <th scope="col">Pet service detail </th>
                         <th scope="col">Pet service fee</th>
                         <th scope="col">Pet service date</th>
                         <th scope='col'>Status</th>
@@ -263,13 +257,12 @@ function ViewPet(props) {
                                         <td>
                                             <img src={`/image/Pet/${item.p_img}`} style={{ width: "100px" }} alt='...' />
                                         </td>
-                                        <td>{item.p_des}</td>
+                                        <td>{item.service_name}</td>
                                         <td>{item.user_name}</td>
                                         <td>{item.cate_name}</td>
                                         <td>{item.p_create = new Date(item.p_create).toLocaleString()}</td>
-                                        <td>{item.p_s_detail !== undefined ? "Not doing yet" : item.p_s_detail}</td>
-                                        <td>{item.p_s_fee !== undefined ? '0' : item.p_s_fee}</td>
-                                        <td>{item.p_s_date !== undefined ? "till waitting" : item.p_s_date = new Date(item.p_s_date).toLocaleString()}</td>
+                                        <td>{item.service_price} $</td>
+                                        <td>{item.p_update !== undefined ? "till waitting" : item.p_update = new Date(item.p_update).toLocaleString()}</td>
                                         {renderStatus(item.p_status)}
                                         {renderButton(item.p_status, item.p_id)}
                                     </tr>

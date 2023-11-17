@@ -267,6 +267,9 @@ function Cart(props) {
         }
         // console.log(DetailBill);
         axios
+            .put(`http://localhost:5000/api/users/${curentAccount.user_id}`, infoBill.user_phone)
+            .then();
+        axios
             .post('http://localhost:5000/api/dh/', dh)
             .then((res) => {
                 const user_phone = infoBill.user_phone
@@ -378,9 +381,7 @@ function Cart(props) {
                                         <Form.Control type="text" placeholder='Input new address' name='dh_adress' onChange={onNewAddressChange} value={newAddress} />
                                     </Form.Group>
                                 </Collapse>
-
                             </Form>
-                            {/* <Button variant='danger' onClick={() => sendBillDataToServer()}>Send</Button> */}
                             <Button variant='primary mx-2' onClick={() => { Navigate('/products') }} type='submit'>Keep buy</Button>
                         </div>
                     </div>

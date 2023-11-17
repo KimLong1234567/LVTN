@@ -77,7 +77,7 @@ function Login(props) {
             })
             .then((res => {
                 if (res.data.user) {
-                    toast.success('Đăng nhập thành công.', {
+                    toast.success('Login Success.', {
                         position: "top-center",
                         autoClose: 2000,
                         closeOnClick: true,

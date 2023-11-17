@@ -12,6 +12,7 @@ function Dahroash(props) {
     const [customer, setCustomer] = useState([])
     const [employee, setEmployee] = useState([])
     const [order, setOrder] = useState([])
+    const [pet, setPet] = useState([])
     const [totalValue, setTotalValue] = useState(0)
     const date = new Date().toLocaleDateString()
     var newoder = 0;
@@ -45,6 +46,10 @@ function Dahroash(props) {
                 .then((res) => {
                     setEmployee(res.data.data);
                 })
+            await axios.get('http://localhost:5000/api/pets/')
+                .then((res) => {
+                    setPet(res.data.data);
+                })
         }
         loadData();
     }, [])
@@ -52,7 +57,7 @@ function Dahroash(props) {
     newoder = count?.length
     const data = {
         labels: ['Products', 'New Orders',
-            'Customer', 'Employee', 'Sales'],
+            'Customer', 'Employee', 'Book Pet', 'Sales'],
         datasets: [
             {
                 label: 'The diagram shows the store in visual form',
@@ -71,7 +76,7 @@ function Dahroash(props) {
                     'rgb(54, 162, 235)',
                 ],
                 borderWidth: 1,
-                data: [products.length, order.length, customer.length, employee.length, totalValue]
+                data: [products.length, order.length, customer.length, employee.length, pet.length, totalValue]
             }
         ]
     }
@@ -80,7 +85,7 @@ function Dahroash(props) {
         <div className='boder-main'>
             <div className="bg-white align-items-center my-2 p-2 rounded-3">
                 <div className="row">
-                    <div className="col-3 ">
+                    <div className="col-3">
                         <div className="card text-white  border border-3 border-primary">
                             <div className="card-body d-flex align-items-center bg-primary p-2">
                                 <div>
@@ -96,7 +101,7 @@ function Dahroash(props) {
                             </Link>
                         </div>
                     </div>
-                    <div className="col-3">
+                    <div className="col-2">
                         <div className="card text-white border border-3 border-success">
                             <div className="card-body d-flex align-items-center bg-success p-2">
                                 <div>
@@ -132,7 +137,27 @@ function Dahroash(props) {
                             </Link>
                         </div>
                     </div>
-                    <div className="col-3">
+                    <div className="col-2">
+                        <div className="card text-white  border border-3 border-info">
+                            <div className="card-body d-flex align-items-center bg-info p-2">
+                                <div>
+                                    <div className='d-flex'>
+                                        <p className="card-text mb-0">All Book Pet
+                                            {/* <Badge bg='info' className='ms-1 h4 mb-0' text='white'>{newoder}</Badge> */}
+                                        </p>
+                                    </div>
+                                    <h2 className="card-title">{pet?.length}</h2>
+                                </div>
+                            </div>
+                            <Link
+                                to='/admin/viewpet'
+                                className="card-body d-block text-info p-2 fw-bold"
+                            >
+                                Detail <i className="fa-solid fa-circle-right"></i>
+                            </Link>
+                        </div>
+                    </div>
+                    <div className="col-2">
                         <div className="card text-white  border border-3 border-danger">
                             <div className="card-body d-flex align-items-center bg-danger p-2">
 

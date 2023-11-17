@@ -430,7 +430,7 @@ const controller = {
                         </style>
                         <div>
                             <h3>Hi, ${user_email}</h3>
-                            <p>You recently placed an order with the following total quantity::${dh_sl}<p>
+                            <p>You recently placed an order with the following total quantity:${dh_sl}<p>
                             <p>Including the sum of:${dh_total}</p>
                             <p>Please periodically check your email to see the status of your order.</p>
                             <h4>Petshop is truly grateful. We wish our clients continued professional success, fortune, and health.</h4>

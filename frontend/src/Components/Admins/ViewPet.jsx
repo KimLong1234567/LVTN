@@ -45,7 +45,7 @@ function ViewPet(props) {
         setBill(temp)
     }
     function renderButton(status, id) {
-        if (status === 'Đã giao hàng thành công') {
+        if (status === 1) {
             return (
                 <>
                     <td>
@@ -66,7 +66,7 @@ function ViewPet(props) {
                 </>
             )
         }
-        else if (status === 'Đơn hàng đã bị hủy bỏ') {
+        else if (status === 3) {
             return (
                 <>
                     <td>
@@ -79,30 +79,20 @@ function ViewPet(props) {
                             <Icon icon={faCircleXmark} />
                         </button>
                     </td>
-                    <td>
-                        <button className='btn btn-outline-warning' disabled>
-                            <Icon icon={faUserPlus} />
-                        </button>
-                    </td>
                 </>
             )
         }
-        else if (status === 'Chờ xác nhận') {
+        else if (status === 0) {
             return (
                 <>
                     <td>
-                        <button className='btn btn-outline-success' onClick={() => updateStatus(id, 'Đang giao hàng', curentAccount._id)}>
+                        <button className='btn btn-outline-success' onClick={() => updateStatus(id, 1)}>
                             <Icon icon={faCheckDouble} />
                         </button>
                     </td>
                     <td>
-                        <button className='btn btn-outline-danger' onClick={() => updateStatus(id, 'Đơn hàng đã bị hủy bỏ', curentAccount._id)}>
+                        <button className='btn btn-outline-danger' onClick={() => updateStatus(id, 3)}>
                             <Icon icon={faCircleXmark} />
-                        </button>
-                    </td>
-                    <td>
-                        <button className='btn btn-outline-info' onClick={() => setShowListAccount(id)}>
-                            <Icon icon={faUserPlus} />
                         </button>
                     </td>
                 </>
@@ -156,34 +146,27 @@ function ViewPet(props) {
             })
     }
     function renderStatus(status) {
-        if (status === 'Đã giao hàng thành công') {
+        if (status === 1) {
             return (
-                <td className='text-success fw-bold'>{status}</td>
+                <td className='text-success fw-bold'>Done</td>
             )
         }
-        else if (status === 'Đơn hàng đã bị hủy bỏ') {
+        else if (status === 3) {
             return (
 
-                <td className='text-danger fw-bold'>{status}</td>
-
-            )
-        }
-        else if (status === 'Chờ xác nhận') {
-            return (
-
-                <td className='text-warning fw-bold'>{status}</td>
+                <td className='text-danger fw-bold'>Deleted</td>
 
             )
         }
-        else if (status === 'Đơn hàng đã bị hủy bỏ') {
+        else if (status === 0) {
             return (
-                <td className='text-primary fw-bold'>{status}</td>
+
+                <td className='text-warning fw-bold'>Wait</td>
 
             )
         }
         else {
             return (
-
                 <td className='text-primary fw-bold'>{status}</td>
             )
         }
@@ -206,16 +189,16 @@ function ViewPet(props) {
             <h3 className='text-uppercase text-start text-success fw-bolder mx-2'>filter <Icon icon={faFilter} /></h3>
             <Row className='m-0'>
                 <Col xs={12} md={3}>
-                    <h4 style={{ color: 'tomato', fontWeight: "bolder" }}>Tất cả đơn hàng <input type='checkbox' onChange={() => { filter('') }} checked={show === ''} /> </h4>
+                    <h4 style={{ color: 'tomato', fontWeight: "bolder" }}>All pets <input type='checkbox' onChange={() => { filter('') }} checked={show === ''} /> </h4>
                 </Col>
                 <Col xs={12} md={3}>
-                    <h4 className='text-warning'>Chờ xác nhận <input type='checkbox' onChange={() => { filter('Chờ xác nhận') }} checked={show === 'Chờ xác nhận'} /> </h4>
+                    <h4 className='text-warning'>Wait <input type='checkbox' onChange={() => { filter(0) }} checked={show === 0} /> </h4>
                 </Col>
                 <Col xs={12} md={3}>
-                    <h4 className='text-primary'>Đang giao hàng <input type='checkbox' onChange={() => { filter('Đang giao hàng') }} checked={show === 'Đang giao hàng'} /> </h4>
+                    <h4 className='text-primary'>Finish <input type='checkbox' onChange={() => { filter(1) }} checked={show === 1} /> </h4>
                 </Col>
                 <Col xs={12} md={3}>
-                    <h4 className='text-danger'>Đã hủy <input type='checkbox' onChange={() => { filter('Đơn hàng đã bị hủy bỏ') }} checked={show === 'Đơn hàng đã bị hủy bỏ'} /> </h4>
+                    <h4 className='text-danger'>Deleted <input type='checkbox' onChange={() => { filter(3) }} checked={show === 3} /> </h4>
                 </Col>
                 <Col>
                     <div className='d-flex m-3 justify-content-center'>
@@ -239,7 +222,7 @@ function ViewPet(props) {
                                 <th scope="col">Pet's ower</th>
                                 <th scope="col">Pet loai</th>
                                 <th scope="col">Date book</th>
-                                <th scope="col">Pet service detail </th>
+
                                 <th scope="col">Pet service fee</th>
                                 <th scope="col">Pet service date</th>
                                 <th scope='col'>Status</th>
@@ -257,12 +240,12 @@ function ViewPet(props) {
                                                 <td>
                                                     <img src={`/image/Pet/${item.p_img}`} style={{ width: "100px" }} alt='...' />
                                                 </td>
-                                                <td>{item.p_des}</td>
+                                                <td>{item.service_name}</td>
                                                 <td>{item.user_name}</td>
                                                 <td>{item.cate_name}</td>
                                                 <td>{item.p_create = new Date(item.p_create).toLocaleString()}</td>
-                                                <td>{item.p_s_detail !== undefined ? "Not doing yet" : item.p_s_detail}</td>
-                                                <td>{item.p_s_fee !== undefined ? '0' : item.p_s_fee}</td>
+
+                                                <td>{item.service_price} $</td>
                                                 <td>{item.p_s_date !== undefined ? "till waitting" : item.p_s_date = new Date(item.p_s_date).toLocaleString()}</td>
                                                 {renderStatus(item.p_status)}
                                                 {renderButton(item.p_status, item.p_id)}
@@ -279,8 +262,8 @@ function ViewPet(props) {
                         }
                     </table>
                     <ReactPaginate
-                        previousLabel="Trang trước"
-                        nextLabel="Trang sau"
+                        previousLabel="Previous page"
+                        nextLabel="Next page"
                         breakLabel="..."
                         breakClassName="page-item"
                         breakLinkClassName="page-link"

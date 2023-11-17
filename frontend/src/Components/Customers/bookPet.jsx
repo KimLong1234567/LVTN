@@ -1,20 +1,31 @@
 import React, { useState, useEffect } from 'react';
 import { Button, Card, Col, Container, Row, Form } from 'react-bootstrap';
-import { Link, useNavigate } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 import { FontAwesomeIcon as Icon } from '@fortawesome/react-fontawesome';
-import { faAddressCard, faImagePortrait, faKey, faGenderless, faPhoneVolume, faRightFromBracket, faUser, faUserLock } from '@fortawesome/free-solid-svg-icons';
+import { faImagePortrait, faUser, faInfoCircle, faPaw } from '@fortawesome/free-solid-svg-icons';
 import axios from 'axios';
 import { ToastContainer, toast } from 'react-toastify';
 function BookPet(props) {
     const [pet, setPet] = useState({})
     const [files, setFiles] = useState()
     const [Type, setType] = useState([])
+    const [Service, setService] = useState([])
     const curentAccount = localStorage["currentAccount"] ? JSON.parse(localStorage["currentAccount"]) : null
+    const [showServiceDes, setShowServiceDes] = useState(false);
+    const [selectedServiceDes, setSelectedServiceDes] = useState('');
     const Navigate = useNavigate()
     const onChangeHandle = (e) => {
         setPet({ ...pet, [e.target.name]: e.target.value })
         console.log(pet);
     }
+    const ichange = (e) => {
+        const service_id = parseInt(e.target.value, 10);
+        const selectedService = Service.find(Service => Service.service_id === service_id);
+        setPet({ ...pet, service_id: service_id });
+        setSelectedServiceDes(selectedService ? selectedService.service_des : '');
+        setShowServiceDes(true);
+    }
+    console.log(Service);
     const changeFile = (e) => {
         setFiles(e.target.files[0]);
         console.log(e.target.files);
@@ -24,8 +35,6 @@ function BookPet(props) {
         setPet({ ...pet, cate_id: categoryId });
         console.log(categoryId);
     }
-    console.log(pet);
-    console.log(curentAccount.user_id)
     const onSubmit = (event) => {
         event.preventDefault();  // Ngăn chặn mặc định gửi lại trang
 
@@ -73,8 +82,16 @@ function BookPet(props) {
                 setType(res.data.data)
             })
     }, [])
+    useEffect(() => {
+        axios
+            .get('http://localhost:5000/api/service/')
+            .then((res) => {
+                setService(res.data.data)
+            })
+    }, [])
+    // console.log(Service);
     return (
-        <Container fluid className='padding-header' style={{ backgroundImage: `url('/image/Background/bg.jpg')`, backgroundSize: "cover" }}>
+        <Container fluid className='padding-header' style={{ backgroundImage: `linear-gradient(rgba(0,0,0,0.5), rgba(0,0,0,0.5)),url('/image/Background/bg.jpg')`, backgroundSize: "cover" }}>
             <ToastContainer />
             <h3 className=" fw-bold text-uppercase text-primary">Book Pet</h3>
             <Card style={{ background: "none", border: "none", color: "white" }}>
@@ -96,21 +113,36 @@ function BookPet(props) {
 
                                         ></Form.Control>
                                     </Form.Group>
-                                    <Form.Label
-                                        htmlFor="email"
-                                        className="control-label"
-                                    >
-                                        <Icon icon={faUserLock} />Pet description
-                                    </Form.Label>
-                                    <Form.Control
-                                        className="form-control"
-                                        type="text"
-                                        name="p_des"
-                                        placeholder="type something about your pet problem"
-                                        onChange={onChangeHandle}
-                                        required
-                                    ></Form.Control>
+                                    <Form.Group>
+                                        <Form.Label htmlFor="sdt" className="control-label">
+                                            <Icon icon={faInfoCircle} />    Pet description
+                                        </Form.Label>
+                                        <Form.Group className="mb-3" controlId="exampleForm.ControlInput1">
+
+                                            <Form.Select aria-label="Default select example" name="type" onChange={ichange}>
+                                                <option>--SELECT--</option>
+                                                {Service.map((type, idx) => (
+                                                    <option name="service_id" value={type.service_id} key={idx}>{type.service_name} - {type.service_price}$</option>
+                                                ))}
+                                            </Form.Select>
+                                        </Form.Group>
+                                    </Form.Group>
                                 </Form.Group>
+
+                                {showServiceDes && (
+                                    <Form.Group>
+                                        <Form.Label htmlFor="service_des" className="control-label">
+                                            Service Description
+                                        </Form.Label>
+                                        <Form.Control
+                                            type="text"
+                                            name="service_des"
+                                            placeholder="Service Description"
+                                            value={selectedServiceDes}
+                                            readOnly
+                                        />
+                                    </Form.Group>
+                                )}
 
                                 <Form.Group>
                                     <Form.Label htmlFor="avt" className="control-label">
@@ -126,7 +158,7 @@ function BookPet(props) {
                                 </Form.Group>
                                 <Form.Group>
                                     <Form.Label htmlFor="sdt" className="control-label">
-                                        <Icon icon={faGenderless} />   Species
+                                        <Icon icon={faPaw} />   Species
                                     </Form.Label>
                                     <Form.Group className="mb-3" controlId="exampleForm.ControlInput1">
 
@@ -139,11 +171,6 @@ function BookPet(props) {
                                     </Form.Group>
                                 </Form.Group>
                                 <div style={{ height: "10px" }}></div>
-                                {/* <Form.Group className='m-2'>
-                                    <Form.Label>
-                                        <Link to={'/login'} className={'text-white fw-bolder h5'}> <Icon icon={faRightFromBracket} /> Đăng nhập tài khoản hiện có </Link>
-                                    </Form.Label>
-                                </Form.Group> */}
                                 <Button variant='primary' type='submit' onClick={() => onSubmit()}>Book Pet</Button>
                             </Form>
                         </Col>
