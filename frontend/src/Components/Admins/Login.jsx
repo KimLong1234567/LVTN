@@ -22,7 +22,7 @@ function Login(props) {
                     console.log(res.data.admin);
                     if (nv.cv_id === 1) {
                         console.log('Logged in successfully');
-                        toast.success('Đăng nhập thành công.', {
+                        toast.success('Logged in successfully.', {
                             position: "top-center",
                             autoClose: 2000,
                             closeOnClick: true,
@@ -113,7 +113,7 @@ function Login(props) {
                                         <div className="card-body p-5 text-center">
                                             <h2 className="text-danger fw-bolder">PETSHOP</h2>
                                             <div className="mb-md-5 mt-md-4 pb-5">
-                                                <h2 className="fw-bold mb-2 text-uppercase"> Đăng nhập tài khoản admin</h2>
+                                                <h2 className="fw-bold mb-2 text-uppercase">Log in to the administrator account</h2>
                                                 <p className="text-white-50 mb-5">
                                                     Please enter your login and password!
                                                 </p>
@@ -135,11 +135,11 @@ function Login(props) {
                                                         onChange={onChange}
                                                     />
                                                 </div>
-                                                <p className="small mb-3 pb-lg-2">
+                                                {/* <p className="small mb-3 pb-lg-2">
                                                     <Link className="text-white " to="/forgot-password">
                                                         Forgot password?
                                                     </Link>
-                                                </p>
+                                                </p> */}
                                                 <button
                                                     className="btn btn-outline-light btn-lg px-5"
                                                     type="submit"

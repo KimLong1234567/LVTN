@@ -56,11 +56,6 @@ function AllOrder(props) {
                             <Icon icon={faCircleXmark} />
                         </button>
                     </td>
-                    <td>
-                        <button className='btn btn-outline-warning' disabled >
-                            <Icon icon={faTrashCanArrowUp} />
-                        </button>
-                    </td>
                 </>
             )
         }
@@ -77,11 +72,6 @@ function AllOrder(props) {
                             <Icon icon={faCircleXmark} />
                         </button>
                     </td>
-                    <td>
-                        <button className='btn btn-outline-warning' disabled>
-                            <Icon icon={faTrashCanArrowUp} />
-                        </button>
-                    </td>
                 </>
             )
         }
@@ -96,11 +86,6 @@ function AllOrder(props) {
                     <td>
                         <button className='btn btn-outline-danger' onClick={() => updateStatus(id, 3)}>
                             <Icon icon={faCircleXmark} />
-                        </button>
-                    </td>
-                    <td>
-                        <button className='btn btn-outline-warning' disabled>
-                            <Icon icon={faTrashCanArrowUp} />
                         </button>
                     </td>
                 </>
@@ -165,7 +150,7 @@ function AllOrder(props) {
                     <div className='d-flex mb-2 justify-content-center'>
                         <input type="text"
                             className="form-control w-50 "
-                            placeholder="Nhập tên khách hàng"
+                            placeholder="Type customer name"
                             onChange={onChange}
                         />
                     </div>

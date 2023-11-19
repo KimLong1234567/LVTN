@@ -91,7 +91,7 @@ function Cart(props) {
                     <Button className='text-end mb-3' variant='success' onClick={() => setShow(true)} >Pay <Icon icon={faAmazonPay} /> </Button>
                     <PayPalScriptProvider
                         options={{
-                            'client-id': "AdWBR9BN-R7fwq3CEx_SaRseMXqwRisxtYijtBvdzdnfj6CFvl52o8lc3J-KiGyGBbl19UXBnQ9L7deK"
+                            'client-id': "ARAvyA7MJ6zO-uJ3WW7w5ypwzPboZ1hkDsEE8ZJm4jcwoYB7DdSxTQ-YUER58nunHYF8eWAkToPnFfGC"
                         }}>
                         {show ? (
                             <PayPalButtons
@@ -440,8 +440,8 @@ function Cart(props) {
                         <div className='text-end g-3'>
                             <h4 >Sum quantity: {new Intl.NumberFormat('vi').format(totalUnit)} unit</h4>
                             <h4 >Sum: {new Intl.NumberFormat('vi').format(totalValue)} $</h4>
-                            <h4 >VAT: 10%</h4>
-                            <h4 >Final: {new Intl.NumberFormat('vi').format(totalValue + totalValue * 0.1)} $</h4>
+                            {/* <h4 >VAT: 10%</h4>
+                            <h4 >Final: {new Intl.NumberFormat('vi').format(totalValue + totalValue * 0.1)} $</h4> */}
                             <div>
                                 <h4>Pay with:</h4>
                                 <div className='d-flex justify-content-end'>

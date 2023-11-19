@@ -14,6 +14,7 @@ router.get("/dh/:id", controllerDh.getByUserId);
 router.get("/dhang/all", controllerDh.getAllBill);
 router.get("/dhang/success", controllerDh.getDhSuccess);
 router.get("/dhang/success/:id", controllerDh.getDhSuccessId);
+router.get("/shipper/destroy/:id", controllerDh.getShipperDestroy);
 router.get("/shipper/:id", controllerDh.getByShipperId);
 router.get("/shipper/success/:id", controllerDh.getShipperSuccess);
 router.post("/", controllerDh.create); // Create a new item

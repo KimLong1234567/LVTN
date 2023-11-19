@@ -387,6 +387,64 @@ const controller = {
             })
         }
     },
+    getShipperDestroy: async (req, res) => {
+        try {
+            const { id } = req.params
+            const [rows, fields] = await pool.query("SELECT d.dh_id, d.nv_id, d.dh_sl, d.dh_total, d.dh_update, d.dh_pay, d.dh_status, d.dh_address, u.user_name, u.user_email, u.user_phone, c.ctdh_id, c.sp_code, c.ctdh_sl, p.sp_name, p.sp_image, c.ctdh_price, nv.nv_hoten, nv.nv_email, nv.nv_phone FROM donhang AS d LEFT JOIN ctdh AS c ON d.dh_id = c.dh_id LEFT JOIN products AS p ON c.sp_code = p.sp_code LEFT JOIN users AS u ON d.kh_id = u.user_id LEFT JOIN nhan_vien AS nv ON d.nv_id = nv.nv_id WHERE d.dh_status = 3 AND d.nv_id = nv.nv_id AND d.nv_id = ? ORDER BY d.dh_update DESC;", [id])
+
+            // Tạo một đối tượng mới để lập trình lại cấu trúc dữ liệu
+            const result = [];
+            let currentDhId = -1;
+            let currentCtdhId = -1;
+            let currentRow = null;
+
+            for (const row of rows) {
+                if (row.dh_id !== currentDhId) {
+                    // Bắt đầu một đơn hàng mới
+                    currentRow = {
+                        dh_id: row.dh_id,
+                        dh_create: row.dh_create,
+                        dh_address: row.dh_address,
+                        dh_pay: row.dh_pay,
+                        dh_status: row.dh_status,
+                        dh_sl: row.dh_sl,
+                        dh_total: row.dh_total,
+                        dh_update: row.dh_update,
+                        user_name: row.user_name,
+                        user_email: row.user_email,
+                        user_phone: row.user_phone,
+                        nv_hoten: row.nv_hoten,
+                        nv_phone: row.nv_phone,
+                        ctdh: [],
+                    };
+                    result.push(currentRow);
+                    currentDhId = row.dh_id;
+                }
+
+                if (row.ctdh_id !== currentCtdhId) {
+                    // Thêm chi tiết sản phẩm vào đơn hàng
+                    currentRow.ctdh.push({
+                        ctdh_id: row.ctdh_id,
+                        sp_code: row.sp_code,
+                        ctdh_sl: row.ctdh_sl,
+                        sp_name: row.sp_name,
+                        sp_image: row.sp_image,
+                        ctdh_price: row.ctdh_price,
+                    });
+                    currentCtdhId = row.ctdh_id;
+                }
+            }
+            res.json({
+                data: result,
+            })
+
+        } catch (error) {
+            console.log(error);
+            res.json({
+                status: "error"
+            })
+        }
+    },
     create: async (req, res) => {
         try {
             const { sp_code, dh_pay, dh_total, kh_id, dh_sl, dh_address, user_email } = req.body;
@@ -473,7 +531,7 @@ const controller = {
             const sql = "UPDATE donhang SET ? WHERE dh_id = ?"
             const [rows, fields] = await pool.query(sql, [updateData, id])
             const [find] = await pool.query("SELECT * FROM donhang AS d, users AS u, nhan_vien AS n WHERE d.dh_id = ? AND d.kh_id = u.user_id AND d.nv_id = n.nv_id;", [id])
-            console.log(find);
+            // console.log(find);
             if (find.length > 0) {
                 // Cấu hình transporter ở đầu file
                 const email = find[0].user_email;
@@ -537,7 +595,7 @@ const controller = {
     delete: async (req, res) => {
         try {
             const { id } = req.params
-            const [rows, fields] = await pool.query("UPDATE cate SET cate_status = '1' WHERE cate_id = ?", [id])
+            const [rows, fields] = await pool.query("UPDATE donhang SET dh_status = '3' WHERE dh_id = ?", [id])
             res.json({
                 data: rows
             })

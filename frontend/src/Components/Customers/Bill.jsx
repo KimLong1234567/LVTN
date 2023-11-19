@@ -52,12 +52,12 @@ function Bill(props) {
     }
 
     async function updateStatus(id, status) {
-        await axios.put(`http://localhost:5000/api/bill/${id}`, {
+        await axios.put(`http://localhost:5000/api/dh/${id}`, {
             id: id,
-            status: status
+            dh_status: status
         })
             .then((res) => {
-                toast.info('Cập nhật thành công.', {
+                toast.info('Update Success.', {
                     position: "top-center",
                     autoClose: 2000,
                     closeOnClick: true,
@@ -91,11 +91,11 @@ function Bill(props) {
                             <Icon icon={faCircleXmark} />
                         </button>
                     </td>
-                    <td>
+                    {/* <td>
                         <button className='btn btn-outline-warning' onClick={() => updateStatus(id, 'Chờ xác nhận')} >
                             <Icon icon={faTrashCanArrowUp} />
                         </button>
-                    </td>
+                    </td> */}
                 </>
             )
         }
@@ -112,11 +112,11 @@ function Bill(props) {
                             <Icon icon={faCircleXmark} />
                         </button>
                     </td>
-                    <td>
+                    {/* <td>
                         <button className='btn btn-outline-warning' onClick={() => updateStatus(id, 'Chờ xác nhận')}>
                             <Icon icon={faTrashCanArrowUp} />
                         </button>
-                    </td>
+                    </td> */}
                 </>
             )
         }
@@ -129,15 +129,15 @@ function Bill(props) {
                         </button>
                     </td>
                     <td>
-                        <button className='btn btn-outline-danger' onClick={() => updateStatus(id, 'Đơn hàng đã bị hủy bỏ')}>
+                        <button className='btn btn-outline-danger' onClick={() => updateStatus(id, 3)}>
                             <Icon icon={faCircleXmark} />
                         </button>
                     </td>
-                    <td>
+                    {/* <td>
                         <button className='btn btn-outline-warning' disabled>
                             <Icon icon={faTrashCanArrowUp} />
                         </button>
-                    </td>
+                    </td> */}
                 </>
             )
         }
@@ -154,11 +154,11 @@ function Bill(props) {
                             <Icon icon={faCircleXmark} />
                         </button>
                     </td>
-                    <td>
+                    {/* <td>
                         <button className='btn btn-outline-warning' disabled>
                             <Icon icon={faTrashCanArrowUp} />
                         </button>
-                    </td>
+                    </td> */}
                 </>
             )
         }
@@ -304,6 +304,8 @@ function Bill(props) {
                         <tbody>
                             {
                                 dataPage.map((value, idx) => {
+                                    const id = value.dh_id;
+                                    console.log(id);
                                     return [
                                         value.ctdh.map((item, i) => {
                                             return (
@@ -334,7 +336,7 @@ function Bill(props) {
                                             <td colSpan={8} className='fw-bolder text-uppercase text-end'>Sum: </td>
                                             <td className='fw-bolder text-primary text-end' colSpan={1}>{new Intl.NumberFormat('vi').format(value.dh_total)} $</td>
                                             {
-                                                renderButton(value.dh_status, curentAccount.user_id, value.dh_total)
+                                                renderButton(value.dh_status, id)
                                             }
                                         </tr>
                                     ]

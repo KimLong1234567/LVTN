@@ -21,7 +21,6 @@ export { default as Viewpet } from "./Admins/ViewPet"
 export { default as LoginShipper } from "./NhanVienDH/LoginShipper"
 export { default as Success } from "./NhanVienDH/Success"
 export { default as AllOrder } from "./NhanVienDH/AllOrder"
-export { default as OrdersDelivered } from "./NhanVienDH/OrdersDelivered"
 export { default as OrderDestroy } from "./NhanVienDH/OrderDestroy"
 //customer
 export { default as Home } from "./Customers/Home"
