@@ -64,7 +64,7 @@ function BookPet(props) {
                 );
             })
             .catch((Error => {
-                toast.error('Booking not succes.', {
+                toast.error('Booking not success.', {
                     position: "top-center",
                     autoClose: 3000,
                     closeOnClick: true,

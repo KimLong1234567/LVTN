@@ -73,7 +73,7 @@ function Employee(props) {
         axios
             .post("http://localhost:5000/api/admins/", formDataToSend, {})
             .then((res) => {
-                toast.success('Tạo mới tài khoản thành công', {
+                toast.success('Create account success', {
                     position: "top-center",
                     autoClose: 2000,
                     closeOnClick: true,
@@ -95,7 +95,7 @@ function Employee(props) {
         axios
             .delete(`http://localhost:5000/api/admins/${id}`)
             .then((res) => {
-                toast.error('Tài khoản đã bị xóa', {
+                toast.error('Account deteled', {
                     position: "top-center",
                     autoClose: 2000,
                     closeOnClick: true,
@@ -165,7 +165,7 @@ function Employee(props) {
                 <Button variant="success" onClick={() => setShow(true)}>Add employee account <Icon icon={faSquarePlus} /></Button>
                 <Modal show={show !== false} onHide={() => setShow(false)} id="edit">
                     <Modal.Header>
-                        <Modal.Title>Tài Khoản</Modal.Title>
+                        <Modal.Title>Account</Modal.Title>
                     </Modal.Header>
                     <Modal.Body>
                         <Form>
@@ -211,7 +211,7 @@ function Employee(props) {
                             </Form.Group>
                             <Form.Group className="mb-3">
                                 <Form.Label>Date Born</Form.Label>
-                                <Form.Control type="text" name="nv_date" placeholder={show.nv_date ? show.nv_date : "Ngày tháng năm sinh"} onChange={onChange} />
+                                <Form.Control type="text" name="nv_date" placeholder={show.nv_date ? show.nv_date : "dd/mm/yyyy"} onChange={onChange} />
                             </Form.Group>
                             <Form.Group className="mb-3" controlId="formBasicPassword">
                                 <Form.Label>Avatar</Form.Label>

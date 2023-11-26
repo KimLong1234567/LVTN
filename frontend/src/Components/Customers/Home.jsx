@@ -3,7 +3,6 @@ import { Card, Carousel, Container, Row, Col } from 'react-bootstrap';
 import React, { useEffect, useState } from 'react';
 import axios from 'axios';
 function Home(props) {
-
     const [Products, setProducts] = useState([])
     const [ProductFind, setProductFind] = useState([])
     useEffect(() => {
@@ -23,7 +22,7 @@ function Home(props) {
         if (item.s_status && item.sp_sl !== 0) {
             return (
                 <Col xs={12} md={4} sm={6} key={idx} className='g-3'>
-                    <Card className='card border-success border border-2'>
+                    <Card className='card border-success border border-2' style={{ height: "540px" }}>
                         <Link to={`/detail/${item.sp_id}`}>
                             <Card.Img variant="top" src={`/image/SanPham/${item.sp_image}`} style={{ width: "auto", height: "400px", maxHeight: "300px" }} />
                         </Link>
@@ -44,7 +43,7 @@ function Home(props) {
         else {
             return (
                 <Col xs={12} md={4} sm={6} key={idx} className='g-3'>
-                    <Card className='card border-success border border-2' >
+                    <Card className='card border-success border border-2' style={{ height: "540px" }}>
                         <Card.Img variant="top" src={`/image/SanPham/${item.sp_image}`} style={{ width: "auto", height: "400px", maxHeight: "300px" }} />
                         <Card.Body className='bg-light'>
                             <Card.Title>{item.sp_name}</Card.Title>

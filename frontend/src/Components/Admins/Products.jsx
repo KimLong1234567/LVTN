@@ -265,7 +265,7 @@ function Products() {
                 <Button variant="success" onClick={() => setShow(true)}>add new product <Icon icon={faSquarePlus} /></Button>
                 <Modal show={show !== false} onHide={() => setShow(false)}>
                     <Modal.Header closeButton>
-                        <Modal.Title> {selected.sp_id ? "Cập nhật sản phẩm" : "Sản phẩm mới"}</Modal.Title>
+                        <Modal.Title> {selected.sp_id ? "Update product" : "Add new product"}</Modal.Title>
                     </Modal.Header>
                     <Modal.Body>
                         <Form>
@@ -480,7 +480,7 @@ function Products() {
                                                     </div>
                                                     <div className="modal-body text-start">
                                                         <p className="text-uppercase">
-                                                            Product code: <b>{product.sp_id}</b>
+                                                            Product code: <b>{product.sp_code}</b>
                                                         </p>
                                                         <p className="text-uppercase">
                                                             Product name: <b>{product.sp_name}</b>

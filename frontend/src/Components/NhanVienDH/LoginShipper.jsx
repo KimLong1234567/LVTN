@@ -20,7 +20,7 @@ function LoginShipper(props) {
                 if (res.data.data === 'signed' && res.data.admin) {
                     const nv = res.data.admin;
                     if (nv.cv_id === 2) {
-                        toast.success('Đăng nhập thành công.', {
+                        toast.success('Login Success.', {
                             position: "top-center",
                             autoClose: 2000,
                             closeOnClick: true,
@@ -57,7 +57,7 @@ function LoginShipper(props) {
                 }
             })
             .catch((err) => {
-                toast.error('Sai tài khoản hoặc mật khẩu.', {
+                toast.error('wrong email or password.', {
                     position: "top-center",
                     autoClose: 2000,
                     closeOnClick: true,

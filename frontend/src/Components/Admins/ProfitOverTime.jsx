@@ -23,7 +23,7 @@ function ProfitOverTime(props) {
     useEffect(() => {
         if (filterBill) {
             if (startDate !== '' && endDate !== '' && startDate > endDate) {
-                toast.error('Ngày kết thúc phải lớn hơn ngày bắt đầu.', {
+                toast.error('The end date must be greater than the start date.', {
                     position: "top-center",
                     autoClose: 2000,
                     closeOnClick: true,
@@ -37,14 +37,14 @@ function ProfitOverTime(props) {
                 var dateBill = []
                 if (startDate !== '') {
                     filterBill.forEach(item => {
-                        if (item.createdAt === startDate) {
+                        if (item.dh_create === startDate) {
                             dateBill.push(item)
                         }
                     })
                 }
                 if (endDate !== '') {
                     filterBill.forEach(item => {
-                        if (item.createdAt >= startDate && item.createdAt <= endDate) {
+                        if (item.dh_create >= startDate && item.dh_create <= endDate) {
                             dateBill.push(item)
                         }
                     })

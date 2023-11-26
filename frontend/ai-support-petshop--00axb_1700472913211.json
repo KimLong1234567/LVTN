@@ -1,0 +1,425 @@
+{
+	"intents": [
+		{
+			"content": [
+				{
+					"message": "You can check the shipping charges and time frames on the Delivery page of our website.\n\nhttps://www.examplestore.com/delivery"
+				}
+			],
+			"urlPatternList": [],
+			"category": "intent",
+			"name": "Delivery Options",
+			"trainingPhrases": [
+				"delivery charges",
+				"delivery options",
+				"shipping rates",
+				"delivery time frames",
+				"shipping"
+			],
+			"languageCode": "en",
+			"userInformation": ""
+		},
+		{
+			"content": [
+				{
+					"message": "Have a look at this section's products having offers. \n\nhttps://www.examplestore.com/offers\n\nWe always have some interesting offers there."
+				}
+			],
+			"urlPatternList": [],
+			"category": "intent",
+			"name": "special_offers",
+			"trainingPhrases": [
+				"today's offer",
+				"do you have any discounts",
+				"any special offers today",
+				"current offers",
+				"do you have special offers"
+			],
+			"languageCode": "en",
+			"userInformation": ""
+		},
+		{
+			"content": [
+				{
+					"platform": "kommunicate",
+					"metadata": {
+						"templateId": "10",
+						"contentType": "300",
+						"payload": [
+							{
+								"description": "Comfortable, casual and loose fitting, our heavyweight t-shirt will easily become a closet staple.",
+								"titleExt": "4.5/5",
+								"header": {
+									"imgSrc": "https://images.unsplash.com/photo-1547337784-e15710a7cfe5?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=708&q=80",
+									"overlayText": "$ 79"
+								},
+								"buttons": [
+									{
+										"action": {
+											"payload": {
+												"url": "https://www.amazon.com/Champion-Classic-Jersey-Script-T-Shirt/dp/B078GBJ5QZ/ref=sr_1_9?crid=13YEDJ8UIVNKV&dchild=1&keywords=tshirt+men&qid=1592074431&sprefix=tshirt+%2Caps%2C436&sr=8-9"
+											},
+											"type": "link"
+										},
+										"name": "Shop Now"
+									}
+								],
+								"title": "Classic Jersey Script T-Shirt"
+							},
+							{
+								"description": "Thistletown Park Short Sleeve Crew Shirt features our signature UPF 15 fabric that helps to blocks harmful UVA and UVB rays as well as wicking technology to help keep you dry and cool on the trail",
+								"header": {
+									"overlayText": "$49",
+									"imgSrc": "https://images.unsplash.com/photo-1585940220991-3ee52f287bde?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=747&q=80"
+								},
+								"title": "Humor Graphic T-Shirt",
+								"titleExt": "4.6/5",
+								"buttons": [
+									{
+										"name": "Shop Now",
+										"action": {
+											"type": "link",
+											"payload": {
+												"url": "https://www.amazon.com/Hanes-Graphic-Tee-Humor-Thinking-Black/dp/B01EKB6ES6/ref=sr_1_22?crid=13YEDJ8UIVNKV&dchild=1&keywords=tshirt+men&qid=1592074431&sprefix=tshirt+%2Caps%2C436&sr=8-22"
+											}
+										}
+									}
+								]
+							},
+							{
+								"header": {
+									"imgSrc": "https://images.unsplash.com/photo-1533835825768-478d38555d95?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1500&q=80",
+									"overlayText": "$79"
+								},
+								"description": "Soft, durable material fits your lifestyle, Exclusive to Muscle & Strength",
+								"title": "Thistletown Park Crew Shirt",
+								"buttons": [
+									{
+										"name": "Shop Now",
+										"action": {
+											"payload": {
+												"url": "https://www.amazon.com/Columbia-Thistletown-Short-Sleeve-X-Large/dp/B0076RNJ4E/ref=sr_1_43?crid=13YEDJ8UIVNKV&dchild=1&keywords=tshirt+men&qid=1592074431&sprefix=tshirt+%2Caps%2C436&sr=8-43"
+											},
+											"type": "link"
+										}
+									}
+								],
+								"titleExt": "4.8/5"
+							}
+						]
+					},
+					"message": "Hey! Here's our T-Shirt Collections👕 Shop & Enjoy🎈"
+				}
+			],
+			"urlPatternList": [],
+			"category": "intent",
+			"name": "T-Shirts",
+			"trainingPhrases": [
+				"T-Shirts",
+				"Hey, I'm looking for T-Shirts",
+				"👕T-Shirts"
+			],
+			"languageCode": "en",
+			"userInformation": ""
+		},
+		{
+			"content": [
+				{
+					"message": "I've added $100 gift card to your cart."
+				}
+			],
+			"urlPatternList": [],
+			"category": "intent",
+			"name": "Gift card - $100",
+			"trainingPhrases": [
+				"$100",
+				"100",
+				"hundred dollars"
+			],
+			"languageCode": "en",
+			"userInformation": ""
+		},
+		{
+			"content": [
+				{
+					"message": "I've added $50 gift card to your cart."
+				}
+			],
+			"urlPatternList": [],
+			"category": "intent",
+			"name": "Gift card - $50",
+			"trainingPhrases": [
+				"$50",
+				"50",
+				"fifty dollars"
+			],
+			"languageCode": "en",
+			"userInformation": ""
+		},
+		{
+			"content": [
+				{
+					"message": "I am not sure how to answer this. I will connect you to a human agent to help you with your query."
+				},
+				{
+					"platform": "kommunicate",
+					"metadata": {
+						"KM_ASSIGN_TO": ""
+					}
+				}
+			],
+			"urlPatternList": [],
+			"category": "fallback_intent",
+			"name": "Default Fallback Intent",
+			"trainingPhrases": [],
+			"languageCode": "en",
+			"userInformation": ""
+		},
+		{
+			"content": [
+				{
+					"message": "You can set up a return or exchange online. During the setup, we’ll let you know which items are eligible to be returned and if there’s any restocking fee.  \n\nIf you’d like to exchange the item, please place a new order of similar cost within 15 days and the restocking fee will be credited back to you"
+				}
+			],
+			"urlPatternList": [],
+			"category": "intent",
+			"name": "Exchange Item",
+			"trainingPhrases": [
+				"Exchange Item",
+				"🔁 Exchange Item"
+			],
+			"languageCode": "en",
+			"userInformation": ""
+		},
+		{
+			"content": [
+				{
+					"platform": "kommunicate",
+					"metadata": {
+						"contentType": "300",
+						"templateId": "10",
+						"payload": [
+							{
+								"title": "MEN'S FASHION",
+								"description": "Fashion is what you’re offered four times a year by designers. And style is what you choose.",
+								"buttons": [
+									{
+										"action": {
+											"type": "link",
+											"payload": {
+												"url": "https://www.amazon.com/s?k=men+fashion&crid=2AWHC23U7KS5A&sprefix=men+fas%2Caps%2C466&ref=nb_sb_ss_i_1_7"
+											}
+										},
+										"name": "Shop Now"
+									}
+								],
+								"titleExt": "4.5/5",
+								"header": {
+									"imgSrc": "https://images.unsplash.com/photo-1493146146946-e907f69cdf23?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=890&q=80"
+								}
+							},
+							{
+								"buttons": [
+									{
+										"action": {
+											"payload": {
+												"url": "https://www.amazon.com/s?k=women+fashion+tops&crid=223ZVO20GFDP6&sprefix=women+fashio%2Caps%2C549&ref=nb_sb_ss_i_1_12"
+											},
+											"type": "link"
+										},
+										"name": "Shop Now"
+									}
+								],
+								"title": "WOMEN'S FASHION",
+								"header": {
+									"imgSrc": "https://images.unsplash.com/photo-1589960062943-bfb9f51756fa?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=750&q=80"
+								},
+								"description": "Style is something each of us already has, all we need to do is find it.",
+								"titleExt": "4.8/5"
+							},
+							{
+								"description": "Looking for watches? We stock a huge range of designer watches for gents, women, kids from famous brands",
+								"titleExt": "4.8/5",
+								"title": "WATCHES",
+								"buttons": [
+									{
+										"action": {
+											"payload": {
+												"url": "https://www.amazon.com/s?k=watch&crid=FSYRY8G29WSC&sprefix=watch%2Caps%2C1077&ref=nb_sb_ss_i_5_5"
+											},
+											"type": "link"
+										},
+										"name": "Shop Now"
+									}
+								],
+								"header": {
+									"imgSrc": "https://images.unsplash.com/photo-1558505780-e7a9d70b4bab?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=873&q=80"
+								}
+							}
+						]
+					},
+					"message": "Shop 🛍️ our unique collections⭐"
+				}
+			],
+			"urlPatternList": [],
+			"category": "intent",
+			"name": "Fashion",
+			"trainingPhrases": [
+				"Show me the collections",
+				"👗 Fashion",
+				"Fashion"
+			],
+			"languageCode": "en",
+			"userInformation": ""
+		},
+		{
+			"content": [
+				{
+					"message": "Please provide us with the order number you  would like to check the status."
+				}
+			],
+			"urlPatternList": [],
+			"category": "intent",
+			"name": "Order Status",
+			"trainingPhrases": [
+				"Order Status"
+			],
+			"languageCode": "en",
+			"userInformation": ""
+		},
+		{
+			"content": [
+				{
+					"message": "Sure, I am assigning this chat to a support executive."
+				},
+				{
+					"platform": "kommunicate",
+					"metadata": {
+						"KM_ASSIGN_TO": ""
+					}
+				}
+			],
+			"urlPatternList": [],
+			"category": "intent",
+			"name": "Talk to Us",
+			"trainingPhrases": [
+				"💬 Talk to us"
+			],
+			"languageCode": "en",
+			"userInformation": ""
+		},
+		{
+			"content": [
+				{
+					"message": "Hi, How may I help you?"
+				}
+			],
+			"urlPatternList": [],
+			"category": "welcome_event",
+			"name": "Default Welcome Intent",
+			"trainingPhrases": [
+				"All Products",
+				"Fashion"
+			],
+			"webhookKey": "",
+			"functionKey": "",
+			"languageCode": "en",
+			"userInformation": ""
+		},
+		{
+			"content": [
+				{
+					"message": "Hi, May I help you?"
+				}
+			],
+			"urlPatternList": [],
+			"category": "small_talk",
+			"name": "Hi,",
+			"trainingPhrases": [
+				"Hi,"
+			],
+			"languageCode": "en",
+			"userInformation": ""
+		},
+		{
+			"content": [
+				{
+					"message": "Yes, I am, ask me anything that you want in the petshop"
+				}
+			],
+			"urlPatternList": [],
+			"category": "intent",
+			"name": "Are you a bot?",
+			"trainingPhrases": [
+				"Are you a bot?"
+			],
+			"languageCode": "en",
+			"userInformation": ""
+		},
+		{
+			"content": [
+				{
+					"message": "You have two options for payment such as: pay when products arrive or pay online with a Paypal account"
+				}
+			],
+			"urlPatternList": [],
+			"category": "intent",
+			"name": "How I pay?",
+			"trainingPhrases": [
+				"How I pay?"
+			],
+			"languageCode": "en",
+			"userInformation": ""
+		},
+		{
+			"content": [
+				{
+					"message": "This website was created by Kim Long Lam. Founder, developer, and creator."
+				}
+			],
+			"urlPatternList": [],
+			"category": "intent",
+			"name": "About this website",
+			"trainingPhrases": [
+				"About this website"
+			],
+			"languageCode": "en",
+			"userInformation": ""
+		},
+		{
+			"content": [
+				{
+					"message": "Sure, all products of Petshop are here: lla & Chewy's Freeze-Dried Raw Lamb Heart Dog Treats, Dr. Marty Shine & Luster Dog Supplements, Fritz Aquatics Pro Aquatics A.C.C.R. Dry Ammonia, Chlorine and Chloramine Remover,..."
+				}
+			],
+			"urlPatternList": [],
+			"category": "intent",
+			"name": "Show me some products of Petshop website",
+			"trainingPhrases": [
+				"Show me some products of Petshop website"
+			],
+			"languageCode": "en",
+			"userInformation": ""
+		},
+		{
+			"content": [
+				{
+					"message": "price about products around 5$-500$"
+				}
+			],
+			"urlPatternList": [],
+			"category": "intent",
+			"name": "about price products?",
+			"trainingPhrases": [
+				"about price products?"
+			],
+			"languageCode": "en",
+			"userInformation": ""
+		}
+	],
+	"webhooks": {},
+	"languageCodes": [
+		"en"
+	],
+	"functions": {}
+}

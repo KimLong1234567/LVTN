@@ -204,7 +204,7 @@ function Bill(props) {
         feedbackData.append('lh_address', curentAccount.user_address);
         axios.post('http://localhost:5000/api/contacts/', feedbackData)
             .then((res) => {
-                toast.success('Đã phản hồi, vui lòng kiểm tra email để nhận thông tin', {
+                toast.success("You've responded; please check your email for more details.", {
                     position: "top-center",
                     autoClose: 2000,
                     closeOnClick: true,
