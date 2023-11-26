@@ -37,7 +37,7 @@ router.get("/", petController.getAll);
 router.get("/:id", petController.getById);
 router.get("/userPet/:id", petController.getByUser);
 router.post("/", upload.single('p_img'), petController.create);
-router.post("/pet/:id", upload.single('p_img'), petController.updateUser);
+router.post("/pet/:id", petController.updateUser);
 router.put("/:id", petController.updateAdmin);
 router.delete("/:id", petController.delete);
 

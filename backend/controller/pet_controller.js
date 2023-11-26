@@ -4,7 +4,7 @@ const controller = {
     getAll: async (req, res) => {
         try {
             //SELECT * FROM pet WHERE pet_status < 3 AS p, users AS u, cate AS c WHERE p.kh_id = u.user_id AND c.cate_id = p.cate_id
-            const [rows, fields] = await pool.query("SELECT * FROM pet AS p, cate AS c, users AS u, service AS s WHERE p.cate_id = c.cate_id AND p.service_id = s.service_id AND p.kh_id = u.user_id")
+            const [rows, fields] = await pool.query("(SELECT * FROM pet AS p, cate AS c, users AS u, service AS s WHERE p.cate_id = c.cate_id AND p.service_id = s.service_id AND p.kh_id = u.user_id) ORDER BY p_create DESC")
             res.json({
                 data: rows
             })
@@ -69,21 +69,12 @@ const controller = {
     updateAdmin: async (req, res) => {
         try {
             const { id } = req.params;
-            // const { pet_name } = req.body
-            const updateData = {};
-            if (req.body.pet_service_detail) {
-                updateData.pet_service_detail = req.body.pet_service_detail
-            }
+            const { p_status } = req.body
+            console.log(p_status);
+            const p_update = new Date();
 
-            if (req.body.pet_service_fee) {
-                updateData.pet_service_fee = req.body.pet_service_fee
-            }
-
-            updateData.pet_status = 1;
-            updateData.pet_service_date = new Date();
-
-            const sql = "UPDATE pet SET ? WHERE stt_pet = ?"
-            const [rows, fields] = await pool.query(sql, [updateData, id])
+            const sql = "UPDATE pet SET p_status = ?, p_update = ? WHERE p_id = ?"
+            const [rows, fields] = await pool.query(sql, [p_status, p_update, id])
             res.json({
                 data: rows
             })
@@ -97,28 +88,12 @@ const controller = {
     updateUser: async (req, res) => {
         try {
             const { id } = req.params;
-            // const { pet_name } = req.body
-            const updateData = {};
-            if (req.body.pet_name) {
-                updateData.pet_name = req.body.pet_name
-            }
+            const { p_status } = req.body
+            console.log(p_status);
+            const p_update = new Date();
 
-            if (req.body.pet_description) {
-                updateData.pet_description = req.body.pet_description
-            }
-
-            if (req.body.pet_category_id) {
-                updateData.pet_category_id = req.body.pet_category_id
-            }
-
-            if (req.file && req.file.filename) {
-                updateData.pet_img = req.file.filename;
-            }
-
-            updateData.ngay_sua_doi_pet = new Date();
-
-            const sql = "UPDATE pet SET ? WHERE stt_pet = ?"
-            const [rows, fields] = await pool.query(sql, [updateData, id])
+            const sql = "UPDATE pet SET p_status = ?, p_update = ? WHERE p_id = ?"
+            const [rows, fields] = await pool.query(sql, [p_status, p_update, id])
             res.json({
                 data: rows
             })

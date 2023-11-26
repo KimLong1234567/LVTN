@@ -10,8 +10,6 @@ function ViewPet(props) {
     const [bill, setBill] = useState([])
     const [filterBill, setFilterBill] = useState([])
     const [refresh, setRefresh] = useState(0)
-    const [listAccount, setListAccount] = useState([])
-    const [showListAccount, setShowListAccount] = useState(false)
     const curentAccount = localStorage.admin ? JSON.parse(localStorage.admin) : null
 
     useLayoutEffect(() => {
@@ -22,18 +20,20 @@ function ViewPet(props) {
                     setBill(temp.reverse())
                     setFilterBill(temp)
                 })
-            await axios.get('http://localhost:5000/api/admins/')
-                .then((res) => {
-                    setListAccount(res.data.data)
-                })
         }
         fetchData()
     }, [refresh])
-    function filter(text) {
-        setShow(text)
+    function filter(Number) {
+        setShow(Number)
+        console.log(Number);
         var temp = []
-        if (text) {
-            temp = filterBill.filter(element => element.status === text)
+        if (Number === 0) {
+            temp = filterBill.filter(element => element.p_status === 0)
+            console.log(temp);
+        }
+        else if (Number) {
+            temp = filterBill.filter(element => element.p_status === Number)
+            console.log(temp);
         }
         else {
             temp = filterBill
@@ -41,11 +41,11 @@ function ViewPet(props) {
         setBill(temp)
     }
     const onChange = (e) => {
-        const temp = filterBill.filter(element => element.customer.name.toLowerCase().includes(e.target.value.toLowerCase()))
+        const temp = filterBill.filter(element => element.user_name.toLowerCase().includes(e.target.value.toLowerCase()))
         setBill(temp)
     }
     function renderButton(status, id) {
-        if (status === 1) {
+        if (status === 1) { // da service
             return (
                 <>
                     <td>
@@ -58,15 +58,10 @@ function ViewPet(props) {
                             <Icon icon={faCircleXmark} />
                         </button>
                     </td>
-                    <td>
-                        <button className='btn btn-outline-warning' disabled >
-                            <Icon icon={faUserPlus} />
-                        </button>
-                    </td>
                 </>
             )
         }
-        else if (status === 3) {
+        else if (status === 3) { // 3 = da xoa
             return (
                 <>
                     <td>
@@ -98,37 +93,16 @@ function ViewPet(props) {
                 </>
             )
         }
-        else if (status === 'Đang giao hàng') {
-            return (
-                <>
-                    <td>
-                        <button className='btn btn-outline-success' onClick={() => updateStatus(id, "Đã giao hàng thành công")}>
-                            <Icon icon={faCheckDouble} />
-                        </button>
-                    </td>
-                    <td>
-                        <button className='btn btn-outline-danger' onClick={() => updateStatus(id, "Đơn hàng đã bị hủy bỏ")}>
-                            <Icon icon={faCircleXmark} />
-                        </button>
-                    </td>
-                    <td>
-                        <button className='btn btn-outline-warning' disabled>
-                            <Icon icon={faUserPlus} />
-                        </button>
-                    </td>
-                </>
-            )
-        }
-    }
-    async function updateStatus(id, status, idAccount) {
 
-        await axios.put(`http://localhost:5000/api/bill/${id}`, {
+    }
+    async function updateStatus(id, status) {
+
+        await axios.put(`http://localhost:5000/api/pets/${id}`, {
             id: id,
-            status: status,
-            nhanvien: idAccount
+            p_status: status,
         })
             .then((res) => {
-                toast.info('Cập nhật thành công', {
+                toast.info('Update Success', {
                     position: "top-center",
                     autoClose: 2000,
                     closeOnClick: true,
@@ -148,7 +122,7 @@ function ViewPet(props) {
     function renderStatus(status) {
         if (status === 1) {
             return (
-                <td className='text-success fw-bold'>Done</td>
+                <td className='text-primary fw-bold'>Done</td>
             )
         }
         else if (status === 3) {
@@ -204,7 +178,7 @@ function ViewPet(props) {
                     <div className='d-flex m-3 justify-content-center'>
                         <input type="text"
                             className="form-control w-50 "
-                            placeholder="Nhập tên khách hàng"
+                            placeholder="Input customer name"
                             onChange={onChange}
                         />
                     </div>
@@ -246,7 +220,7 @@ function ViewPet(props) {
                                                 <td>{item.p_create = new Date(item.p_create).toLocaleString()}</td>
 
                                                 <td>{item.service_price} $</td>
-                                                <td>{item.p_s_date !== undefined ? "till waitting" : item.p_s_date = new Date(item.p_s_date).toLocaleString()}</td>
+                                                <td>{item.p_update === null ? "till waitting" : item.p_update = new Date(item.p_update).toLocaleString()}</td>
                                                 {renderStatus(item.p_status)}
                                                 {renderButton(item.p_status, item.p_id)}
                                             </tr>
@@ -285,30 +259,6 @@ function ViewPet(props) {
                     />
                 </div>
             </div>
-            <Modal show={showListAccount !== false} onHide={() => setShowListAccount(false)}>
-                <Modal.Header closeButton>
-                    <Modal.Title>Danh sách nhân viên</Modal.Title>
-                </Modal.Header>
-                <Modal.Body style={{ overflowY: "scroll" }}>
-                    {
-                        listAccount !== undefined && listAccount?.length !== 0 ?
-                            listAccount?.map((item, i) => (
-                                <div key={i} className='d-flex'>
-                                    <button disabled className='text-dark fw-bold'>{i + 1}</button>
-                                    <button className='border-0 btn btn-outline-info text-dark w-100 text-start m-1' onClick={() => { updateStatus(showListAccount, 'Chờ xác nhận', item._id); setShowListAccount(false) }}>{item.hoten}</button>
-                                </div>
-                            )) :
-                            <div>
-                                <h5>Không có nhân viên nào</h5>
-                            </div>
-                    }
-                </Modal.Body>
-                <Modal.Footer>
-                    <Button variant="secondary" onClick={() => setListAccount(false)}>
-                        Close
-                    </Button>
-                </Modal.Footer>
-            </Modal>
         </div>
 
     );

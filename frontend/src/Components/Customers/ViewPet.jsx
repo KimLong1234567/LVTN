@@ -13,8 +13,11 @@ function ViewPet(props) {
     const [showModal, setShowModal] = useState(false)
     const [feedback, setFeedback] = useState({})
     const [start, setStart] = useState(0)
+    const [files, setFiles] = useState()
 
-    const curentAccount = localStorage.currentAccount ? JSON.parse(localStorage.currentAccount) : null
+    // const curentAccount = localStorage.currentAccount ? JSON.parse(localStorage.currentAccount) : null
+    const curentAccount = localStorage["currentAccount"] ? JSON.parse(localStorage["currentAccount"]) : null
+
     console.log(curentAccount);
     useLayoutEffect(() => {
         async function fetchData() {
@@ -38,10 +41,15 @@ function ViewPet(props) {
         setPet(temp)
     }
 
+    const changeFile = (e) => {
+        setFiles(e.target.files[0]);
+        console.log(e.target.files);
+    }
+
     async function updateStatus(id, status) {
-        await axios.put(`http://localhost:5000/api/bill/${id}`, {
+        await axios.put(`http://localhost:5000/api/pets/${id}`, {
             id: id,
-            status: status
+            p_status: status
         })
             .then((res) => {
                 toast.info('Cập nhật thành công.', {
@@ -79,11 +87,6 @@ function ViewPet(props) {
                             <Icon icon={faCircleXmark} />
                         </button>
                     </td>
-                    <td>
-                        <button className='btn btn-outline-warning' onClick={() => updateStatus(id, 'Chờ xác nhận')} >
-                            <Icon icon={faTrashCanArrowUp} />
-                        </button>
-                    </td>
                 </>
             )
         }
@@ -99,11 +102,6 @@ function ViewPet(props) {
                     <td>
                         <button className='btn btn-outline-danger' disabled>
                             <Icon icon={faCircleXmark} />
-                        </button>
-                    </td>
-                    <td>
-                        <button className='btn btn-outline-warning' onClick={() => updateStatus(id, 'Chờ xác nhận')}>
-                            <Icon icon={faTrashCanArrowUp} />
                         </button>
                     </td>
                 </>
@@ -130,7 +128,7 @@ function ViewPet(props) {
     function renderStatus(p_status) {
         if (p_status === 1) {
             return (
-                <td className='text-success fw-bold'>finsid service</td>
+                <td className='text-success fw-bold'>finish service</td>
             )
         }
         else if (p_status === 3) {
@@ -153,12 +151,17 @@ function ViewPet(props) {
         setFeedback({ ...feedback, [e.target.name]: e.target.value })
     }
     function addFeedback() {
-        axios.post('http://localhost:5000/api/feedback/', {
-            ...feedback,
-            customer: curentAccount.user_id
-        })
+        const feedbackData = new FormData();
+        feedbackData.append('lh_img', files);
+
+        feedbackData.append('lh_name', curentAccount.user_name);
+        feedbackData.append('lh_email', curentAccount.user_email);
+        feedbackData.append('lh_sdt', curentAccount.user_phone);
+        feedbackData.append('lh_content', feedback.lh_content);
+        feedbackData.append('lh_address', curentAccount.user_address);
+        axios.post('http://localhost:5000/api/contacts/', feedbackData)
             .then((res) => {
-                toast.success('Đã phản hồi, vui lòng kiểm tra email để nhận thông tin', {
+                toast.success('Responded, please check your email to receive information', {
                     position: "top-center",
                     autoClose: 2000,
                     closeOnClick: true,
@@ -189,26 +192,26 @@ function ViewPet(props) {
             <ToastContainer />
             <Modal show={showModal !== false} onHide={() => setShowModal(false)} aria-labelledby="contained-modal-title-vcenter" centered>
                 <Modal.Header>
-                    <Modal.Title>Đánh giá dịch vụ</Modal.Title>
+                    <Modal.Title>Reviews of services</Modal.Title>
                 </Modal.Header>
                 <Modal.Body>
                     <Form>
                         <Form.Group className="mb-3" controlId="exampleForm.ControlTextarea1">
-                            <Form.Control as="textarea" rows={4} placeholder="Vui lòng cho chúng tôi ý kiến về dịch vụ của chúng tôi" name='content' onChange={onchange} />
+                            <Form.Control as="textarea" rows={4} placeholder="Please let us know what you think of our service." name='lh_content' onChange={onchange} />
                         </Form.Group>
                         <Form.Group className="mb-3" controlId="formBasicPassword">
-                            <Form.Label>Đính kèm ảnh</Form.Label>
+                            <Form.Label>Image feedback</Form.Label>
                             <Form.Control type="file"
                                 multiple
-                                name="image"
-                                onChange={onchange}
+                                name="lh_img"
+                                onChange={changeFile}
                             />
                         </Form.Group>
                     </Form>
                 </Modal.Body>
                 <Modal.Footer>
                     <Button variant="success" onClick={() => addFeedback()}>
-                        Thêm nhận xét
+                        Send
                     </Button>
                 </Modal.Footer>
             </Modal>
@@ -262,7 +265,12 @@ function ViewPet(props) {
                                         <td>{item.cate_name}</td>
                                         <td>{item.p_create = new Date(item.p_create).toLocaleString()}</td>
                                         <td>{item.service_price} $</td>
-                                        <td>{item.p_update !== undefined ? "till waitting" : item.p_update = new Date(item.p_update).toLocaleString()}</td>
+                                        <td>{item.p_update === null ? "till waitting" : item.p_update = new Date(item.p_update).toLocaleString()}</td>
+                                        {/* <td>
+                                            {item.p_update !== null
+                                                ? new Date(item.p_update).toLocaleString()
+                                                : "till waitting"}
+                                        </td> */}
                                         {renderStatus(item.p_status)}
                                         {renderButton(item.p_status, item.p_id)}
                                     </tr>
@@ -278,8 +286,8 @@ function ViewPet(props) {
                 }
             </table >
             <ReactPaginate
-                previousLabel="Trang trước"
-                nextLabel="Trang sau"
+                previousLabel="Previous page"
+                nextLabel="Next page"
                 breakLabel="..."
                 breakClassName="page-item"
                 breakLinkClassName="page-link"

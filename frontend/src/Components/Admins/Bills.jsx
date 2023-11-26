@@ -98,7 +98,7 @@ function Bills(props) {
                                                             <td>{value.dh_address !== undefined ? value.dh_address : value.customer.dh_address}</td>
                                                             <td>{value.user_phone !== undefined ? value.user_phone : value.customer.user_phone}</td>
                                                             <td>{value.dh_pay}</td>
-                                                            <td className='text-success fw-bold'>{value.dh_status}</td>
+                                                            <td className='text-success fw-bold'>Done</td>
                                                             <td>{value.dh_create = new Date(value.dh_create).toLocaleString()}</td>
                                                             <td>{value.dh_update = new Date(value.dh_update).toLocaleString()}</td>
                                                             <td>{value.nv_hoten !== undefined ? value.nv_hoten : "Hiện chưa có người giao"}</td>
