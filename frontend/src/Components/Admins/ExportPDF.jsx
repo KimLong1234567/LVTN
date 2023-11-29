@@ -31,7 +31,7 @@ function ExportPDF(props) {
     let ngaynhan = bill[0]?.dh_create ? new Date(bill[0].dh_create).toLocaleDateString() : '';
     const exportPDF = useReactToPrint({
         content: () => filePDF.current,
-        documentTitle: "Hóa đơn bán lẻ",
+        documentTitle: "Retail bill",
         onAfterPrint: () => toast.success("File exporting is successful.", {
             autoClose: 2000,
             closeOnClick: true,

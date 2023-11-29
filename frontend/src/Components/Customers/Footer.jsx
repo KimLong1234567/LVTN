@@ -13,7 +13,7 @@ function Footer(props) {
                         <img src='/image/Logo/2.jpg' alt='...' style={{ width: "150px" }} />
                     </Link>
                     <p className='mt-2'>
-                        Mauris sit amet quam congue, pulvinar urna et, congue diam. Suspendisse eu lorem massa. Integer sit amet posuere tellustea dictumst.
+                        A top supplier of pet care goods and services with years of expertise in offering pet care-related services and goods
                     </p>
                     <a href='https://www.facebook.com/kimlong.lam.39750/'>
                         <Icon icon={faSquareFacebook} style={{ fontSize: "50px", color: "blue", padding: "5px" }} />

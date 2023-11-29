@@ -46,7 +46,7 @@ function Customer(props) {
                 }
             })
             .then((res) => {
-                toast.success('Tạo mới thành công', {
+                toast.success('Create Succes', {
                     position: "top-center",
                     autoClose: 2000,
                     closeOnClick: true,
@@ -68,7 +68,7 @@ function Customer(props) {
         axios
             .delete(`http://localhost:5000/api/users/${id}`)
             .then((res) => {
-                toast.error('Đã xóa tài khoản', {
+                toast.error('Account detele', {
                     position: "top-center",
                     autoClose: 2000,
                     closeOnClick: true,
@@ -99,7 +99,7 @@ function Customer(props) {
                 }
             })
             .then((res) => {
-                toast.info('Cập nhật thành công', {
+                toast.info('Update Success', {
                     position: "top-center",
                     autoClose: 2000,
                     closeOnClick: true,

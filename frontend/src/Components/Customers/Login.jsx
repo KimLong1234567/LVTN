@@ -128,7 +128,7 @@ function Login(props) {
             })
     };
     const onFailure = response => {
-        toast.error('Đăng nhập không thành công.', {
+        toast.error('Logging not success.', {
             position: "top-center",
             autoClose: 3000,
             closeOnClick: true,

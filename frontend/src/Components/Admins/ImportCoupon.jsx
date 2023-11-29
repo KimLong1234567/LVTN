@@ -62,7 +62,7 @@ function ImportCoupon(props) {
                 const pn = res.data.data
                 console.log(res.data.data, pn);
                 addChiTietPn(pn);
-                toast.success('Thêm phiếu nhập thành công', {
+                toast.success('Add Coupon Success', {
                     position: "top-center",
                     autoClose: 2000,
                     closeOnClick: true,
