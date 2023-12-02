@@ -75,7 +75,7 @@ function Success(props) {
                     <div className='d-flex mb-2 justify-content-center'>
                         <input type="text"
                             className="form-control w-50 "
-                            placeholder="Nhập tên khách hàng"
+                            placeholder="Type some customer name"
                             onChange={onChange}
                         />
                     </div>

@@ -26,7 +26,7 @@ function HeaderShipper(props) {
                     </Dropdown.Toggle>
                     <Dropdown.Menu >
                         <Dropdown.Item>
-                            <Link onClick={() => logout()} className='text-danger'>Đăng xuất    <Icon icon={faRightFromBracket} /></Link>
+                            <Link onClick={() => logout()} className='text-danger'>Log out   <Icon icon={faRightFromBracket} /></Link>
                         </Dropdown.Item>
                         <Dropdown.Item href="#/action-3">Something else</Dropdown.Item>
                     </Dropdown.Menu>

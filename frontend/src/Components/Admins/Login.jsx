@@ -11,6 +11,7 @@ function Login(props) {
         setAccount({ ...Account, [e.target.name]: e.target.value });
     }
     const onSubmit = async (e) => {
+        e.preventDefault();
         axios
             .post('http://localhost:5000/api/admins/login', {
                 nv_email: Account.nv_email,
@@ -39,7 +40,7 @@ function Login(props) {
                             3000
                         );
                     }
-                    else {
+                    else if (nv.cv_id === 2) {
                         toast.info('employee do not login here', {
                             position: "top-center",
                             autoClose: 2000,
@@ -57,7 +58,6 @@ function Login(props) {
                             3000
                         );
                     }
-
                 }
                 else {
                     toast.error('Wrong email or password', {
@@ -79,7 +79,7 @@ function Login(props) {
                 }
             })
             .catch((err) => {
-                toast.error('Sai tài khoản hoặc mật khẩu.', {
+                toast.error('Wrong email or password.', {
                     position: "top-center",
                     autoClose: 2000,
                     closeOnClick: true,
@@ -90,7 +90,7 @@ function Login(props) {
                 })
                 setTimeout(
                     function () {
-
+                        Navigate("/admin/login"); // Chuyển hướng đến trang login sau khi đăng nhập thất bại
                     },
                     3000
                 );

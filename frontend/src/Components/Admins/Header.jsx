@@ -10,14 +10,18 @@ function Header(props) {
     // const curentAdmin = localStorage.admin ? JSON.parse(localStorage.admin) : null
     const curentAdmin = localStorage["admin"] ? JSON.parse(localStorage["admin"]) : null
     // console.log(curentAdmin);
+    const [adminCheck, setAdminCheck] = useState(curentAdmin);
     useEffect(() => {
-        if (!curentAdmin) {
-            Navigate("/admin/login")
+        console.log("useEffect is running");
+        if (!adminCheck) {
+            console.log('da vao')
+            Navigate("/admin/login");
         }
-        // eslint-disable-next-line 
-    }, []);
+        // eslint-disable-next-line react-hooks/exhaustive-deps
+    },);
     const logout = async () => {
         await localStorage.removeItem("admin");
+        setAdminCheck(null); // Set biến trung gian thành null khi logout
         Navigate("/admin/login");
 
     };

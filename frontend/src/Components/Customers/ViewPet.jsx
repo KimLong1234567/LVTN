@@ -31,9 +31,15 @@ function ViewPet(props) {
     }, [refresh])
     function filter(Number) {
         setShow(Number)
+        console.log(Number);
         var temp = []
-        if (Number) {
+        if (Number === 0) {
+            temp = filterPet.filter(element => element.p_status === 0)
+            console.log(temp);
+        }
+        else if (Number) {
             temp = filterPet.filter(element => element.p_status === Number)
+            console.log(temp);
         }
         else {
             temp = filterPet
@@ -241,7 +247,7 @@ function ViewPet(props) {
                         <th scope="col">Image</th>
                         <th scope="col">Pet des</th>
                         <th scope="col">Pet's ower</th>
-                        <th scope="col">Pet loai</th>
+                        <th scope="col">Species</th>
                         <th scope="col">Date book</th>
                         <th scope="col">Pet service fee</th>
                         <th scope="col">Pet service date</th>
@@ -266,11 +272,6 @@ function ViewPet(props) {
                                         <td>{item.p_create = new Date(item.p_create).toLocaleString()}</td>
                                         <td>{item.service_price} $</td>
                                         <td>{item.p_update === null ? "till waitting" : item.p_update = new Date(item.p_update).toLocaleString()}</td>
-                                        {/* <td>
-                                            {item.p_update !== null
-                                                ? new Date(item.p_update).toLocaleString()
-                                                : "till waitting"}
-                                        </td> */}
                                         {renderStatus(item.p_status)}
                                         {renderButton(item.p_status, item.p_id)}
                                     </tr>

@@ -84,7 +84,7 @@ function AllOrder(props) {
                         </button>
                     </td>
                     <td>
-                        <button className='btn btn-outline-danger' onClick={() => updateStatus(id, 3)}>
+                        <button className='btn btn-outline-danger' onClick={() => updateStatusOrder(id, 3)}>
                             <Icon icon={faCircleXmark} />
                         </button>
                     </td>
@@ -94,6 +94,29 @@ function AllOrder(props) {
     }
     async function updateStatus(id, status) {
         await axios.put(`http://localhost:5000/api/dh/${id}`, {
+            dh_id: id,
+            dh_status: status,
+        })
+            .then((res) => {
+                toast('Update Success.', {
+                    position: "top-center",
+                    autoClose: 2000,
+                    closeOnClick: true,
+                    pauseOnHover: true,
+                    draggable: true,
+                    progress: undefined,
+                    theme: "dark",
+                })
+                setTimeout(
+                    function () {
+                        setRefresh((prev) => prev + 1)
+                    },
+                    3000
+                );
+            })
+    }
+    async function updateStatusOrder(id, status) {
+        await axios.delete(`http://localhost:5000/api/dh/${id}`, {
             dh_id: id,
             dh_status: status,
         })
@@ -211,7 +234,7 @@ function AllOrder(props) {
                                     })
                                 }
                             </tbody> : <tbody>
-                                <tr className='text-center fw-bolder text-danger h3'><td colSpan={12}>Hiện chưa có đơn hàng</td></tr>
+                                <tr className='text-center fw-bolder text-danger h3'><td colSpan={12}>You don't currently have any orders.</td></tr>
                             </tbody>
                     }
                 </table>

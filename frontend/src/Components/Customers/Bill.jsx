@@ -52,7 +52,7 @@ function Bill(props) {
     }
 
     async function updateStatus(id, status) {
-        await axios.put(`http://localhost:5000/api/dh/${id}`, {
+        await axios.delete(`http://localhost:5000/api/dh/${id}`, {
             id: id,
             dh_status: status
         })

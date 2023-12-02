@@ -19,6 +19,7 @@ router.get("/shipper/:id", controllerDh.getByShipperId);
 router.get("/shipper/success/:id", controllerDh.getShipperSuccess);
 router.post("/", controllerDh.create); // Create a new item
 router.put("/:id", controllerDh.update); // Update an item by ID
+router.delete("/:id", controllerDh.delete);
 
 // router.delete("/:id", controllerPnhap.delete); // Delete an item by ID
 

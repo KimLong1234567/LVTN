@@ -80,15 +80,36 @@ const ADMIN_SIDEBAR = [
 ]
 
 function Sidebar(props) {
-    const [clicked, setClicked] = useState(null)
-    const curentAdmin = localStorage["admin"] ? JSON.parse(localStorage["admin"]) : null
+    // const [clicked, setClicked] = useState(null)
+    // const curentAdmin = localStorage["admin"] ? JSON.parse(localStorage["admin"]) : null
+    // const toggleExpand = (index) => {
+    //     if (clicked === index) {
+    //         return setClicked(null)
+    //     }
+    //     setClicked(index)
+    // }
+
+    const [clicked, setClicked] = useState(null);
+
+    let curentAdmin;
+    try {
+        const adminString = localStorage.admin;
+        curentAdmin = adminString ? JSON.parse(adminString) : null;
+    } catch (error) {
+        console.error("Error parsing localStorage.admin:", error);
+        curentAdmin = null;
+    }
+    curentAdmin = curentAdmin || JSON.parse(localStorage.admin || "{}");
+
+    // Log the value of curentAdmin for debugging
+    console.log("curentAdmin:", curentAdmin);
+
     const toggleExpand = (index) => {
         if (clicked === index) {
-            return setClicked(null)
+            return setClicked(null);
         }
-        setClicked(index)
-    }
-
+        setClicked(index);
+    };
     return (
         <Col xs={3} className="pt-3" style={{ background: "rgb(11,42,73)" }} >
             <div style={{ position: "sticky", top: 0 }} className='pt-3'>

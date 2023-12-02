@@ -125,7 +125,7 @@ function Oder(props) {
                         </button>
                     </td>
                     <td>
-                        <button className='btn btn-outline-danger' onClick={() => updateStatus(id, 3)}>
+                        <button className='btn btn-outline-danger' onClick={() => updateStatusOrder(id, 3)}>
                             <Icon icon={faCircleXmark} />
                         </button>
                     </td>
@@ -139,8 +139,31 @@ function Oder(props) {
         }
     }
     async function updateStatus(id, status, idAccount) {
-
         await axios.put(`http://localhost:5000/api/dh/${id}`, {
+            dh_id: id,
+            dh_status: status,
+            nv_id: idAccount
+        })
+            .then((res) => {
+                toast.info('Update success', {
+                    position: "top-center",
+                    autoClose: 2000,
+                    closeOnClick: true,
+                    pauseOnHover: true,
+                    draggable: true,
+                    progress: undefined,
+                    theme: "colored",
+                })
+                setTimeout(
+                    function () {
+                        setRefresh((prev) => prev + 1)
+                    },
+                    3000
+                );
+            })
+    }
+    async function updateStatusOrder(id, status, idAccount) {
+        await axios.delete(`http://localhost:5000/api/dh/${id}`, {
             dh_id: id,
             dh_status: status,
             nv_id: idAccount
