@@ -32,7 +32,8 @@ function Cart(props) {
                     description: "Thanh toán hóa đơn ",
                     amount: {
                         currency_code: "USD",
-                        value: totalValue + totalValue * 0.01,
+                        // value: totalValue + totalValue * 0.01,
+                        value: totalValue,
                     },
                 },
             ],

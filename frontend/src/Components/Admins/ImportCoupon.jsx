@@ -18,19 +18,47 @@ function ImportCoupon(props) {
 
 
     const onChangegiatien = (id, e) => {
-        for (let i = 0; i < importProducts.length; i++) {
-            if (importProducts[i].sp_id === id) {
-                importProducts[i].sp_gianhap = e.target.value;
-                setImportProducts(prev => [...prev]);
+        const newValue = e.target.value;
+        if (newValue >= 0) {
+            for (let i = 0; i < importProducts.length; i++) {
+                if (importProducts[i].sp_id === id) {
+                    importProducts[i].sp_gianhap = newValue;
+                    setImportProducts(prev => [...prev]);
+                }
             }
+        }
+        else {
+            toast.error('Input positive numbers', {
+                position: "top-center",
+                autoClose: 2000,
+                closeOnClick: true,
+                pauseOnHover: true,
+                draggable: true,
+                progress: undefined,
+                theme: "colored",
+            })
         }
     }
     const onChangesoluong = (id, e) => {
-        for (let i = 0; i < importProducts.length; i++) {
-            if (importProducts[i].sp_id === id) {
-                importProducts[i].sp_sl = e.target.value;
-                setImportProducts(prev => [...prev]);
+        const newValue = e.target.value;
+        if (newValue >= 0) {
+            for (let i = 0; i < importProducts.length; i++) {
+                if (importProducts[i].sp_id === id) {
+                    importProducts[i].sp_sl = newValue;
+                    setImportProducts(prev => [...prev]);
+                }
             }
+        }
+        else {
+            toast.error('Input positive numbers', {
+                position: "top-center",
+                autoClose: 2000,
+                closeOnClick: true,
+                pauseOnHover: true,
+                draggable: true,
+                progress: undefined,
+                theme: "colored",
+            })
         }
     }
     useEffect(() => {

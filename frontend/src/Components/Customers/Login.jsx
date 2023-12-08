@@ -1,13 +1,10 @@
 import React, { useState } from 'react';
 import { Button, Container, Row, Col, Form, } from 'react-bootstrap';
-import { FontAwesomeIcon as Icon } from '@fortawesome/react-fontawesome';
 import { Link, useNavigate } from 'react-router-dom';
-import { faFacebook } from '@fortawesome/free-brands-svg-icons';
 import axios from 'axios';
 import { ToastContainer, toast } from 'react-toastify';
 import GoogleLogin from 'react-google-login';
 import { gapi } from "gapi-script";
-import FacebookLogin from 'react-facebook-login'
 function Login(props) {
     const [account, setAccount] = useState({})
     const Navigate = useNavigate()

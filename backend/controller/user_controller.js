@@ -13,7 +13,7 @@ const hashPassword = (password) => {
 const controller = {
     getAll: async (req, res) => {
         try {
-            const [rows, fields] = await pool.query("SELECT * FROM users ")
+            const [rows, fields] = await pool.query("SELECT * FROM users WHERE user_status = 0")
             const sanitizedRows = rows.map((row) => {
                 const { user_id, user_name, user_email, user_avt, user_gt, user_phone, user_address } = row;
                 return { user_id, user_name, user_email, user_avt, user_gt, user_phone, user_address };

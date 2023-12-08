@@ -166,7 +166,7 @@ function Bill(props) {
     function renderStatus(status) {
         if (status === 2) {
             return (
-                <td className='text-success fw-bold'>Has received products</td>
+                <td className='text-success fw-bold'>Has received</td>
             )
         }
         else if (status === 3) {
@@ -273,7 +273,7 @@ function Bill(props) {
                         <h4 className='text-primary'>On going <input type='checkbox' onChange={() => { filter(1) }} checked={show === 1} /> </h4>
                     </Col>
                     <Col xs={12} md={3}>
-                        <h4 className='text-success'>Has received products<input type='checkbox' onChange={() => { filter(2) }} checked={show === 2} /> </h4>
+                        <h4 className='text-success'>Has received <input type='checkbox' onChange={() => { filter(2) }} checked={show === 2} /> </h4>
                     </Col>
                     <Col xs={12} md={2}>
                         <h4 className='text-danger'>Deleted <input type='checkbox' onChange={() => { filter(3) }} checked={show === 3} /> </h4>

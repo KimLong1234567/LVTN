@@ -189,7 +189,7 @@ function Products() {
                 headers: { 'Content-Type': 'multipart/form-data' }
             })
             .then((res) => {
-                toast.info('Cập nhật thông tin thành công.', {
+                toast.info('Update success.', {
                     position: "top-center",
                     autoClose: 2000,
                     closeOnClick: true,
@@ -209,11 +209,9 @@ function Products() {
     }
     const deleteProducts = (id) => {
         axios
-            .put(`http://localhost:5000/api/products/${id}`, {
-                deleted: true
-            })
+            .delete(`http://localhost:5000/api/products/${id}`,)
             .then((res) => {
-                toast('Sản phẩm đã bị xóa.', {
+                toast('Products was deteled.', {
                     position: "top-center",
                     autoClose: 2000,
                     closeOnClick: true,

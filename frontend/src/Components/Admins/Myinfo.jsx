@@ -43,7 +43,7 @@ function Myinfo(props) {
             })
             .then((res) => {
                 console.log(show);
-                toast.info('Cập nhật thành công', {
+                toast.info('Update success', {
                     position: "top-center",
                     autoClose: 2000,
                     closeOnClick: true,
@@ -94,10 +94,10 @@ function Myinfo(props) {
     return (
         <div className='boder-main'>
             <ToastContainer />
-            <h3 className='fw-bold text-uppercase mt-3 text-danger'> Thông tin cá nhân của bạn</h3>
+            <h3 className='fw-bold text-uppercase mt-3 text-danger'> Your personal information</h3>
             <Modal show={show !== false} onHide={() => setShow(false)}>
                 <Modal.Header>
-                    <Modal.Title>Tài Khoản</Modal.Title>
+                    <Modal.Title>Account</Modal.Title>
                 </Modal.Header>
                 <Modal.Body>
                     <Form>

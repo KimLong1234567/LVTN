@@ -229,16 +229,19 @@ function Oder(props) {
             <h2 className='text-uppercase text-center text-primary fw-bolder mt-2'>Order Management</h2>
             <h3 className='text-uppercase text-start text-success fw-bolder mx-2'>filter <Icon icon={faFilter} /></h3>
             <Row className='m-0'>
-                <Col xs={12} md={3}>
+                <Col xs={12} md={2}>
                     <h4 style={{ color: 'tomato', fontWeight: "bolder" }}>All Orders <input type='checkbox' onChange={() => { filter('') }} checked={show === ''} /> </h4>
                 </Col>
                 <Col xs={12} md={3}>
                     <h4 className='text-warning'>Wait <input type='checkbox' onChange={() => { filter(0) }} checked={show === 0} /> </h4>
                 </Col>
-                <Col xs={12} md={3}>
+                <Col xs={12} md={2}>
                     <h4 className='text-primary'>On Shipping <input type='checkbox' onChange={() => { filter(1) }} checked={show === 1} /> </h4>
                 </Col>
                 <Col xs={12} md={3}>
+                    <h4 className='text-success'>Has received <input type='checkbox' onChange={() => { filter(2) }} checked={show === 2} /> </h4>
+                </Col>
+                <Col xs={12} md={2}>
                     <h4 className='text-danger'>Delete <input type='checkbox' onChange={() => { filter(3) }} checked={show === 3} /> </h4>
                 </Col>
                 <Col>

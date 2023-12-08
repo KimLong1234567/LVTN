@@ -266,7 +266,7 @@ function Employee(props) {
                                         <td>{account.nv_hoten}</td>
                                         <td>{account.nv_gt}</td>
                                         <td>{account.nv_date}</td>
-                                        <td>TK: {account.nv_email}</td>
+                                        <td>Email: {account.nv_email}</td>
                                         {/* <td>MK: {account.nv_password}</td> */}
                                         <td>
                                             <img src={`/image/avt/${account.nv_avt}`} className="mb-2 mt-2" style={{ width: "150px" }} alt="..." />
