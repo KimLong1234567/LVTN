@@ -99,9 +99,10 @@ const controller = {
             const user_avt = "Avatartrang.jpg";
             const user_create = new Date();
 
-            console.log(req.body);
-            console.log(user_avt);
-            console.log(user_email);
+            // console.log(req.body);
+            // console.log(user_avt);
+            // console.log(user_email);
+            // console.log(user_name);
             const sql = "INSERT INTO users (user_name, user_password, user_email, user_avt, user_phone, user_address, user_create) VALUES (?,?,?,?,?,?,?)"
             const [rows, fields] = await pool.query(sql, [user_name, user_password, user_email, user_avt, user_phone, user_address, user_create])
             res.json({
@@ -208,9 +209,9 @@ const controller = {
                 const user = rows[0];
 
                 if (user.user_email !== user_email) {
-                    return res.status(401).json({ error: "Wrong email or password" });
+                    return res.status(401).json({ error: "Wrong email" });
                 } else if (user.user_password !== hashedpassword) {
-                    return res.status(401).json({ error: "Wrong email or password" });
+                    return res.status(401).json({ error: "Wrong password" });
                 } else {
                     console.log("da login");
                     return res.status(200).json({ data: "signed", user });
@@ -219,13 +220,13 @@ const controller = {
             else {
                 const [rows] = await pool.query("SELECT * FROM users WHERE user_email = ?", user_email);
                 if (!rows.length) {
-                    return res.json({ data: "Không tìm thấy users" });
+                    return res.status(404).json({ error: "Không tìm thấy người dùng" });
                 }
 
                 const user = rows[0];
 
                 if (user.user_email !== user_email) {
-                    return res.json({ data: "email is not correct" });
+                    return res.status(400).json({ error: "Email không đúng" });
                 } else {
                     console.log("da login");
                     return res.status(200).json({ data: "signed", user });

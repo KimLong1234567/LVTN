@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
-import { FontAwesomeIcon, FontAwesomeIcon as Icon } from '@fortawesome/react-fontawesome';
-import { faCaretRight, faCheck, faMicrophone, } from '@fortawesome/free-solid-svg-icons';
+import { FontAwesomeIcon as Icon } from '@fortawesome/react-fontawesome';
+import { faCaretRight, faMicrophone, } from '@fortawesome/free-solid-svg-icons';
 import { Row, Col, Card, Container, Form, Button } from 'react-bootstrap';
 import axios from 'axios';
 import { Link } from 'react-router-dom';
@@ -213,7 +213,6 @@ function Products(props) {
                 status = 0
             };
         });
-
     }
 
     return (

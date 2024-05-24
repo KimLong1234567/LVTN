@@ -31,7 +31,6 @@ function Header(props) {
                     <NavDropdown title="About us" menuVariant="dark">
                         <NavDropdown.Item as={NavLink} to={'/blog'}>blog</NavDropdown.Item>
                         <NavDropdown.Item as={NavLink} to={'/abouts'}> about us</NavDropdown.Item>
-
                     </NavDropdown>
                 </Nav.Item>
                 {

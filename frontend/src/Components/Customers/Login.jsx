@@ -67,6 +67,7 @@ function Login(props) {
         account.user_address = ''
         account.user_phone = ''
         account.user_password = ''
+        console.log(account);
         await axios
             .post('http://localhost:5000/api/users/login', {
                 user_email: account.user_email,

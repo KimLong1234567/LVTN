@@ -30,21 +30,18 @@ const controller = {
     },
     getById: async (req, res) => {
         try {
-            const { id } = req.params
-            const [rows, fields] = await pool.query("SELECT * FROM nhan_vien AS nv, chuc_vu AS cv WHERE nv.nv_id = ? AND nv.nv_status = 0 AND nv.cv_id = cv.cv_id", [id])
-            const sanitizedRows = rows.map((row) => {
-                const { nv_id, nv_email, nv_hoten, nv_phone, nv_adress, cv_id, nv_avt, nv_date, nv_gt, cv_name } = row;
-                return { nv_id, nv_email, nv_hoten, nv_phone, nv_adress, cv_id, nv_avt, nv_date, nv_gt, cv_name };
-            });
-            res.json({
-                data: sanitizedRows
-            })
-
+            const { id } = req.params;
+            const [rows] = await pool.query("SELECT * FROM nhan_vien AS nv, chuc_vu AS cv WHERE nv.nv_id = ? AND nv.nv_status = 0 AND nv.cv_id = cv.cv_id", [id]);
+            if (rows.length === 0) {
+                return res.status(404).json({ status: "not found" });
+            }
+            const sanitizedRows = rows.map(({ nv_id, nv_email, nv_hoten, nv_phone, nv_adress, cv_id, nv_avt, nv_date, nv_gt, cv_name }) => ({
+                nv_id, nv_email, nv_hoten, nv_phone, nv_adress, cv_id, nv_avt, nv_date, nv_gt, cv_name
+            }));
+            res.json({ data: sanitizedRows });
         } catch (error) {
-            console.log(error);
-            res.json({
-                status: "error"
-            })
+            console.error(error);
+            res.status(500).json({ status: "error" });
         }
     },
 
@@ -55,11 +52,6 @@ const controller = {
             const nv_create = new Date();
             const hashedpassword = hashPassword(nv_password);
 
-            console.log(req.body);
-            console.log(req.file);
-            console.log(hashedpassword);
-            console.log(nv_gt);
-            // console.log(pet_prod_img);
             const sql = "INSERT INTO nhan_vien (nv_email, nv_password, nv_hoten, nv_avt, nv_phone, nv_adress, nv_gt, cv_id, nv_create, nv_date) VALUES (?,?,?,?,?,?,?,?,?,?)"
             const [rows, fields] = await pool.query(sql, [nv_email, hashedpassword, nv_hoten, nv_avt, nv_phone, nv_address, nv_gt, cv_id, nv_create, nv_date])
             res.json({
