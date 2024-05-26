@@ -154,42 +154,27 @@ const controller = {
             console.log(rows);
             const admin = rows[0];
 
-            if (!admin) {
-                // const err = new Error('Admin not found');
-                // err.statusCode = 400;
-                // return next(err);
-                res.json({
-                    data: "Không tìm thấy admin"
-                })
-            }
-
-            if (admin.nv_email != nv_email) {
-                // const err = new Error('Email is not correct');
-                // err.statusCode = 400;
-                // return next(err);
-                res.json({
-                    data: "email is not correct"
-                })
-            }
-            else if (admin.nv_password != hashedpassword) {
-                // const err = new Error('Incorrect  password');
-                // err.statusCode = 400;
-                // return next(err);
-                res.json({
-                    data: "password not correct"
-                })
+            if (admin) {
+                if (admin.nv_email !== nv_email) {
+                    res.status(400).json({
+                        data: "email is not correct"
+                    })
+                } else if (admin.nv_password !== hashedpassword) {
+                    res.status(400).json({
+                        data: "password not correct"
+                    })
+                } else {
+                    console.log("da login")
+                    return res.status(200).json({ data: "signed", admin: admin })
+                }
             }
             else {
-                // res.status(200).send(admin);
-                // res.json({
-                //     data: "da login" + rows[0]
-                // })
-                console.log("da login");
-                return res.status(200).json({ data: "signed", admin: rows[0] });
+                res.status(404).json({ data: "admin not found" })
             }
 
         } catch (error) {
-            res.json(error);
+            console.error(error)
+            res.status(500).json(error);
         }
     }
 }
