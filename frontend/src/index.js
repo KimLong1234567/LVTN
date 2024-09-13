@@ -5,8 +5,8 @@ import App from './App';
 import reportWebVitals from './reportWebVitals';
 import { BrowserRouter } from "react-router-dom";
 //chatbox
-import Kommunicate from '@kommunicate/kommunicate-chatbot-plugin';
-Kommunicate.init("252d4e0d83d1e0cadc5e0a60985e5bcfe", "popupWidget : true ", "automaticChatOpenOnNavigation: true")
+// import Kommunicate from '@kommunicate/kommunicate-chatbot-plugin';
+// Kommunicate.init("252d4e0d83d1e0cadc5e0a60985e5bcfe", "popupWidget : true ", "automaticChatOpenOnNavigation: true")
 //
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(

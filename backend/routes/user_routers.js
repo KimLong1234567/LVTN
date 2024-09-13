@@ -28,7 +28,6 @@ const upload = multer({ storage: storage, fileFilter: imageFilter });
 
 // Import the controller module
 const usersController = require("../controller/user_controller");
-// const controllerCate = require("../controller/cate_controller");
 
 // Define routes and their corresponding controller methods
 router.get("/", usersController.getAll); // Get all items

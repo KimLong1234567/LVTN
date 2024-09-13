@@ -1,7 +1,7 @@
 import React, { useLayoutEffect, useState } from 'react';
-import { Row, Col, Modal, Button } from 'react-bootstrap';
+import { Row, Col } from 'react-bootstrap';
 import { FontAwesomeIcon as Icon } from '@fortawesome/react-fontawesome';
-import { faCheckDouble, faCircleXmark, faFilter, faUserPlus } from '@fortawesome/free-solid-svg-icons';
+import { faCheckDouble, faCircleXmark, faFilter } from '@fortawesome/free-solid-svg-icons';
 import axios from 'axios'
 import { ToastContainer, toast } from 'react-toastify';
 import ReactPaginate from 'react-paginate';
