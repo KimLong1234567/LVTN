@@ -267,9 +267,6 @@ const controller = {
     try {
       const { user_email, user_password } = req.body;
       if (user_password !== '') {
-        const hashedpassword = hashPassword(user_password);
-        console.log(hashedpassword);
-        console.log(req.body);
         const [rows] = await pool.query(
           'SELECT * FROM users WHERE user_email = ?',
           user_email

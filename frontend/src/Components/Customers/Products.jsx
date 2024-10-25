@@ -207,10 +207,36 @@ function Products(props) {
   }, [sort, Products]);
 
   //voice
-  speechApi.continuous = true;
-  speechApi.interimResults = false;
-  speechApi.lang = 'en-US';
-  window.onload = function () {
+  useEffect(() => {
+    speechApi.continuous = true;
+    speechApi.interimResults = false;
+    speechApi.lang = 'en-US';
+    speechApi.onresult = function (event) {
+      speechApi.stop();
+      console.log(event.results[0][0].transcript);
+      if (event.results && event.results[0] && event.results[0][0]) {
+        const transcript = event.results[0][0].transcript;
+        const sanitizedTranscript = transcript.replace(/\./g, ''); //loai dau cham
+        console.log(sanitizedTranscript);
+        setSearchValue(sanitizedTranscript); // Cập nhật giá trị từ giọng nói
+        if (ProductFind && sanitizedTranscript) {
+          const temp = ProductFind.filter(
+            (e) =>
+              e.sp_name &&
+              e.sp_name
+                .toLowerCase()
+                .includes(sanitizedTranscript.toLowerCase())
+          );
+          setProducts(temp);
+        }
+      }
+      status = 0;
+    };
+    speechApi.onspeechend = function () {
+      speechApi.stop();
+      status = 0;
+    };
+
     document.getElementById('voice').addEventListener('click', () => {
       if (status === 1) {
         status = 0;
@@ -218,33 +244,8 @@ function Products(props) {
       }
       speechApi.start();
       status = 1;
-      speechApi.onresult = function (event) {
-        speechApi.stop();
-        console.log(event.results[0][0].transcript);
-        if (event.results && event.results[0] && event.results[0][0]) {
-          const transcript = event.results[0][0].transcript;
-          const sanitizedTranscript = transcript.replace(/\./g, ''); //loai dau cham
-          console.log(sanitizedTranscript);
-          setSearchValue(sanitizedTranscript); // Cập nhật giá trị từ giọng nói
-          if (ProductFind && sanitizedTranscript) {
-            const temp = ProductFind.filter(
-              (e) =>
-                e.sp_name &&
-                e.sp_name
-                  .toLowerCase()
-                  .includes(sanitizedTranscript.toLowerCase())
-            );
-            setProducts(temp);
-          }
-        }
-        status = 0;
-      };
-      speechApi.onspeechend = function () {
-        speechApi.stop();
-        status = 0;
-      };
     });
-  };
+  }, [ProductFind, status]);
 
   return (
     <div>
