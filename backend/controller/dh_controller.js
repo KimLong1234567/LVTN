@@ -47,8 +47,6 @@ const controller = {
     getAllBill: async (req, res) => {
         try {
             const [rows, fields] = await pool.query("SELECT d.dh_id, d.nv_id, d.dh_sl, d.dh_total, d.dh_create, d.dh_pay, d.dh_status, d.dh_address, u.user_name, u.user_email, u.user_phone, c.ctdh_id, c.sp_code, c.ctdh_sl, p.sp_name, p.sp_image, c.ctdh_price, nv.nv_hoten, nv.nv_email, nv.nv_phone FROM donhang AS d LEFT JOIN ctdh AS c ON d.dh_id = c.dh_id LEFT JOIN products AS p ON c.sp_code = p.sp_code LEFT JOIN users AS u ON d.kh_id = u.user_id LEFT JOIN nhan_vien AS nv ON d.nv_id = nv.nv_id ORDER BY d.dh_create DESC;")
-
-            // Tạo một đối tượng mới để lập trình lại cấu trúc dữ liệu
             const result = [];
             let currentDhId = -1;
             let currentCtdhId = -1;
@@ -56,7 +54,6 @@ const controller = {
 
             for (const row of rows) {
                 if (row.dh_id !== currentDhId) {
-                    // Bắt đầu một đơn hàng mới
                     currentRow = {
                         dh_id: row.dh_id,
                         dh_create: row.dh_create,
@@ -77,7 +74,6 @@ const controller = {
                 }
 
                 if (row.ctdh_id !== currentCtdhId) {
-                    // Thêm chi tiết sản phẩm vào đơn hàng
                     currentRow.ctdh.push({
                         ctdh_id: row.ctdh_id,
                         sp_code: row.sp_code,
@@ -105,7 +101,6 @@ const controller = {
             const { id } = req.params
             const [rows, fields] = await pool.query("SELECT d.dh_id, d.dh_sl, d.dh_total , d.dh_create, d.dh_pay, d.dh_status, d.dh_address, u.user_name, u.user_email, u.user_phone, c.ctdh_id, c.sp_code, c.ctdh_sl, p.sp_name, p.sp_image, nv.nv_hoten, nv.nv_phone, c.ctdh_price FROM donhang AS d LEFT JOIN ctdh AS c ON d.dh_id = c.dh_id LEFT JOIN products AS p ON c.sp_code = p.sp_code LEFT JOIN users AS u ON d.kh_id = u.user_id LEFT JOIN nhan_vien AS nv ON d.nv_id = nv.nv_id WHERE u.user_id = ? ORDER BY d.dh_create DESC;", [id])
 
-            // Tạo một đối tượng mới để lập trình lại cấu trúc dữ liệu
             const result = [];
             let currentDhId = -1;
             let currentCtdhId = -1;
@@ -113,7 +108,6 @@ const controller = {
 
             for (const row of rows) {
                 if (row.dh_id !== currentDhId) {
-                    // Bắt đầu một đơn hàng mới
                     currentRow = {
                         dh_id: row.dh_id,
                         dh_create: row.dh_create,
@@ -134,7 +128,6 @@ const controller = {
                 }
 
                 if (row.ctdh_id !== currentCtdhId) {
-                    // Thêm chi tiết sản phẩm vào đơn hàng
                     currentRow.ctdh.push({
                         ctdh_id: row.ctdh_id,
                         sp_code: row.sp_code,
@@ -161,7 +154,6 @@ const controller = {
         try {
             const [rows, fields] = await pool.query("SELECT d.dh_update, d.dh_id, d.dh_sl, d.dh_total , d.dh_create, d.dh_pay, d.dh_status, d.dh_address, u.user_name, u.user_email, u.user_phone, c.ctdh_id, c.sp_code, c.ctdh_sl, p.sp_name, p.sp_image, nv.nv_hoten, nv.nv_phone, c.ctdh_price FROM donhang AS d LEFT JOIN ctdh AS c ON d.dh_id = c.dh_id LEFT JOIN products AS p ON c.sp_code = p.sp_code LEFT JOIN users AS u ON d.kh_id = u.user_id LEFT JOIN nhan_vien AS nv ON d.nv_id = nv.nv_id WHERE d.dh_status = 2 ORDER BY d.dh_create DESC;")
 
-            // Tạo một đối tượng mới để lập trình lại cấu trúc dữ liệu
             const result = [];
             let currentDhId = -1;
             let currentCtdhId = -1;
@@ -169,7 +161,6 @@ const controller = {
 
             for (const row of rows) {
                 if (row.dh_id !== currentDhId) {
-                    // Bắt đầu một đơn hàng mới
                     currentRow = {
                         dh_id: row.dh_id,
                         dh_create: row.dh_create,
@@ -191,7 +182,6 @@ const controller = {
                 }
 
                 if (row.ctdh_id !== currentCtdhId) {
-                    // Thêm chi tiết sản phẩm vào đơn hàng
                     currentRow.ctdh.push({
                         ctdh_id: row.ctdh_id,
                         sp_code: row.sp_code,
@@ -219,7 +209,6 @@ const controller = {
             const { id } = req.params
             const [rows, fields] = await pool.query("SELECT d.dh_update, d.dh_id, d.dh_sl, d.dh_total , d.dh_create, d.dh_pay, d.dh_status, d.dh_address, u.user_name, u.user_email, u.user_phone, c.ctdh_id, c.sp_code, c.ctdh_sl, p.sp_name, p.sp_image, nv.nv_hoten, nv.nv_phone, c.ctdh_price FROM donhang AS d LEFT JOIN ctdh AS c ON d.dh_id = c.dh_id LEFT JOIN products AS p ON c.sp_code = p.sp_code LEFT JOIN users AS u ON d.kh_id = u.user_id LEFT JOIN nhan_vien AS nv ON d.nv_id = nv.nv_id WHERE d.dh_status = 2 AND d.dh_id = ?", [id])
 
-            // Tạo một đối tượng mới để lập trình lại cấu trúc dữ liệu
             const result = [];
             let currentDhId = -1;
             let currentCtdhId = -1;
@@ -227,7 +216,6 @@ const controller = {
 
             for (const row of rows) {
                 if (row.dh_id !== currentDhId) {
-                    // Bắt đầu một đơn hàng mới
                     currentRow = {
                         dh_id: row.dh_id,
                         dh_create: row.dh_create,
@@ -249,7 +237,6 @@ const controller = {
                 }
 
                 if (row.ctdh_id !== currentCtdhId) {
-                    // Thêm chi tiết sản phẩm vào đơn hàng
                     currentRow.ctdh.push({
                         ctdh_id: row.ctdh_id,
                         sp_code: row.sp_code,
@@ -277,7 +264,6 @@ const controller = {
             const { id } = req.params
             const [rows, fields] = await pool.query("SELECT d.dh_id, d.nv_id, d.dh_sl, d.dh_total, d.dh_create, d.dh_pay, d.dh_status, d.dh_address, u.user_name, u.user_email, u.user_phone, c.ctdh_id, c.sp_code, c.ctdh_sl, p.sp_name, p.sp_image, c.ctdh_price, nv.nv_hoten, nv.nv_email, nv.nv_phone FROM donhang AS d LEFT JOIN ctdh AS c ON d.dh_id = c.dh_id LEFT JOIN products AS p ON c.sp_code = p.sp_code LEFT JOIN users AS u ON d.kh_id = u.user_id LEFT JOIN nhan_vien AS nv ON d.nv_id = nv.nv_id WHERE d.dh_status = 1 AND d.nv_id = nv.nv_id AND d.nv_id = ? ORDER BY d.dh_create DESC;", [id])
 
-            // Tạo một đối tượng mới để lập trình lại cấu trúc dữ liệu
             const result = [];
             let currentDhId = -1;
             let currentCtdhId = -1;
@@ -285,7 +271,6 @@ const controller = {
 
             for (const row of rows) {
                 if (row.dh_id !== currentDhId) {
-                    // Bắt đầu một đơn hàng mới
                     currentRow = {
                         dh_id: row.dh_id,
                         dh_create: row.dh_create,
@@ -306,7 +291,6 @@ const controller = {
                 }
 
                 if (row.ctdh_id !== currentCtdhId) {
-                    // Thêm chi tiết sản phẩm vào đơn hàng
                     currentRow.ctdh.push({
                         ctdh_id: row.ctdh_id,
                         sp_code: row.sp_code,
@@ -333,8 +317,6 @@ const controller = {
         try {
             const { id } = req.params
             const [rows, fields] = await pool.query("SELECT d.dh_id, d.nv_id, d.dh_sl, d.dh_total, d.dh_update, d.dh_pay, d.dh_status, d.dh_address, u.user_name, u.user_email, u.user_phone, c.ctdh_id, c.sp_code, c.ctdh_sl, p.sp_name, p.sp_image, c.ctdh_price, nv.nv_hoten, nv.nv_email, nv.nv_phone FROM donhang AS d LEFT JOIN ctdh AS c ON d.dh_id = c.dh_id LEFT JOIN products AS p ON c.sp_code = p.sp_code LEFT JOIN users AS u ON d.kh_id = u.user_id LEFT JOIN nhan_vien AS nv ON d.nv_id = nv.nv_id WHERE d.dh_status = 2 AND d.nv_id = nv.nv_id AND d.nv_id = ? ORDER BY d.dh_update DESC", [id])
-
-            // Tạo một đối tượng mới để lập trình lại cấu trúc dữ liệu
             const result = [];
             let currentDhId = -1;
             let currentCtdhId = -1;
@@ -392,7 +374,6 @@ const controller = {
             const { id } = req.params
             const [rows, fields] = await pool.query("SELECT d.dh_id, d.nv_id, d.dh_sl, d.dh_total, d.dh_update, d.dh_pay, d.dh_status, d.dh_address, u.user_name, u.user_email, u.user_phone, c.ctdh_id, c.sp_code, c.ctdh_sl, p.sp_name, p.sp_image, c.ctdh_price, nv.nv_hoten, nv.nv_email, nv.nv_phone FROM donhang AS d LEFT JOIN ctdh AS c ON d.dh_id = c.dh_id LEFT JOIN products AS p ON c.sp_code = p.sp_code LEFT JOIN users AS u ON d.kh_id = u.user_id LEFT JOIN nhan_vien AS nv ON d.nv_id = nv.nv_id WHERE d.dh_status = 3 AND d.nv_id = nv.nv_id AND d.nv_id = ? ORDER BY d.dh_update DESC;", [id])
 
-            // Tạo một đối tượng mới để lập trình lại cấu trúc dữ liệu
             const result = [];
             let currentDhId = -1;
             let currentCtdhId = -1;
