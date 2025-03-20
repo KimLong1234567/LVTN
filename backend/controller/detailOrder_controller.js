@@ -67,7 +67,6 @@ const controller = {
             });
         }
     },
-    // Các hàm khác cần phải cài đặt tương tự
     getByDh: async (req, res) => {
         try {
             const [rows, fields] = await pool.query("SELECT * FROM donhang AS d, ctdh AS c WHERE d.dh_id = c.dh_id")

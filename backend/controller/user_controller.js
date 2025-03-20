@@ -38,7 +38,7 @@ const controller = {
       });
 
       res.status(200).json({
-        data: sanitizedRows,
+        users: sanitizedRows,
       });
     } catch (error) {
       console.log(error);
@@ -354,7 +354,7 @@ const controller = {
         if (error) {
           console.log(error);
           const err = new Error('Failed to send email');
-          err.statusCode = 500;
+          err.statusCode = 400;
           throw err;
         } else {
           console.log('Email sent: ' + info.response);

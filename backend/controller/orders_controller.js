@@ -1,17 +1,5 @@
 const pool = require("../database/index")
 
-// function generateRandomCharacter() {
-//     const characters = 'abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ1234567890';
-//     let randomCharacters = '';
-//     for (let i = 0; i < 10; i++) {
-//         const randomIndex = Math.floor(Math.random() * characters.length);
-//         randomCharacters += characters.charAt(randomIndex);
-//     }
-//     return randomCharacters;
-// }
-
-// const randomChars = generateRandomCharacter();
-// Hàm kiểm tra sản phẩm trong giỏ
 const controller = {
     getAll: async (req, res) => {
         try {
