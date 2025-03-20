@@ -129,11 +129,6 @@ function Login(props) {
                             onChange={onChange}
                           />
                         </div>
-                        {/* <p className="small mb-3 pb-lg-2">
-                                                    <Link className="text-white " to="/forgot-password">
-                                                        Forgot password?
-                                                    </Link>
-                                                </p> */}
                         <button
                           className="btn btn-outline-light btn-lg px-5"
                           type="submit"

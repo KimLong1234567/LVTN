@@ -35,7 +35,7 @@ function Layout(props) {
   return (
     <div>
       <Container fluid className="customContainer">
-        <Row className="customRow" style={{ minHeight: '100vh' }}>
+        <Row className="customRow" style={{ minHeight: '80vh' }}>
           <Sidebar />
           <Col xs={9}>
             <ErrorBoundary>

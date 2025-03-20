@@ -29,8 +29,8 @@ function Customer(props) {
   // console.log(newAccount);
   useEffect(() => {
     axios.get('http://localhost:5000/api/users/').then((res) => {
-      setAccounts(res.data.data);
-      setFindAccount(res.data.data);
+      setAccounts(res.data.users);
+      setFindAccount(res.data.users);
     });
   }, [Refresh]);
   const addAccount = () => {
@@ -248,7 +248,7 @@ function Customer(props) {
               <tr key={i}>
                 <td>{i + 1}</td>
                 <td>{account.user_name}</td>
-                <td>Email:{account.user_email} </td>
+                <td>{account.user_email} </td>
                 {/* <td>MK:{account.user_password}</td> */}
                 <td>
                   <img

@@ -110,14 +110,6 @@ const ADMIN_SIDEBAR = [
 ];
 
 function Sidebar(props) {
-  // const [clicked, setClicked] = useState(null)
-  // const curentAdmin = localStorage["admin"] ? JSON.parse(localStorage["admin"]) : null
-  // const toggleExpand = (index) => {
-  //     if (clicked === index) {
-  //         return setClicked(null)
-  //     }
-  //     setClicked(index)
-  // }
 
   const [clicked, setClicked] = useState(null);
 
@@ -141,7 +133,7 @@ function Sidebar(props) {
     setClicked(index);
   };
   return (
-    <Col xs={3} className="pt-3" style={{ background: 'rgb(11,42,73)' }}>
+    <Col xs={3} className="pt-2" style={{ background: 'rgb(11,42,73)' }}>
       <div style={{ position: 'sticky', top: 0 }} className="pt-3">
         <Link to="/admin">
           <img
@@ -163,7 +155,7 @@ function Sidebar(props) {
             <div className="text-white text-start mx-2">
               <span className="h6">Name: {curentAdmin.nv_hoten}</span>
               <br></br>
-              <span>User: {curentAdmin.nv_email} </span>
+              {/* <span>User: {curentAdmin.nv_email} </span> */}
             </div>
           </div>
           {ADMIN_SIDEBAR.map((item, index) => {
