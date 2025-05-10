@@ -35,7 +35,7 @@ const controller = {
             const b_status = req.body.b_status;
             console.log(req.body, b_status, id);
             let rows;
-            if (b_status === 0) { //c_status la mong muon cua user nen cu update ko can kiem tra vi chi co 0 1
+            if (b_status === 0) {
                 [rows] = await pool.query("UPDATE comments SET b_status = 1 WHERE bl_id = ?", [id]);
             }
             else {
@@ -58,7 +58,6 @@ const controller = {
 
             console.log(req.body);
             console.log(sp_id, kh_id);
-            // console.log(pet_prod_img);
             const sql = "INSERT INTO comments (bl_content, sp_id, kh_id, bl_create) VALUES (?,?,?,?)"
             const [rows, fields] = await pool.query(sql, [bl_content, sp_id, kh_id, bl_create])
             res.json({

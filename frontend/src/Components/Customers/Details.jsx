@@ -35,7 +35,6 @@ function Details(props) {
   const onChange = (e) => {
     setComment({ ...comment, [e.target.name]: e.target.value });
   };
-  // console.log(comment);
   const addcomment = () => {
     if (curentAccount === null) {
       toast('Login before leaving a comment.', {
@@ -49,7 +48,6 @@ function Details(props) {
       });
       setTimeout(() => Navigate('/login'), 4000);
     }
-    // Kiểm tra nếu comment đã được khởi tạo và có thuộc tính content
     if (comment && comment.bl_content) {
       comment.sp_id = id;
       comment.kh_id = curentAccount.user_id;

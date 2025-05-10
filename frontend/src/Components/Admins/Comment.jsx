@@ -5,12 +5,12 @@ import { FontAwesomeIcon as Icon } from '@fortawesome/react-fontawesome';
 import { faTrashCan } from '@fortawesome/free-regular-svg-icons';
 import { ToastContainer, toast } from 'react-toastify';
 function Comment(props) {
-  const [comment, setComent] = useState([]);
+  const [comment, setComment] = useState([]);
   const [refresh, setRefresh] = useState(0);
   useLayoutEffect(() => {
     async function fetchdata() {
       const res = await axios.get('http://localhost:5000/api/comments/');
-      setComent(res.data.data);
+      setComment(res.data.data);
     }
     fetchdata();
   }, [refresh]);

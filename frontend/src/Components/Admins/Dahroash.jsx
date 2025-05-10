@@ -27,7 +27,7 @@ function Dahroash(props) {
         setProducts(res.data.data);
       });
       await axios.get('http://localhost:5000/api/users/').then((res) => {
-        setCustomer(res.data.data);
+        setCustomer(res.data.users);
       });
       await axios.get('http://localhost:5000/api/dh/dhang/all').then((res) => {
         const temp = res.data.data.filter((e) => e.dh_status === 0);

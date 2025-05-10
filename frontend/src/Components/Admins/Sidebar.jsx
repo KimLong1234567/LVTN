@@ -89,6 +89,11 @@ const ADMIN_SIDEBAR = [
         name: 'Customers Feedback',
         to: '/admin/feedbacks',
       },
+      {
+        icon: faCaretRight,
+        name: 'Customers Comments',
+        to: '/admin/comment',
+      },
     ],
   },
   {
@@ -155,7 +160,7 @@ function Sidebar(props) {
             <div className="text-white text-start mx-2">
               <span className="h6">Name: {curentAdmin.nv_hoten}</span>
               <br></br>
-              {/* <span>User: {curentAdmin.nv_email} </span> */}
+              <span>User: {curentAdmin.nv_email} </span>
             </div>
           </div>
           {ADMIN_SIDEBAR.map((item, index) => {
